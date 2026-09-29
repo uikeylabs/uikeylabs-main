@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verma & Associates — Supreme Law Chambers & CA Advisory — Live Client Preview | UIKEY LABS (uikeylabs.com)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #050811;
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#050811] text-slate-100 antialiased selection:bg-amber-400 selection:text-[#050811]">
+
+  <!-- TOP UIKEY LABS LIVE DEMO SWITCHER + CLIENT HUNTING PERSONALIZER -->
+  <div class="sticky top-0 z-50 bg-[#050811]/95 backdrop-blur-xl border-b border-amber-400/40 shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <a href="../../index.html#demos" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-400/50 text-cyan-300 text-xs font-bold transition-all">
+          ← UIKEY LABS Home
+        </a>
+        <div class="hidden md:flex items-center gap-2">
+          <img src="../../uikeylabs-logo.jpg" alt="UIKEY LABS" class="w-6 h-6 rounded-md border border-amber-400/60 object-cover" />
+          <span class="text-[11px] font-mono text-slate-300">TERRITORY SLOT: <strong class="text-rose-400 animate-pulse">● ONLY 1 BUSINESS PER AREA</strong></span>
+        </div>
+      </div>
+
+      <!-- LIVE CLIENT BRAND PERSONALIZER (1-CLICK MAGIC FOR CLIENT HUNTING) -->
+      <div class="flex flex-wrap items-center gap-1.5 bg-[#0E1730] px-2.5 py-1.5 rounded-xl border border-amber-400/50">
+        <span class="text-[10px] font-mono font-extrabold uppercase text-amber-300 hidden sm:inline">🎯 Test Your Brand Name:</span>
+        <input id="customBizInput" type="text" placeholder="Type Your Business Name..." class="px-2.5 py-1 rounded-lg bg-[#050811] border border-slate-700 text-white text-xs w-40 sm:w-48 focus:border-amber-400 focus:outline-none" />
+        <input id="customCityInput" type="text" placeholder="City (e.g. Bhopal)" class="px-2.5 py-1 rounded-lg bg-[#050811] border border-slate-700 text-white text-xs w-24 sm:w-28 focus:border-amber-400 focus:outline-none" />
+        <button type="button" onclick="applyClientPersonalization()" class="px-2.5 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs transition-all">
+          ✨ Preview My Name
+        </button>
+        <button type="button" onclick="copyPersonalizedClientLink()" id="copyLinkBtn" title="Copy personalized link to send to client on WhatsApp" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-cyan-400 text-cyan-300 hover:text-[#050811] border border-cyan-400/40 font-mono text-[10px] font-bold transition-all">
+          📋 Copy Client Link
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20just%20saw%20the%20live%20demo%20(/demos/law)%20and%20want%20to%20LOCK%20this%20website%20for%20my%20area%20at%20FLAT%2050%25%20OFF!" id="topClaimWaBtn" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-[#050811] font-black text-xs shadow-lg transition-all">
+          🔥 Lock This Website (50% OFF) →
+        </a>
+      </div>
+    </div>
+
+    <!-- Horizontal All-9 Demos Switcher Bar -->
+    <div class="bg-[#080D1C] border-t border-slate-800/80 py-1.5 px-4 overflow-x-auto">
+      <div class="max-w-7xl mx-auto flex items-center gap-2">
+        <span class="text-[10px] font-mono uppercase text-slate-400 whitespace-nowrap mr-1">Switch Industry:</span>
+        <a href="../doctor/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🏥 /demos/doctor</a>
+          <a href="../school/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🎓 /demos/school</a>
+          <a href="../realestate/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🏢 /demos/realestate</a>
+          <a href="../cafe/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">☕ /demos/cafe</a>
+          <a href="../gym/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">💪 /demos/gym</a>
+          <a href="../salon/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">💇 /demos/salon</a>
+          <a href="../retail/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🛒 /demos/retail</a>
+          <a href="../law/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-amber-400 text-[#050811] font-black border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.4)]">⚖️ /demos/law</a>
+          <a href="../wedding/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">📸 /demos/wedding</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONALIZED GREETING RIBBON (VISIBLE WHEN CUSTOMIZED FOR A CLIENT) -->
+  <div id="personalizedBanner" class="hidden bg-gradient-to-r from-amber-500/20 via-emerald-500/20 to-cyan-500/20 border-b border-amber-400/40 py-2 px-4 text-center">
+    <p class="text-xs sm:text-sm font-bold text-white">
+      👑 <span class="text-amber-300">SPECIAL LIVE PREVIEW PREPARED FOR:</span>
+      <span id="bannerBizName" class="underline decoration-amber-400 font-black text-white mx-1"></span>
+      <span class="text-emerald-300 font-mono text-xs">— Exclusive 50% OFF Territory Slot Open!</span>
+    </p>
+  </div>
+
+  <!-- INDUSTRY DEMO BRAND NAVBAR -->
+  <header class="border-b border-slate-800/80 bg-[#0A1022]/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-amber-400/40 flex items-center justify-center text-2xl">
+          ⚖️
+        </div>
+        <div>
+          <span id="dynamicTagline" class="text-[11px] font-mono uppercase tracking-wider text-amber-300 block">High Court Advocates, Chartered Accountants & Corporate Legal Advisors • 22+ Years Standing</span>
+          <h1 id="dynamicBrandName" class="text-base sm:text-xl font-black text-white">Verma & Associates — Supreme Law Chambers & CA Advisory</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5">
+        <a href="#roi-calculator" class="hidden sm:inline-flex px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-bold">
+          💰 Check Your Monthly Extra Profit
+        </a>
+        <a href="#booking-simulator" class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm transition-all">
+          ⚖️ Book Confidential Case Consultation
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-10 lg:py-14">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7 space-y-5">
+        <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full border bg-amber-400/15 text-amber-300 border-amber-400/40 text-xs font-mono">
+          <span>⚡ <span id="heroCityBadge">Top Rated in Your City</span></span>
+          <span>•</span>
+          <span class="text-emerald-400 font-bold">0.38s Instant Google Load</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight tracking-tight">
+          <span id="heroCustomBrandPrefix" class="text-amber-400 block text-xl sm:text-2xl font-extrabold mb-1 hidden"></span>
+          Authoritative <span class='text-amber-400'>Legal Representation, Tax Strategy</span> & Corporate Compliance.
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Corporate founders, property buyers, and litigants can book paid chamber/video consultations or request urgent legal & CA audit documentation.
+        </p>
+        <div class="flex flex-wrap gap-3 pt-1">
+          <a href="#booking-simulator" class="px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-sm shadow-xl transition-all">
+            ⚖️ Book Confidential Case Consultation
+          </a>
+          <a href="#roi-calculator" class="px-6 py-3.5 rounded-2xl bg-[#0A1022] hover:bg-slate-900 border border-amber-400/50 text-amber-300 font-bold text-sm transition-all">
+            💰 Calculate Your Monthly Profit →
+          </a>
+        </div>
+
+        <!-- 4 Key Metrics -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3">
+          
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-300 font-mono">22+ Yrs</div>
+          <div class="text-xs text-slate-400 mt-1">High Court & Tribunal Practice</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-300 font-mono">3,800+</div>
+          <div class="text-xs text-slate-400 mt-1">Successful Matters & Audits</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-300 font-mono">100%</div>
+          <div class="text-xs text-slate-400 mt-1">Strict Client Confidentiality</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-300 font-mono">Same Day</div>
+          <div class="text-xs text-slate-400 mt-1">Legal Notice & Agreement Drafting</div>
+        </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="relative rounded-3xl overflow-hidden border-2 border-amber-400/40 shadow-[0_0_50px_rgba(34,211,238,0.15)] bg-[#0A1022]">
+          <img src="../../law-demo.jpg" alt="Verma & Associates — Supreme Law Chambers & CA Advisory" class="w-full h-80 sm:h-96 object-cover" />
+          <div class="p-5 bg-gradient-to-t from-[#050811] via-[#050811]/95 to-transparent">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <p class="text-xs font-mono text-emerald-400 font-bold">● READY IN 48 HOURS FOR YOUR BRAND</p>
+                <p id="cardOverlayBrand" class="text-sm font-bold text-white mt-0.5">Verma & Associates — Supreme Law Chambers & CA Advisory</p>
+              </div>
+              <a href="../../index.html#payment" class="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-[#050811] font-mono text-xs font-black shrink-0">
+                CLAIM 50% OFF
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEAPON #2: INTERACTIVE BUSINESS OWNER PROFIT & ROI CALCULATOR -->
+  <section id="roi-calculator" class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+    <div class="rounded-3xl bg-gradient-to-br from-[#0d1b2a] via-[#0A1022] to-[#1a1405] border-2 border-amber-400/70 p-6 sm:p-10 shadow-[0_0_60px_rgba(251,191,36,0.15)]">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full bg-amber-400 text-[#050811] font-mono text-[11px] font-black uppercase">
+            📊 BUSINESS OWNER REVENUE CALCULATOR
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-black text-white">
+            Dekhiye Ye Website Aapको Har Mahine Kitna <span class="text-amber-400">Extra Profit (₹₹₹)</span> Dilayegi:
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Just 6 new corporate GST/ITR retainers, property title checks, or litigation briefs (@ ₹7,500 avg fee) adds ₹45,000/month in chamber fees!
+          </p>
+
+          <div class="p-5 rounded-2xl bg-[#050811]/90 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <label for="roiSlider" class="text-xs sm:text-sm font-bold text-cyan-300">Extra Paid Consultations / Corporate Retainers / Property Audits Per Month:</label>
+              <span id="roiQtyDisplay" class="px-3 py-1 rounded-lg bg-cyan-400/20 border border-cyan-400 text-cyan-300 font-mono text-base font-black">6</span>
+            </div>
+            <input id="roiSlider" type="range" min="1" max="25" value="6" oninput="updateRoiCalc()" class="w-full accent-amber-400 cursor-pointer h-2 bg-slate-800 rounded-lg" />
+            <div class="flex justify-between text-[11px] font-mono text-slate-500">
+              <span>Conservative (1)</span>
+              <span>Average Growth</span>
+              <span>High Demand (25)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl bg-[#050811] border-2 border-emerald-400/60 p-6 text-center space-y-4 shadow-2xl">
+            <p class="text-xs font-mono uppercase text-slate-400">ESTIMATED EXTRA MONTHLY REVENUE</p>
+            <div id="roiMonthlyAmount" class="text-4xl sm:text-5xl font-black text-emerald-400 font-mono">
+              ₹45,000 / mo
+            </div>
+            <div class="py-2 px-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 font-bold">
+              📈 Yearly Extra Business: <span id="roiYearlyAmount" class="font-mono underline">₹540,000 / year</span>
+            </div>
+            <div class="text-xs text-amber-300 font-mono">
+              ⚡ Website One-Time Cost: <strong class="text-white">Just ₹9,999</strong> (50% OFF)<br/>
+              ✅ <span class="underline">Pura Paisa Sirf 3 se 5 Din Me Vasool!</span>
+            </div>
+            <a id="roiLockBtn" href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20calculated%20my%20ROI%20on%20/demos/law%20and%20want%20to%20book%20this%20website%20at%2050%25%20OFF!" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-[#050811] font-black text-xs sm:text-sm block shadow-lg transition-all">
+              🚀 Lock This System for My Business (50% OFF) →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGUE / SERVICES / PACKAGES GRID -->
+  <section id="catalogue" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-800/80">
+    <div class="text-center max-w-3xl mx-auto mb-10 space-y-2">
+      <span class="text-xs font-mono uppercase tracking-widest text-amber-300">INTERACTIVE CUSTOMER FUNNEL</span>
+      <h2 class="text-2xl sm:text-4xl font-black text-white">Practice Areas, Legal Drafting & CA Financial Services</h2>
+      <p class="text-slate-400 text-xs sm:text-sm">Clients can book paid chamber/video consultations or request urgent legal & tax documentation.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">CIVIL & PROPERTY LAW</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹1,500 Consultation</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">Property, Real Estate Title Verification & RERA Litigation</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">30-year Registry search report, Sale Deed drafting, Builder delay RERA claims, ancestral partition & mutation suits.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Property, Real Estate Title Verification & RERA Litigation', '₹1,500 Consultation')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Book Property Lawyer →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">STARTUP & BUSINESS DESK</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹4,999 Package</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">Corporate Law, Pvt. Ltd. Incorporation, Trademark & MSME</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Company Incorporation (MCA), Trademark Registration, Founders Agreement, FSSAI License & ISO Certification.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Corporate Law, Pvt. Ltd. Incorporation, Trademark & MSME', '₹4,999 Package')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Start Business Registration →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">TAX & BANK LOAN CMA</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹999 Onwards</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">Chartered Accountant (CA) — Income Tax, GST Audit & Project Report</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">ITR Filing, GST Notice Reply, Balance Sheet Finalization, Bank CC/Term Loan CMA Project Reports & Tax Saving.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Chartered Accountant (CA) — Income Tax, GST Audit & Project Report', '₹999 Onwards')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Consult Senior CA →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">HIGH COURT & SESSIONS</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">24×7 Urgent Legal Desk</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">High Court Writ Petitions, Bail Matters & Criminal Defense</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Anticipatory & Regular Bail, Section 138 Cheque Bounce recovery, Cyber Crime defense & Quashing Petitions.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('High Court Writ Petitions, Bail Matters & Criminal Defense', '24×7 Urgent Legal Desk')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Request Urgent Legal Help →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">CONFIDENTIAL COUNSEL</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">100% Private Chamber</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">Matrimonial, Family Court & Mutual Consent Divorce</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Mutual consent divorce drafting, child custody, maintenance proceedings & domestic dispute mediation.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Matrimonial, Family Court & Mutual Consent Divorce', '100% Private Chamber')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Book Private Chamber Slot →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">EXPRESS DOCUMENTATION</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">Delivered in 4 Hours</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">Legal Notice Drafting, Rent Agreements & Power of Attorney</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Advocate-verified Legal Recovery Notices, Commercial Lease Deeds, Wills, Affidavits & NDA Contracts.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Legal Notice Drafting, Rent Agreements & Power of Attorney', 'Delivered in 4 Hours')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Order Legal Drafting →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEAPON #3: BRUTAL REALITY CHECK — WITHOUT WEBSITE vs WITH UIKEY LABS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <span class="px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/40 text-rose-300 font-mono text-xs font-bold uppercase">
+        ⚠️ WHY YOUR COMPETITORS ARE WINNING ONLINE
+      </span>
+      <h3 class="text-2xl sm:text-4xl font-black text-white mt-2">
+        Bina Website Ke Nuksan vs <span class="text-cyan-400">UIKEY LABS Automation</span>
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Without Website -->
+      <div class="rounded-3xl bg-rose-950/20 border-2 border-rose-500/40 p-6 sm:p-8 space-y-4">
+        <div class="flex items-center justify-between border-b border-rose-500/30 pb-3">
+          <h4 class="text-lg sm:text-xl font-black text-rose-300">❌ Abhi (Without This Website)</h4>
+          <span class="px-2.5 py-1 rounded bg-rose-500/20 text-rose-300 font-mono text-[10px] font-bold">LOSING CUSTOMERS DAILY</span>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>High-paying corporate & NRI clients always verify an Advocate or CA's website before entrusting ₹50L+ matters.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>Free time-wasters call on phone asking for 'free legal/tax advice' without paying consultation fees.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>Online aggregators (Vakilsearch / IndiaFilings) take away local company registration, Trademark & GST clients.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>No structured portal to pre-collect case documents & consultation fee before chamber meetings.</span></li>
+        </ul>
+      </div>
+
+      <!-- With UIKEY LABS -->
+      <div class="rounded-3xl bg-emerald-950/20 border-2 border-emerald-400/50 p-6 sm:p-8 space-y-4 shadow-[0_0_40px_rgba(16,185,129,0.12)]">
+        <div class="flex items-center justify-between border-b border-emerald-500/30 pb-3">
+          <h4 class="text-lg sm:text-xl font-black text-emerald-300">✅ 48 Hours Baad (With UIKEY LABS)</h4>
+          <span class="px-2.5 py-1 rounded bg-emerald-400 text-[#050811] font-mono text-[10px] font-black">24×7 AUTO-SALES</span>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>Pre-Paid Consultation Funnel filters out time-wasters and books ₹1,500+ paid appointments.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>Positions your Chamber as the #1 Corporate, Property, RERA & Tax Authority in your city.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>Captures high-margin Startup Incorporation, GST Audit, Bank CMA Report & Property Title clients.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>100% Bar Council / ICAI compliant informational & appointment portal.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE WHATSAPP BOOKING / ORDER SIMULATOR -->
+  <section id="booking-simulator" class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="rounded-3xl bg-gradient-to-b from-[#0E1730] to-[#0A1022] border-2 border-amber-400/40 p-6 sm:p-10 shadow-2xl">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-bold">
+          💬 LIVE WHATSAPP FUNNEL SIMULATOR
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-3">Schedule Confidential Chamber / Video Consultation</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-1">Prospective clients can submit their matter brief and book an appointment slot directly via WhatsApp.</p>
+      </div>
+
+      <form onsubmit="submitDemoBooking(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Customer / Client Name *</label>
+          <input id="simName" type="text" required placeholder="e.g. Rahul Sharma" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Phone / WhatsApp Number *</label>
+          <input id="simPhone" type="tel" required placeholder="+91 98765 43210" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Select Legal / CA Consultation Area *</label>
+          <select id="simService" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none">
+            <option value="Property Title Check / Real Estate Dispute (₹1,500)">Property Title Check / Real Estate Dispute (₹1,500)</option>
+              <option value="CA Desk: Income Tax / GST Notice / Bank Project Report">CA Desk: Income Tax / GST Notice / Bank Project Report</option>
+              <option value="Company Registration / Trademark / FSSAI License">Company Registration / Trademark / FSSAI License</option>
+              <option value="Cheque Bounce (Sec 138) / Money Recovery Legal Notice">Cheque Bounce (Sec 138) / Money Recovery Legal Notice</option>
+              <option value="High Court / Bail / Criminal Defense Matter">High Court / Bail / Criminal Defense Matter</option>
+              <option value="Family / Matrimonial Confidential Consultation">Family / Matrimonial Confidential Consultation</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Preferred Date / Time</label>
+          <input id="simDate" type="text" value="Today / Tomorrow Evening" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Special Note / City</label>
+          <input id="simNote" type="text" placeholder="Any specific requirement..." class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div class="sm:col-span-2 pt-2">
+          <button type="submit" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-[#050811] font-black text-sm sm:text-base shadow-xl transition-all">
+            📲 Test How Customers Will Send You Orders on WhatsApp →
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- WEAPON #5: TERRITORY EXCLUSIVITY FOMO + IRRESISTIBLE CLOSING OFFER -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+    <div class="rounded-3xl bg-gradient-to-r from-[#1f1206] via-[#0A1022] to-[#0c1e2c] border-2 border-amber-400 p-6 sm:p-10 shadow-[0_0_60px_rgba(251,191,36,0.22)] relative overflow-hidden">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="space-y-3 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-400 text-rose-300 font-mono text-xs font-black">
+            🚨 STRICT TERRITORY POLICY: 1 AREA = ONLY 1 ADVOCATE, LAW CHAMBER, CHARTERED ACCOUNTANT (CA) & TAX CONSULTANT
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+            Apne Competitor Se Pehle Apne Area Ka <span class="text-amber-400">Exclusive Slot Lock Karein!</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Hum ek locality/area me ek industry ke <strong class="text-white">sirf 1 hi business</strong> ke liye ye high-converting system banate hain taki aapko 100% Google &amp; WhatsApp monopoly mile.
+            <strong class="text-amber-300">Sirf ₹2,000 Booking Advance</strong> ya <strong class="text-emerald-300">₹9,999 (FLAT 50% OFF)</strong> se aaj hi apna 48-Hour Delivery Slot lock karein!
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto shrink-0">
+          <a href="../../index.html#payment" class="px-7 py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-[#050811] font-black text-sm text-center shadow-xl transition-all">
+            ⚡ Lock My Area Slot via UPI QR (50% OFF) →
+          </a>
+          <a id="bottomClaimWaBtn" href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20want%20to%20LOCK%20the%20Exclusive%20/demos/law%20Website%20for%20my%20area%20at%2050%25%20OFF%20before%20my%20competitor!" target="_blank" rel="noopener noreferrer" class="px-7 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-[#050811] font-black text-xs sm:text-sm text-center shadow-lg transition-all">
+            💬 WhatsApp: "LOCK MY AREA DEMO" (+91 87709 12734)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEAPON #4: FLOATING LIVE BOOKING NOTIFICATION TOAST (SOCIAL PROOF SIMULATOR) -->
+  <div id="liveToastBox" class="fixed bottom-4 left-4 z-40 max-w-xs sm:max-w-sm rounded-2xl bg-[#0A1022]/95 backdrop-blur-xl border-2 border-emerald-400/70 p-3.5 shadow-[0_0_35px_rgba(16,185,129,0.25)] transition-all duration-500">
+    <div class="flex items-start gap-3">
+      <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-lg shrink-0">
+        📲
+      </div>
+      <div class="text-xs">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-mono text-[10px] uppercase font-black text-emerald-400">● LIVE LEAD SIMULATION</span>
+          <button type="button" onclick="document.getElementById('liveToastBox').style.display='none'" class="text-slate-500 hover:text-white text-xs">✕</button>
+        </div>
+        <p id="liveToastText" class="text-white font-semibold mt-0.5 leading-snug">🔔 Just Now: Mr. Alok Singhania booked Property Title Verification Consultation (₹1,500)!</p>
+        <p class="text-[10px] text-amber-300 font-mono mt-1">👆 Aise hi 24×7 orders aapke WhatsApp par aayenge!</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var ROI_UNIT_VALUE = 7500;
+    var IS_DAILY_MULTIPLIER = false;
+    var DEMO_TOASTS = ["🔔 Just Now: Mr. Alok Singhania booked Property Title Verification Consultation (₹1,500)!", "🔔 2 mins ago: Apex Infra Pvt. Ltd. requested CA GST Audit & Bank CMA Report call!", "🔔 5 mins ago: Confidential Chamber Slot booked for High Court Writ / RERA matter!"];
+    var currentToastIdx = 0;
+
+    function updateRoiCalc() {
+      var qty = parseInt(document.getElementById('roiSlider').value, 10) || 1;
+      document.getElementById('roiQtyDisplay').innerText = qty;
+      var monthly = IS_DAILY_MULTIPLIER ? (qty * ROI_UNIT_VALUE * 30) : (qty * ROI_UNIT_VALUE);
+      var yearly = monthly * 12;
+      document.getElementById('roiMonthlyAmount').innerText = '₹' + monthly.toLocaleString('en-IN') + ' / mo';
+      document.getElementById('roiYearlyAmount').innerText = '₹' + yearly.toLocaleString('en-IN') + ' / year';
+    }
+
+    function applyClientPersonalization() {
+      var biz = document.getElementById('customBizInput').value.trim();
+      var city = document.getElementById('customCityInput').value.trim();
+      if (!biz) {
+        alert('Please type the Client Business Name first!');
+        document.getElementById('customBizInput').focus();
+        return;
+      }
+      var fullTitle = city ? (biz + ' — ' + city) : biz;
+      document.getElementById('dynamicBrandName').innerText = fullTitle;
+      document.getElementById('cardOverlayBrand').innerText = fullTitle;
+      var prefixEl = document.getElementById('heroCustomBrandPrefix');
+      prefixEl.innerText = '✨ Welcome to ' + fullTitle;
+      prefixEl.classList.remove('hidden');
+      if (city) {
+        document.getElementById('heroCityBadge').innerText = '#1 Trusted in ' + city;
+      }
+      var banner = document.getElementById('personalizedBanner');
+      document.getElementById('bannerBizName').innerText = fullTitle;
+      banner.classList.remove('hidden');
+      document.title = fullTitle + ' — Official Website Preview | UIKEY LABS';
+
+      var waMsg = "Hi UIKEY LABS! I just previewed the customized website for *" + fullTitle + "* (/demos/law) and want to LOCK my area slot at 50% OFF!";
+      var waHref = "https://wa.me/918770912734?text=" + encodeURIComponent(waMsg);
+      document.getElementById('topClaimWaBtn').href = waHref;
+      document.getElementById('bottomClaimWaBtn').href = waHref;
+      document.getElementById('roiLockBtn').href = waHref;
+    }
+
+    function copyPersonalizedClientLink() {
+      var biz = document.getElementById('customBizInput').value.trim() || 'Verma & Associates';
+      var city = document.getElementById('customCityInput').value.trim() || 'Your City';
+      var baseUrl = window.location.href.split('?')[0];
+      var shareUrl = baseUrl + '?biz=' + encodeURIComponent(biz) + '&city=' + encodeURIComponent(city);
+      var pitchText = "Namaste *" + biz + " (" + city + ")* Team! 👋\n\n"
+        + "Maine aapke business ke liye ek ultra-fast (<0.4s) *Live Demo Website* taiyar ki hai jisme aapka naam, rates aur direct WhatsApp Booking/Order system laga hai.\n\n"
+        + "👉 *Yahan click karke apna Live Preview dekhiye:*\n" + shareUrl + "\n\n"
+        + "🔥 First 10 Businesses ke liye *FLAT 50% OFF* (Starts ₹9,999) + 1 Area Exclusivity Lock hai. Bataiye ise aapke official domain par kab live karein? — *UIKEY LABS (+91 87709 12734)*";
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pitchText).then(function() {
+          var btn = document.getElementById('copyLinkBtn');
+          btn.innerText = '✅ Pitch + Link Copied!';
+          setTimeout(function() { btn.innerText = '📋 Copy Client Link'; }, 3000);
+        });
+      } else {
+        prompt('Copy this WhatsApp Client Pitch + Link:', pitchText);
+      }
+    }
+
+    // Auto-read ?biz=...&city=... on page load so clients see their own name immediately!
+    (function initFromUrlParams() {
+      var params = new URLSearchParams(window.location.search);
+      var bizParam = params.get('biz') || params.get('name');
+      var cityParam = params.get('city');
+      if (bizParam) {
+        document.getElementById('customBizInput').value = bizParam;
+        if (cityParam) document.getElementById('customCityInput').value = cityParam;
+        applyClientPersonalization();
+      }
+      setInterval(function() {
+        currentToastIdx = (currentToastIdx + 1) % DEMO_TOASTS.length;
+        var el = document.getElementById('liveToastText');
+        if (el) el.innerText = DEMO_TOASTS[currentToastIdx];
+      }, 6500);
+    })();
+
+    function quickBookItem(itemName, price) {
+      var selectEl = document.getElementById('simService');
+      var customText = itemName + ' (' + price + ')';
+      var opt = document.createElement('option');
+      opt.value = customText;
+      opt.text = customText;
+      selectEl.add(opt);
+      selectEl.value = customText;
+      document.getElementById('booking-simulator').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('simName').focus();
+    }
+
+    function submitDemoBooking(e) {
+      e.preventDefault();
+      var bizTitle = document.getElementById('dynamicBrandName').innerText;
+      var name = document.getElementById('simName').value.trim();
+      var phone = document.getElementById('simPhone').value.trim();
+      var service = document.getElementById('simService').value;
+      var date = document.getElementById('simDate').value.trim();
+      var note = document.getElementById('simNote').value.trim();
+
+      var msg = "Hello UIKEY LABS! I just tested the Live Demo for *" + bizTitle + "* (/demos/law).\n\n"
+        + "📋 *Simulated Customer Booking:*\n"
+        + "• Customer Name: " + name + "\n"
+        + "• Phone: " + phone + "\n"
+        + "• Selected Option: " + service + "\n"
+        + "• Preferred Time: " + date + "\n"
+        + (note ? "• Note: " + note + "\n" : "")
+        + "\n🚀 Mujhe apne business ke liye yahi exact website 50% OFF me book karni hai!";
+
+      var waUrl = "https://wa.me/918770912734?text=" + encodeURIComponent(msg);
+      window.open(waUrl, "_blank");
+    }
+  </script>
+</body>
+</html>

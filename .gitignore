@@ -1,0 +1,8 @@
+# Python cache & temporary files
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.env.local
+.DS_Store
+Thumbs.db

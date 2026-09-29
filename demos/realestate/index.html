@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skyline Imperial Builders & Luxury Townships — Live Client Preview | UIKEY LABS (uikeylabs.com)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #050811;
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#050811] text-slate-100 antialiased selection:bg-amber-400 selection:text-[#050811]">
+
+  <!-- TOP UIKEY LABS LIVE DEMO SWITCHER + CLIENT HUNTING PERSONALIZER -->
+  <div class="sticky top-0 z-50 bg-[#050811]/95 backdrop-blur-xl border-b border-amber-400/40 shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <a href="../../index.html#demos" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-400/50 text-cyan-300 text-xs font-bold transition-all">
+          ← UIKEY LABS Home
+        </a>
+        <div class="hidden md:flex items-center gap-2">
+          <img src="../../uikeylabs-logo.jpg" alt="UIKEY LABS" class="w-6 h-6 rounded-md border border-amber-400/60 object-cover" />
+          <span class="text-[11px] font-mono text-slate-300">TERRITORY SLOT: <strong class="text-rose-400 animate-pulse">● ONLY 1 BUSINESS PER AREA</strong></span>
+        </div>
+      </div>
+
+      <!-- LIVE CLIENT BRAND PERSONALIZER (1-CLICK MAGIC FOR CLIENT HUNTING) -->
+      <div class="flex flex-wrap items-center gap-1.5 bg-[#0E1730] px-2.5 py-1.5 rounded-xl border border-amber-400/50">
+        <span class="text-[10px] font-mono font-extrabold uppercase text-amber-300 hidden sm:inline">🎯 Test Your Brand Name:</span>
+        <input id="customBizInput" type="text" placeholder="Type Your Business Name..." class="px-2.5 py-1 rounded-lg bg-[#050811] border border-slate-700 text-white text-xs w-40 sm:w-48 focus:border-amber-400 focus:outline-none" />
+        <input id="customCityInput" type="text" placeholder="City (e.g. Bhopal)" class="px-2.5 py-1 rounded-lg bg-[#050811] border border-slate-700 text-white text-xs w-24 sm:w-28 focus:border-amber-400 focus:outline-none" />
+        <button type="button" onclick="applyClientPersonalization()" class="px-2.5 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs transition-all">
+          ✨ Preview My Name
+        </button>
+        <button type="button" onclick="copyPersonalizedClientLink()" id="copyLinkBtn" title="Copy personalized link to send to client on WhatsApp" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-cyan-400 text-cyan-300 hover:text-[#050811] border border-cyan-400/40 font-mono text-[10px] font-bold transition-all">
+          📋 Copy Client Link
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20just%20saw%20the%20live%20demo%20(/demos/realestate)%20and%20want%20to%20LOCK%20this%20website%20for%20my%20area%20at%20FLAT%2050%25%20OFF!" id="topClaimWaBtn" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-[#050811] font-black text-xs shadow-lg transition-all">
+          🔥 Lock This Website (50% OFF) →
+        </a>
+      </div>
+    </div>
+
+    <!-- Horizontal All-9 Demos Switcher Bar -->
+    <div class="bg-[#080D1C] border-t border-slate-800/80 py-1.5 px-4 overflow-x-auto">
+      <div class="max-w-7xl mx-auto flex items-center gap-2">
+        <span class="text-[10px] font-mono uppercase text-slate-400 whitespace-nowrap mr-1">Switch Industry:</span>
+        <a href="../doctor/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🏥 /demos/doctor</a>
+          <a href="../school/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🎓 /demos/school</a>
+          <a href="../realestate/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-amber-400 text-[#050811] font-black border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.4)]">🏢 /demos/realestate</a>
+          <a href="../cafe/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">☕ /demos/cafe</a>
+          <a href="../gym/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">💪 /demos/gym</a>
+          <a href="../salon/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">💇 /demos/salon</a>
+          <a href="../retail/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🛒 /demos/retail</a>
+          <a href="../law/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">⚖️ /demos/law</a>
+          <a href="../wedding/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">📸 /demos/wedding</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONALIZED GREETING RIBBON (VISIBLE WHEN CUSTOMIZED FOR A CLIENT) -->
+  <div id="personalizedBanner" class="hidden bg-gradient-to-r from-amber-500/20 via-emerald-500/20 to-cyan-500/20 border-b border-amber-400/40 py-2 px-4 text-center">
+    <p class="text-xs sm:text-sm font-bold text-white">
+      👑 <span class="text-amber-300">SPECIAL LIVE PREVIEW PREPARED FOR:</span>
+      <span id="bannerBizName" class="underline decoration-amber-400 font-black text-white mx-1"></span>
+      <span class="text-emerald-300 font-mono text-xs">— Exclusive 50% OFF Territory Slot Open!</span>
+    </p>
+  </div>
+
+  <!-- INDUSTRY DEMO BRAND NAVBAR -->
+  <header class="border-b border-slate-800/80 bg-[#0A1022]/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-amber-400/40 flex items-center justify-center text-2xl">
+          🏢
+        </div>
+        <div>
+          <span id="dynamicTagline" class="text-[11px] font-mono uppercase tracking-wider text-amber-300 block">RERA Registered (#RERA-MP-2026-8841) • 90% Bank Loan Approved by SBI & HDFC</span>
+          <h1 id="dynamicBrandName" class="text-base sm:text-xl font-black text-white">Skyline Imperial Builders & Luxury Townships</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5">
+        <a href="#roi-calculator" class="hidden sm:inline-flex px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-bold">
+          💰 Check Your Monthly Extra Profit
+        </a>
+        <a href="#booking-simulator" class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm transition-all">
+          🚗 Book Free VIP Cab for Site Visit
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-10 lg:py-14">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7 space-y-5">
+        <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full border bg-amber-400/15 text-amber-300 border-amber-400/40 text-xs font-mono">
+          <span>⚡ <span id="heroCityBadge">Top Rated in Your City</span></span>
+          <span>•</span>
+          <span class="text-emerald-400 font-bold">0.38s Instant Google Load</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight tracking-tight">
+          <span id="heroCustomBrandPrefix" class="text-amber-400 block text-xl sm:text-2xl font-extrabold mb-1 hidden"></span>
+          Own an Ultra-Luxury <span class='text-amber-400'>3 & 4 BHK Sky Villa</span> or Commercial Plot.
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          High-net-worth property buyers can inspect floor plans, check RERA approvals, calculate EMI, and book a free VIP cab for a Sunday family site visit.
+        </p>
+        <div class="flex flex-wrap gap-3 pt-1">
+          <a href="#booking-simulator" class="px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-sm shadow-xl transition-all">
+            🚗 Book Free VIP Cab for Site Visit
+          </a>
+          <a href="#roi-calculator" class="px-6 py-3.5 rounded-2xl bg-[#0A1022] hover:bg-slate-900 border border-amber-400/50 text-amber-300 font-bold text-sm transition-all">
+            💰 Calculate Your Monthly Profit →
+          </a>
+        </div>
+
+        <!-- 4 Key Metrics -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3">
+          
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-300 font-mono">18 Acres</div>
+          <div class="text-xs text-slate-400 mt-1">Lush Green Gated Township</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-300 font-mono">35,000 sq.ft</div>
+          <div class="text-xs text-slate-400 mt-1">5-Star Clubhouse & Infinity Pool</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-300 font-mono">100% Vastu</div>
+          <div class="text-xs text-slate-400 mt-1">3-Side Open Corner Residences</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-300 font-mono">₹65L*</div>
+          <div class="text-xs text-slate-400 mt-1">Starting Price (SBI Approved)</div>
+        </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="relative rounded-3xl overflow-hidden border-2 border-amber-400/40 shadow-[0_0_50px_rgba(34,211,238,0.15)] bg-[#0A1022]">
+          <img src="../../realestate-demo.jpg" alt="Skyline Imperial Builders & Luxury Townships" class="w-full h-80 sm:h-96 object-cover" />
+          <div class="p-5 bg-gradient-to-t from-[#050811] via-[#050811]/95 to-transparent">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <p class="text-xs font-mono text-emerald-400 font-bold">● READY IN 48 HOURS FOR YOUR BRAND</p>
+                <p id="cardOverlayBrand" class="text-sm font-bold text-white mt-0.5">Skyline Imperial Builders & Luxury Townships</p>
+              </div>
+              <a href="../../index.html#payment" class="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-[#050811] font-mono text-xs font-black shrink-0">
+                CLAIM 50% OFF
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEAPON #2: INTERACTIVE BUSINESS OWNER PROFIT & ROI CALCULATOR -->
+  <section id="roi-calculator" class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+    <div class="rounded-3xl bg-gradient-to-br from-[#0d1b2a] via-[#0A1022] to-[#1a1405] border-2 border-amber-400/70 p-6 sm:p-10 shadow-[0_0_60px_rgba(251,191,36,0.15)]">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full bg-amber-400 text-[#050811] font-mono text-[11px] font-black uppercase">
+            📊 BUSINESS OWNER REVENUE CALCULATOR
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-black text-white">
+            Dekhiye Ye Website Aapको Har Mahine Kitna <span class="text-amber-400">Extra Profit (₹₹₹)</span> Dilayegi:
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Just 1 single direct flat/plot booking without a middleman broker saves ₹1.25 Lakh+ brokerage & generates ₹5L–₹15L developer margin!
+          </p>
+
+          <div class="p-5 rounded-2xl bg-[#050811]/90 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <label for="roiSlider" class="text-xs sm:text-sm font-bold text-cyan-300">Extra Site Visits / Direct Plot & Flat Bookings Per Month:</label>
+              <span id="roiQtyDisplay" class="px-3 py-1 rounded-lg bg-cyan-400/20 border border-cyan-400 text-cyan-300 font-mono text-base font-black">2</span>
+            </div>
+            <input id="roiSlider" type="range" min="1" max="10" value="2" oninput="updateRoiCalc()" class="w-full accent-amber-400 cursor-pointer h-2 bg-slate-800 rounded-lg" />
+            <div class="flex justify-between text-[11px] font-mono text-slate-500">
+              <span>Conservative (1)</span>
+              <span>Average Growth</span>
+              <span>High Demand (10)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl bg-[#050811] border-2 border-emerald-400/60 p-6 text-center space-y-4 shadow-2xl">
+            <p class="text-xs font-mono uppercase text-slate-400">ESTIMATED EXTRA MONTHLY REVENUE</p>
+            <div id="roiMonthlyAmount" class="text-4xl sm:text-5xl font-black text-emerald-400 font-mono">
+              ₹250,000 / mo
+            </div>
+            <div class="py-2 px-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 font-bold">
+              📈 Yearly Extra Business: <span id="roiYearlyAmount" class="font-mono underline">₹3,000,000 / year</span>
+            </div>
+            <div class="text-xs text-amber-300 font-mono">
+              ⚡ Website One-Time Cost: <strong class="text-white">Just ₹9,999</strong> (50% OFF)<br/>
+              ✅ <span class="underline">Pura Paisa Sirf 3 se 5 Din Me Vasool!</span>
+            </div>
+            <a id="roiLockBtn" href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20calculated%20my%20ROI%20on%20/demos/realestate%20and%20want%20to%20book%20this%20website%20at%2050%25%20OFF!" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-[#050811] font-black text-xs sm:text-sm block shadow-lg transition-all">
+              🚀 Lock This System for My Business (50% OFF) →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGUE / SERVICES / PACKAGES GRID -->
+  <section id="catalogue" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-800/80">
+    <div class="text-center max-w-3xl mx-auto mb-10 space-y-2">
+      <span class="text-xs font-mono uppercase tracking-widest text-amber-300">INTERACTIVE CUSTOMER FUNNEL</span>
+      <h2 class="text-2xl sm:text-4xl font-black text-white">Featured Towers, Residential Plots & Commercial Spaces</h2>
+      <p class="text-slate-400 text-xs sm:text-sm">Interactive unit configurations with super built-up area, floor plans, and direct WhatsApp price sheets.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">READY TO MOVE IN 6 MONTHS</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹65.50 Lakhs* Onwards</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">3 BHK Royal Residences (1,780 Sq.Ft.)</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Spacious 6-ft wrap-around sun deck, modular kitchen chimney setup, Italian marble living room & 2 covered car parkings.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('3 BHK Royal Residences (1,780 Sq.Ft.)', '₹65.50 Lakhs* Onwards')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Get 3 BHK Floor Plan on WhatsApp →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">ULTRA-LUXURY PENTHOUSE</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹1.15 Cr* Onwards</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">4 BHK Sky Duplex Villas (2,850 Sq.Ft.)</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Private terrace plunge pool, servant quarter, smart home biometric locks & panoramic city skyline views.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('4 BHK Sky Duplex Villas (2,850 Sq.Ft.)', '₹1.15 Cr* Onwards')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Get 4 BHK Brochure & Video →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">HIGH APPRECIATION ZONE</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹3,499 / Sq.Ft.</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">RERA Approved Residential Villa Plots (1,200 – 2,400 Sq.Ft.)</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">40-ft wide concrete roads, underground electricity, 24×7 tiered security, temple & landscaped central park.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('RERA Approved Residential Villa Plots (1,200 – 2,400 Sq.Ft.)', '₹3,499 / Sq.Ft.')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Check Available Corner Plots →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">ASSURED 8% RENTAL YIELD</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹48.00 Lakhs* Onwards</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">Skyline High-Street Commercial Showrooms & Offices</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Main road highway frontage ideal for Banks, Jewellery Showrooms, Branded Cafes, Clinics & Corporate Offices.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Skyline High-Street Commercial Showrooms & Offices', '₹48.00 Lakhs* Onwards')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Request Commercial ROI Sheet →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">RESORT LIFESTYLE</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">Free Club Membership</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">5-Star Clubhouse & 45+ World-Class Amenities</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Rooftop infinity pool, AC gym, mini multiplex theatre, co-working lounge, EV charging stations & guest suites.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('5-Star Clubhouse & 45+ World-Class Amenities', 'Free Club Membership')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Book Sunday Family Site Visit →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-amber-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-amber-400/15 text-amber-300 border-amber-400/40">ZERO PROCESSING FEE OFFER</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">8.35% p.a. ROI</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-amber-300 transition-colors">Instant Home Loan Desk (SBI, HDFC, ICICI)</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Get on-the-spot home loan sanction letter within 48 hours with our dedicated in-house banking team.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Instant Home Loan Desk (SBI, HDFC, ICICI)', '8.35% p.a. ROI')" class="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Calculate EMI & Eligibility →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEAPON #3: BRUTAL REALITY CHECK — WITHOUT WEBSITE vs WITH UIKEY LABS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <span class="px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/40 text-rose-300 font-mono text-xs font-bold uppercase">
+        ⚠️ WHY YOUR COMPETITORS ARE WINNING ONLINE
+      </span>
+      <h3 class="text-2xl sm:text-4xl font-black text-white mt-2">
+        Bina Website Ke Nuksan vs <span class="text-cyan-400">UIKEY LABS Automation</span>
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Without Website -->
+      <div class="rounded-3xl bg-rose-950/20 border-2 border-rose-500/40 p-6 sm:p-8 space-y-4">
+        <div class="flex items-center justify-between border-b border-rose-500/30 pb-3">
+          <h4 class="text-lg sm:text-xl font-black text-rose-300">❌ Abhi (Without This Website)</h4>
+          <span class="px-2.5 py-1 rounded bg-rose-500/20 text-rose-300 font-mono text-[10px] font-bold">LOSING CUSTOMERS DAILY</span>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>99acres / MagicBricks sell the EXACT same buyer lead to 10 competing builders at once.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>Local brokers demand 2% to 5% heavy commission on every plot or flat deal.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>NRI & outstation investors don't trust projects without an official RERA-verified project website.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>Floor plan PDFs shared on WhatsApp look blurry and fail to close ₹50L–₹2Cr buyers.</span></li>
+        </ul>
+      </div>
+
+      <!-- With UIKEY LABS -->
+      <div class="rounded-3xl bg-emerald-950/20 border-2 border-emerald-400/50 p-6 sm:p-8 space-y-4 shadow-[0_0_40px_rgba(16,185,129,0.12)]">
+        <div class="flex items-center justify-between border-b border-emerald-500/30 pb-3">
+          <h4 class="text-lg sm:text-xl font-black text-emerald-300">✅ 48 Hours Baad (With UIKEY LABS)</h4>
+          <span class="px-2.5 py-1 rounded bg-emerald-400 text-[#050811] font-mono text-[10px] font-black">24×7 AUTO-SALES</span>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>100% Exclusive Direct Buyer Leads — nobody else gets your site-visit inquiries.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>Interactive Floor Plans, Location Map, RERA Badge & EMI Calculator builds instant ₹1Cr+ trust.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>Automated Brochure PDF unlock captures buyer's WhatsApp number before download.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>1 single plot/flat booking pays for this website 25X over!</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE WHATSAPP BOOKING / ORDER SIMULATOR -->
+  <section id="booking-simulator" class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="rounded-3xl bg-gradient-to-b from-[#0E1730] to-[#0A1022] border-2 border-amber-400/40 p-6 sm:p-10 shadow-2xl">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-bold">
+          💬 LIVE WHATSAPP FUNNEL SIMULATOR
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-3">Schedule VIP Site Visit & Download Floor Plan PDF</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-1">When a buyer submits this form, the builder/broker immediately receives a high-intent lead on WhatsApp!</p>
+      </div>
+
+      <form onsubmit="submitDemoBooking(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Customer / Client Name *</label>
+          <input id="simName" type="text" required placeholder="e.g. Rahul Sharma" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Phone / WhatsApp Number *</label>
+          <input id="simPhone" type="tel" required placeholder="+91 98765 43210" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Select Property Configuration *</label>
+          <select id="simService" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none">
+            <option value="3 BHK Royal Apartment (₹65.5L*)">3 BHK Royal Apartment (₹65.5L*)</option>
+              <option value="4 BHK Sky Duplex Villa (₹1.15 Cr*)">4 BHK Sky Duplex Villa (₹1.15 Cr*)</option>
+              <option value="Residential Township Plot (1200 - 2400 Sq.Ft.)">Residential Township Plot (1200 - 2400 Sq.Ft.)</option>
+              <option value="Main Road Commercial Showroom / Office">Main Road Commercial Showroom / Office</option>
+              <option value="Request Complete Brochure + Price Sheet PDF">Request Complete Brochure + Price Sheet PDF</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Preferred Date / Time</label>
+          <input id="simDate" type="text" value="Today / Tomorrow Evening" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Special Note / City</label>
+          <input id="simNote" type="text" placeholder="Any specific requirement..." class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div class="sm:col-span-2 pt-2">
+          <button type="submit" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-[#050811] font-black text-sm sm:text-base shadow-xl transition-all">
+            📲 Test How Customers Will Send You Orders on WhatsApp →
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- WEAPON #5: TERRITORY EXCLUSIVITY FOMO + IRRESISTIBLE CLOSING OFFER -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+    <div class="rounded-3xl bg-gradient-to-r from-[#1f1206] via-[#0A1022] to-[#0c1e2c] border-2 border-amber-400 p-6 sm:p-10 shadow-[0_0_60px_rgba(251,191,36,0.22)] relative overflow-hidden">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="space-y-3 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-400 text-rose-300 font-mono text-xs font-black">
+            🚨 STRICT TERRITORY POLICY: 1 AREA = ONLY 1 REAL ESTATE BUILDER, COLONIZER & PROPERTY DEVELOPER
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+            Apne Competitor Se Pehle Apne Area Ka <span class="text-amber-400">Exclusive Slot Lock Karein!</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Hum ek locality/area me ek industry ke <strong class="text-white">sirf 1 hi business</strong> ke liye ye high-converting system banate hain taki aapko 100% Google &amp; WhatsApp monopoly mile.
+            <strong class="text-amber-300">Sirf ₹2,000 Booking Advance</strong> ya <strong class="text-emerald-300">₹9,999 (FLAT 50% OFF)</strong> se aaj hi apna 48-Hour Delivery Slot lock karein!
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto shrink-0">
+          <a href="../../index.html#payment" class="px-7 py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-[#050811] font-black text-sm text-center shadow-xl transition-all">
+            ⚡ Lock My Area Slot via UPI QR (50% OFF) →
+          </a>
+          <a id="bottomClaimWaBtn" href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20want%20to%20LOCK%20the%20Exclusive%20/demos/realestate%20Website%20for%20my%20area%20at%2050%25%20OFF%20before%20my%20competitor!" target="_blank" rel="noopener noreferrer" class="px-7 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-[#050811] font-black text-xs sm:text-sm text-center shadow-lg transition-all">
+            💬 WhatsApp: "LOCK MY AREA DEMO" (+91 87709 12734)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEAPON #4: FLOATING LIVE BOOKING NOTIFICATION TOAST (SOCIAL PROOF SIMULATOR) -->
+  <div id="liveToastBox" class="fixed bottom-4 left-4 z-40 max-w-xs sm:max-w-sm rounded-2xl bg-[#0A1022]/95 backdrop-blur-xl border-2 border-emerald-400/70 p-3.5 shadow-[0_0_35px_rgba(16,185,129,0.25)] transition-all duration-500">
+    <div class="flex items-start gap-3">
+      <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-lg shrink-0">
+        📲
+      </div>
+      <div class="text-xs">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-mono text-[10px] uppercase font-black text-emerald-400">● LIVE LEAD SIMULATION</span>
+          <button type="button" onclick="document.getElementById('liveToastBox').style.display='none'" class="text-slate-500 hover:text-white text-xs">✕</button>
+        </div>
+        <p id="liveToastText" class="text-white font-semibold mt-0.5 leading-snug">🔔 Just Now: Mr. Vikram Malhotra (NRI) downloaded 4 BHK Sky Villa Floor Plan PDF!</p>
+        <p class="text-[10px] text-amber-300 font-mono mt-1">👆 Aise hi 24×7 orders aapke WhatsApp par aayenge!</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var ROI_UNIT_VALUE = 125000;
+    var IS_DAILY_MULTIPLIER = false;
+    var DEMO_TOASTS = ["🔔 Just Now: Mr. Vikram Malhotra (NRI) downloaded 4 BHK Sky Villa Floor Plan PDF!", "🔔 2 mins ago: Dr. Anjali & Family booked Sunday 11 AM VIP Cab Site Visit!", "🔔 5 mins ago: Suresh Agarwal requested Corner Residential Plot (1,800 Sq.Ft.) Price Sheet!"];
+    var currentToastIdx = 0;
+
+    function updateRoiCalc() {
+      var qty = parseInt(document.getElementById('roiSlider').value, 10) || 1;
+      document.getElementById('roiQtyDisplay').innerText = qty;
+      var monthly = IS_DAILY_MULTIPLIER ? (qty * ROI_UNIT_VALUE * 30) : (qty * ROI_UNIT_VALUE);
+      var yearly = monthly * 12;
+      document.getElementById('roiMonthlyAmount').innerText = '₹' + monthly.toLocaleString('en-IN') + ' / mo';
+      document.getElementById('roiYearlyAmount').innerText = '₹' + yearly.toLocaleString('en-IN') + ' / year';
+    }
+
+    function applyClientPersonalization() {
+      var biz = document.getElementById('customBizInput').value.trim();
+      var city = document.getElementById('customCityInput').value.trim();
+      if (!biz) {
+        alert('Please type the Client Business Name first!');
+        document.getElementById('customBizInput').focus();
+        return;
+      }
+      var fullTitle = city ? (biz + ' — ' + city) : biz;
+      document.getElementById('dynamicBrandName').innerText = fullTitle;
+      document.getElementById('cardOverlayBrand').innerText = fullTitle;
+      var prefixEl = document.getElementById('heroCustomBrandPrefix');
+      prefixEl.innerText = '✨ Welcome to ' + fullTitle;
+      prefixEl.classList.remove('hidden');
+      if (city) {
+        document.getElementById('heroCityBadge').innerText = '#1 Trusted in ' + city;
+      }
+      var banner = document.getElementById('personalizedBanner');
+      document.getElementById('bannerBizName').innerText = fullTitle;
+      banner.classList.remove('hidden');
+      document.title = fullTitle + ' — Official Website Preview | UIKEY LABS';
+
+      var waMsg = "Hi UIKEY LABS! I just previewed the customized website for *" + fullTitle + "* (/demos/realestate) and want to LOCK my area slot at 50% OFF!";
+      var waHref = "https://wa.me/918770912734?text=" + encodeURIComponent(waMsg);
+      document.getElementById('topClaimWaBtn').href = waHref;
+      document.getElementById('bottomClaimWaBtn').href = waHref;
+      document.getElementById('roiLockBtn').href = waHref;
+    }
+
+    function copyPersonalizedClientLink() {
+      var biz = document.getElementById('customBizInput').value.trim() || 'Skyline Imperial Builders & Luxury Townships';
+      var city = document.getElementById('customCityInput').value.trim() || 'Your City';
+      var baseUrl = window.location.href.split('?')[0];
+      var shareUrl = baseUrl + '?biz=' + encodeURIComponent(biz) + '&city=' + encodeURIComponent(city);
+      var pitchText = "Namaste *" + biz + " (" + city + ")* Team! 👋\n\n"
+        + "Maine aapke business ke liye ek ultra-fast (<0.4s) *Live Demo Website* taiyar ki hai jisme aapka naam, rates aur direct WhatsApp Booking/Order system laga hai.\n\n"
+        + "👉 *Yahan click karke apna Live Preview dekhiye:*\n" + shareUrl + "\n\n"
+        + "🔥 First 10 Businesses ke liye *FLAT 50% OFF* (Starts ₹9,999) + 1 Area Exclusivity Lock hai. Bataiye ise aapke official domain par kab live karein? — *UIKEY LABS (+91 87709 12734)*";
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pitchText).then(function() {
+          var btn = document.getElementById('copyLinkBtn');
+          btn.innerText = '✅ Pitch + Link Copied!';
+          setTimeout(function() { btn.innerText = '📋 Copy Client Link'; }, 3000);
+        });
+      } else {
+        prompt('Copy this WhatsApp Client Pitch + Link:', pitchText);
+      }
+    }
+
+    // Auto-read ?biz=...&city=... on page load so clients see their own name immediately!
+    (function initFromUrlParams() {
+      var params = new URLSearchParams(window.location.search);
+      var bizParam = params.get('biz') || params.get('name');
+      var cityParam = params.get('city');
+      if (bizParam) {
+        document.getElementById('customBizInput').value = bizParam;
+        if (cityParam) document.getElementById('customCityInput').value = cityParam;
+        applyClientPersonalization();
+      }
+      setInterval(function() {
+        currentToastIdx = (currentToastIdx + 1) % DEMO_TOASTS.length;
+        var el = document.getElementById('liveToastText');
+        if (el) el.innerText = DEMO_TOASTS[currentToastIdx];
+      }, 6500);
+    })();
+
+    function quickBookItem(itemName, price) {
+      var selectEl = document.getElementById('simService');
+      var customText = itemName + ' (' + price + ')';
+      var opt = document.createElement('option');
+      opt.value = customText;
+      opt.text = customText;
+      selectEl.add(opt);
+      selectEl.value = customText;
+      document.getElementById('booking-simulator').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('simName').focus();
+    }
+
+    function submitDemoBooking(e) {
+      e.preventDefault();
+      var bizTitle = document.getElementById('dynamicBrandName').innerText;
+      var name = document.getElementById('simName').value.trim();
+      var phone = document.getElementById('simPhone').value.trim();
+      var service = document.getElementById('simService').value;
+      var date = document.getElementById('simDate').value.trim();
+      var note = document.getElementById('simNote').value.trim();
+
+      var msg = "Hello UIKEY LABS! I just tested the Live Demo for *" + bizTitle + "* (/demos/realestate).\n\n"
+        + "📋 *Simulated Customer Booking:*\n"
+        + "• Customer Name: " + name + "\n"
+        + "• Phone: " + phone + "\n"
+        + "• Selected Option: " + service + "\n"
+        + "• Preferred Time: " + date + "\n"
+        + (note ? "• Note: " + note + "\n" : "")
+        + "\n🚀 Mujhe apne business ke liye yahi exact website 50% OFF me book karni hai!";
+
+      var waUrl = "https://wa.me/918770912734?text=" + encodeURIComponent(msg);
+      window.open(waUrl, "_blank");
+    }
+  </script>
+</body>
+</html>

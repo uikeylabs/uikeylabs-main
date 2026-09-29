@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CityCare Multispeciality Clinic & Diagnostics — Live Client Preview | UIKEY LABS (uikeylabs.com)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #050811;
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#050811] text-slate-100 antialiased selection:bg-amber-400 selection:text-[#050811]">
+
+  <!-- TOP UIKEY LABS LIVE DEMO SWITCHER + CLIENT HUNTING PERSONALIZER -->
+  <div class="sticky top-0 z-50 bg-[#050811]/95 backdrop-blur-xl border-b border-amber-400/40 shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <a href="../../index.html#demos" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-400/50 text-cyan-300 text-xs font-bold transition-all">
+          ← UIKEY LABS Home
+        </a>
+        <div class="hidden md:flex items-center gap-2">
+          <img src="../../uikeylabs-logo.jpg" alt="UIKEY LABS" class="w-6 h-6 rounded-md border border-amber-400/60 object-cover" />
+          <span class="text-[11px] font-mono text-slate-300">TERRITORY SLOT: <strong class="text-rose-400 animate-pulse">● ONLY 1 BUSINESS PER AREA</strong></span>
+        </div>
+      </div>
+
+      <!-- LIVE CLIENT BRAND PERSONALIZER (1-CLICK MAGIC FOR CLIENT HUNTING) -->
+      <div class="flex flex-wrap items-center gap-1.5 bg-[#0E1730] px-2.5 py-1.5 rounded-xl border border-amber-400/50">
+        <span class="text-[10px] font-mono font-extrabold uppercase text-amber-300 hidden sm:inline">🎯 Test Your Brand Name:</span>
+        <input id="customBizInput" type="text" placeholder="Type Your Business Name..." class="px-2.5 py-1 rounded-lg bg-[#050811] border border-slate-700 text-white text-xs w-40 sm:w-48 focus:border-amber-400 focus:outline-none" />
+        <input id="customCityInput" type="text" placeholder="City (e.g. Bhopal)" class="px-2.5 py-1 rounded-lg bg-[#050811] border border-slate-700 text-white text-xs w-24 sm:w-28 focus:border-amber-400 focus:outline-none" />
+        <button type="button" onclick="applyClientPersonalization()" class="px-2.5 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-[#050811] font-black text-xs transition-all">
+          ✨ Preview My Name
+        </button>
+        <button type="button" onclick="copyPersonalizedClientLink()" id="copyLinkBtn" title="Copy personalized link to send to client on WhatsApp" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-cyan-400 text-cyan-300 hover:text-[#050811] border border-cyan-400/40 font-mono text-[10px] font-bold transition-all">
+          📋 Copy Client Link
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20just%20saw%20the%20live%20demo%20(/demos/doctor)%20and%20want%20to%20LOCK%20this%20website%20for%20my%20area%20at%20FLAT%2050%25%20OFF!" id="topClaimWaBtn" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-[#050811] font-black text-xs shadow-lg transition-all">
+          🔥 Lock This Website (50% OFF) →
+        </a>
+      </div>
+    </div>
+
+    <!-- Horizontal All-9 Demos Switcher Bar -->
+    <div class="bg-[#080D1C] border-t border-slate-800/80 py-1.5 px-4 overflow-x-auto">
+      <div class="max-w-7xl mx-auto flex items-center gap-2">
+        <span class="text-[10px] font-mono uppercase text-slate-400 whitespace-nowrap mr-1">Switch Industry:</span>
+        <a href="../doctor/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-amber-400 text-[#050811] font-black border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.4)]">🏥 /demos/doctor</a>
+          <a href="../school/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🎓 /demos/school</a>
+          <a href="../realestate/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🏢 /demos/realestate</a>
+          <a href="../cafe/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">☕ /demos/cafe</a>
+          <a href="../gym/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">💪 /demos/gym</a>
+          <a href="../salon/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">💇 /demos/salon</a>
+          <a href="../retail/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">🛒 /demos/retail</a>
+          <a href="../law/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">⚖️ /demos/law</a>
+          <a href="../wedding/index.html" class="px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border bg-[#0A1022] text-slate-300 border-slate-700 hover:border-cyan-400 hover:text-cyan-300">📸 /demos/wedding</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONALIZED GREETING RIBBON (VISIBLE WHEN CUSTOMIZED FOR A CLIENT) -->
+  <div id="personalizedBanner" class="hidden bg-gradient-to-r from-amber-500/20 via-emerald-500/20 to-cyan-500/20 border-b border-amber-400/40 py-2 px-4 text-center">
+    <p class="text-xs sm:text-sm font-bold text-white">
+      👑 <span class="text-amber-300">SPECIAL LIVE PREVIEW PREPARED FOR:</span>
+      <span id="bannerBizName" class="underline decoration-amber-400 font-black text-white mx-1"></span>
+      <span class="text-emerald-300 font-mono text-xs">— Exclusive 50% OFF Territory Slot Open!</span>
+    </p>
+  </div>
+
+  <!-- INDUSTRY DEMO BRAND NAVBAR -->
+  <header class="border-b border-slate-800/80 bg-[#0A1022]/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-2xl">
+          🏥
+        </div>
+        <div>
+          <span id="dynamicTagline" class="text-[11px] font-mono uppercase tracking-wider text-cyan-300 block">NABL Accredited Lab • 24×7 Emergency & Instant OPD Token Booking</span>
+          <h1 id="dynamicBrandName" class="text-base sm:text-xl font-black text-white">CityCare Multispeciality Clinic & Diagnostics</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5">
+        <a href="#roi-calculator" class="hidden sm:inline-flex px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-bold">
+          💰 Check Your Monthly Extra Profit
+        </a>
+        <a href="#booking-simulator" class="px-4 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-[#050811] font-black text-xs sm:text-sm transition-all">
+          📅 Book OPD Appointment Now
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-10 lg:py-14">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7 space-y-5">
+        <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full border bg-cyan-400/15 text-cyan-300 border-cyan-400/40 text-xs font-mono">
+          <span>⚡ <span id="heroCityBadge">Top Rated in Your City</span></span>
+          <span>•</span>
+          <span class="text-emerald-400 font-bold">0.38s Instant Google Load</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight tracking-tight">
+          <span id="heroCustomBrandPrefix" class="text-amber-400 block text-xl sm:text-2xl font-extrabold mb-1 hidden"></span>
+          Skip the Waiting Room. Book Your Doctor & Lab Slot in <span class='text-cyan-400'>30 Seconds.</span>
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Patients can see specialist timings, book instant OPD tokens on WhatsApp, and schedule home blood collection without waiting in long queues.
+        </p>
+        <div class="flex flex-wrap gap-3 pt-1">
+          <a href="#booking-simulator" class="px-6 py-3.5 rounded-2xl bg-cyan-400 hover:bg-cyan-300 text-[#050811] font-black text-sm shadow-xl transition-all">
+            📅 Book OPD Appointment Now
+          </a>
+          <a href="#roi-calculator" class="px-6 py-3.5 rounded-2xl bg-[#0A1022] hover:bg-slate-900 border border-amber-400/50 text-amber-300 font-bold text-sm transition-all">
+            💰 Calculate Your Monthly Profit →
+          </a>
+        </div>
+
+        <!-- 4 Key Metrics -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3">
+          
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-cyan-300 font-mono">15,000+</div>
+          <div class="text-xs text-slate-400 mt-1">Happy Patients Treated</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-cyan-300 font-mono">12+</div>
+          <div class="text-xs text-slate-400 mt-1">Senior Specialist Doctors</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-cyan-300 font-mono">30 Sec</div>
+          <div class="text-xs text-slate-400 mt-1">WhatsApp Token Confirmation</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#0A1022]/90 border border-slate-800 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-cyan-300 font-mono">0.38s</div>
+          <div class="text-xs text-slate-400 mt-1">Page Load Speed (UIKEY LABS)</div>
+        </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="relative rounded-3xl overflow-hidden border-2 border-cyan-400/40 shadow-[0_0_50px_rgba(34,211,238,0.15)] bg-[#0A1022]">
+          <img src="../../doctor-demo.jpg" alt="CityCare Multispeciality Clinic & Diagnostics" class="w-full h-80 sm:h-96 object-cover" />
+          <div class="p-5 bg-gradient-to-t from-[#050811] via-[#050811]/95 to-transparent">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <p class="text-xs font-mono text-emerald-400 font-bold">● READY IN 48 HOURS FOR YOUR BRAND</p>
+                <p id="cardOverlayBrand" class="text-sm font-bold text-white mt-0.5">CityCare Multispeciality Clinic & Diagnostics</p>
+              </div>
+              <a href="../../index.html#payment" class="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-[#050811] font-mono text-xs font-black shrink-0">
+                CLAIM 50% OFF
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEAPON #2: INTERACTIVE BUSINESS OWNER PROFIT & ROI CALCULATOR -->
+  <section id="roi-calculator" class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+    <div class="rounded-3xl bg-gradient-to-br from-[#0d1b2a] via-[#0A1022] to-[#1a1405] border-2 border-amber-400/70 p-6 sm:p-10 shadow-[0_0_60px_rgba(251,191,36,0.15)]">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full bg-amber-400 text-[#050811] font-mono text-[11px] font-black uppercase">
+            📊 BUSINESS OWNER REVENUE CALCULATOR
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-black text-white">
+            Dekhiye Ye Website Aapको Har Mahine Kitna <span class="text-amber-400">Extra Profit (₹₹₹)</span> Dilayegi:
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Even if just 4 extra patients/day find your clinic on Google Search & Maps (@ ₹650 avg OPD + Lab bill), you earn ₹78,000/month extra!
+          </p>
+
+          <div class="p-5 rounded-2xl bg-[#050811]/90 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <label for="roiSlider" class="text-xs sm:text-sm font-bold text-cyan-300">Extra OPD Patients + Lab Bookings Per Day from Google:</label>
+              <span id="roiQtyDisplay" class="px-3 py-1 rounded-lg bg-cyan-400/20 border border-cyan-400 text-cyan-300 font-mono text-base font-black">4</span>
+            </div>
+            <input id="roiSlider" type="range" min="1" max="15" value="4" oninput="updateRoiCalc()" class="w-full accent-amber-400 cursor-pointer h-2 bg-slate-800 rounded-lg" />
+            <div class="flex justify-between text-[11px] font-mono text-slate-500">
+              <span>Conservative (1)</span>
+              <span>Average Growth</span>
+              <span>High Demand (15)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl bg-[#050811] border-2 border-emerald-400/60 p-6 text-center space-y-4 shadow-2xl">
+            <p class="text-xs font-mono uppercase text-slate-400">ESTIMATED EXTRA MONTHLY REVENUE</p>
+            <div id="roiMonthlyAmount" class="text-4xl sm:text-5xl font-black text-emerald-400 font-mono">
+              ₹78,000 / mo
+            </div>
+            <div class="py-2 px-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 font-bold">
+              📈 Yearly Extra Business: <span id="roiYearlyAmount" class="font-mono underline">₹936,000 / year</span>
+            </div>
+            <div class="text-xs text-amber-300 font-mono">
+              ⚡ Website One-Time Cost: <strong class="text-white">Just ₹9,999</strong> (50% OFF)<br/>
+              ✅ <span class="underline">Pura Paisa Sirf 3 se 5 Din Me Vasool!</span>
+            </div>
+            <a id="roiLockBtn" href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20calculated%20my%20ROI%20on%20/demos/doctor%20and%20want%20to%20book%20this%20website%20at%2050%25%20OFF!" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-[#050811] font-black text-xs sm:text-sm block shadow-lg transition-all">
+              🚀 Lock This System for My Business (50% OFF) →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGUE / SERVICES / PACKAGES GRID -->
+  <section id="catalogue" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 border-t border-slate-800/80">
+    <div class="text-center max-w-3xl mx-auto mb-10 space-y-2">
+      <span class="text-xs font-mono uppercase tracking-widest text-cyan-300">INTERACTIVE CUSTOMER FUNNEL</span>
+      <h2 class="text-2xl sm:text-4xl font-black text-white">Specialist Departments & Health Packages</h2>
+      <p class="text-slate-400 text-xs sm:text-sm">Patients can browse specialist timings, consultation fees, and book directly on WhatsApp.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-cyan-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-cyan-400/15 text-cyan-300 border-cyan-400/40">HEART, BP & DIABETES</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹600 Consultation</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-cyan-300 transition-colors">Senior Physician & Cardiology OPD</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">ECG, 2D Echo, Hypertension & Diabetes reversal clinic • Mon–Sat (10 AM – 2 PM & 6 PM – 9 PM).</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Senior Physician & Cardiology OPD', '₹600 Consultation')" class="w-full py-3 px-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Book OPD Slot on WhatsApp →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-cyan-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-cyan-400/15 text-cyan-300 border-cyan-400/40">SINGLE-SITTING RCT</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹400 Consultation</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-cyan-300 transition-colors">Painless Dental & Implant Studio</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Digital X-Ray, Single-Sitting Root Canal, Laser Teeth Whitening, Braces & Invisible Aligners.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Painless Dental & Implant Studio', '₹400 Consultation')" class="w-full py-3 px-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Book Dental Checkup →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-cyan-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-cyan-400/15 text-cyan-300 border-cyan-400/40">JOINT & SPORTS INJURY</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹500 Consultation</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-cyan-300 transition-colors">Orthopedics, Spine & Physiotherapy</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Knee Replacement Advice, Slip Disc, Fracture Care & Digital Robotic Physiotherapy Center.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Orthopedics, Spine & Physiotherapy', '₹500 Consultation')" class="w-full py-3 px-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Book Ortho Consultation →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-cyan-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-cyan-400/15 text-cyan-300 border-cyan-400/40">FREE HOME BLOOD COLLECTION</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹1,299 (50% OFF)</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-cyan-300 transition-colors">Full Body Master Health Checkup (78 Tests)</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Includes CBC, Thyroid, Lipid Profile, Liver, Kidney, HbA1c, Vitamin D & B12. PDF Report on WhatsApp in 6 Hours.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Full Body Master Health Checkup (78 Tests)', '₹1,299 (50% OFF)')" class="w-full py-3 px-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Book Home Sample Pickup →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-cyan-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-cyan-400/15 text-cyan-300 border-cyan-400/40">PREGNANCY & VACCINATION</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">₹500 Consultation</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-cyan-300 transition-colors">Mother & Child Care (Gynae + Pediatrics)</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Antenatal Scans, Painless Delivery Counseling, Newborn Vaccination Chart & Child Growth Tracking.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('Mother & Child Care (Gynae + Pediatrics)', '₹500 Consultation')" class="w-full py-3 px-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Book Gynae / Pediatric Slot →
+        </button>
+      </div>
+      <div class="rounded-3xl bg-[#0A1022] border border-slate-800 hover:border-cyan-400/40 p-6 flex flex-col justify-between transition-all shadow-lg group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase border bg-cyan-400/15 text-cyan-300 border-cyan-400/40">UPLOAD PRESCRIPTION</span>
+            <span class="text-sm font-black text-emerald-400 font-mono">Flat 15% OFF Medicines</span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-2 group-hover:text-cyan-300 transition-colors">24×7 Pharmacy & Medicine Home Delivery</h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">Upload your prescription photo on WhatsApp and get genuine medicines delivered home within 45 minutes.</p>
+        </div>
+        <button type="button" onclick="quickBookItem('24×7 Pharmacy & Medicine Home Delivery', 'Flat 15% OFF Medicines')" class="w-full py-3 px-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-[#050811] font-black text-xs sm:text-sm text-center transition-all shadow-md">
+          Order Medicines on WhatsApp →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEAPON #3: BRUTAL REALITY CHECK — WITHOUT WEBSITE vs WITH UIKEY LABS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <span class="px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/40 text-rose-300 font-mono text-xs font-bold uppercase">
+        ⚠️ WHY YOUR COMPETITORS ARE WINNING ONLINE
+      </span>
+      <h3 class="text-2xl sm:text-4xl font-black text-white mt-2">
+        Bina Website Ke Nuksan vs <span class="text-cyan-400">UIKEY LABS Automation</span>
+      </h3>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Without Website -->
+      <div class="rounded-3xl bg-rose-950/20 border-2 border-rose-500/40 p-6 sm:p-8 space-y-4">
+        <div class="flex items-center justify-between border-b border-rose-500/30 pb-3">
+          <h4 class="text-lg sm:text-xl font-black text-rose-300">❌ Abhi (Without This Website)</h4>
+          <span class="px-2.5 py-1 rounded bg-rose-500/20 text-rose-300 font-mono text-[10px] font-bold">LOSING CUSTOMERS DAILY</span>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>Patients searching 'Best Doctor / Clinic near me' on Google go to competing hospitals.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>Receptionist wastes 3+ hours daily answering basic timing & fee calls.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>Practo / aggregators charge heavy yearly commissions and show competitor ads on your profile.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-rose-200/90"><span class="text-rose-400 font-black shrink-0 mt-0.5">✖</span><span>Patients forget follow-up visits & pathology health checkup packages.</span></li>
+        </ul>
+      </div>
+
+      <!-- With UIKEY LABS -->
+      <div class="rounded-3xl bg-emerald-950/20 border-2 border-emerald-400/50 p-6 sm:p-8 space-y-4 shadow-[0_0_40px_rgba(16,185,129,0.12)]">
+        <div class="flex items-center justify-between border-b border-emerald-500/30 pb-3">
+          <h4 class="text-lg sm:text-xl font-black text-emerald-300">✅ 48 Hours Baad (With UIKEY LABS)</h4>
+          <span class="px-2.5 py-1 rounded bg-emerald-400 text-[#050811] font-mono text-[10px] font-black">24×7 AUTO-SALES</span>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>Rank #1 on Google Maps in your city with <0.4s ultra-fast medical SEO.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>Automated 24×7 WhatsApp OPD Token & Home Blood Sample pickup booking.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>0% Commission — 100% consultation & lab fee comes directly to your clinic UPI.</span></li>
+<li class="flex items-start gap-2.5 text-xs sm:text-sm text-emerald-100"><span class="text-emerald-400 font-black shrink-0 mt-0.5">✔</span><span>Instant authority like Apollo/Max Hospital in front of every local patient.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE WHATSAPP BOOKING / ORDER SIMULATOR -->
+  <section id="booking-simulator" class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="rounded-3xl bg-gradient-to-b from-[#0E1730] to-[#0A1022] border-2 border-cyan-400/40 p-6 sm:p-10 shadow-2xl">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <span class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-bold">
+          💬 LIVE WHATSAPP FUNNEL SIMULATOR
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-3">Instant OPD Token & Home Lab Booking Simulator</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-1">Try filling out this patient form—it sends a formatted OPD token directly to WhatsApp!</p>
+      </div>
+
+      <form onsubmit="submitDemoBooking(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Customer / Client Name *</label>
+          <input id="simName" type="text" required placeholder="e.g. Rahul Sharma" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Phone / WhatsApp Number *</label>
+          <input id="simPhone" type="tel" required placeholder="+91 98765 43210" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Select Doctor / Health Package *</label>
+          <select id="simService" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none">
+            <option value="Cardiology / General Physician OPD (₹600)">Cardiology / General Physician OPD (₹600)</option>
+              <option value="Dental & Implants Checkup (₹400)">Dental & Implants Checkup (₹400)</option>
+              <option value="Orthopedics & Spine Consultation (₹500)">Orthopedics & Spine Consultation (₹500)</option>
+              <option value="Full Body Health Checkup - 78 Tests (₹1,299)">Full Body Health Checkup - 78 Tests (₹1,299)</option>
+              <option value="Child Vaccination / Gynecology OPD (₹500)">Child Vaccination / Gynecology OPD (₹500)</option>
+              <option value="Prescription Medicine Home Delivery">Prescription Medicine Home Delivery</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Preferred Date / Time</label>
+          <input id="simDate" type="text" value="Today / Tomorrow Evening" class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">Special Note / City</label>
+          <input id="simNote" type="text" placeholder="Any specific requirement..." class="w-full px-4 py-3 rounded-xl bg-[#050811] border border-slate-700 text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        </div>
+        <div class="sm:col-span-2 pt-2">
+          <button type="submit" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-[#050811] font-black text-sm sm:text-base shadow-xl transition-all">
+            📲 Test How Customers Will Send You Orders on WhatsApp →
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- WEAPON #5: TERRITORY EXCLUSIVITY FOMO + IRRESISTIBLE CLOSING OFFER -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+    <div class="rounded-3xl bg-gradient-to-r from-[#1f1206] via-[#0A1022] to-[#0c1e2c] border-2 border-amber-400 p-6 sm:p-10 shadow-[0_0_60px_rgba(251,191,36,0.22)] relative overflow-hidden">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="space-y-3 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-400 text-rose-300 font-mono text-xs font-black">
+            🚨 STRICT TERRITORY POLICY: 1 AREA = ONLY 1 DOCTOR, CLINIC, HOSPITAL & DIAGNOSTIC LAB
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight">
+            Apne Competitor Se Pehle Apne Area Ka <span class="text-amber-400">Exclusive Slot Lock Karein!</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Hum ek locality/area me ek industry ke <strong class="text-white">sirf 1 hi business</strong> ke liye ye high-converting system banate hain taki aapko 100% Google &amp; WhatsApp monopoly mile.
+            <strong class="text-amber-300">Sirf ₹2,000 Booking Advance</strong> ya <strong class="text-emerald-300">₹9,999 (FLAT 50% OFF)</strong> se aaj hi apna 48-Hour Delivery Slot lock karein!
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto shrink-0">
+          <a href="../../index.html#payment" class="px-7 py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-[#050811] font-black text-sm text-center shadow-xl transition-all">
+            ⚡ Lock My Area Slot via UPI QR (50% OFF) →
+          </a>
+          <a id="bottomClaimWaBtn" href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20want%20to%20LOCK%20the%20Exclusive%20/demos/doctor%20Website%20for%20my%20area%20at%2050%25%20OFF%20before%20my%20competitor!" target="_blank" rel="noopener noreferrer" class="px-7 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-[#050811] font-black text-xs sm:text-sm text-center shadow-lg transition-all">
+            💬 WhatsApp: "LOCK MY AREA DEMO" (+91 87709 12734)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEAPON #4: FLOATING LIVE BOOKING NOTIFICATION TOAST (SOCIAL PROOF SIMULATOR) -->
+  <div id="liveToastBox" class="fixed bottom-4 left-4 z-40 max-w-xs sm:max-w-sm rounded-2xl bg-[#0A1022]/95 backdrop-blur-xl border-2 border-emerald-400/70 p-3.5 shadow-[0_0_35px_rgba(16,185,129,0.25)] transition-all duration-500">
+    <div class="flex items-start gap-3">
+      <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-lg shrink-0">
+        📲
+      </div>
+      <div class="text-xs">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-mono text-[10px] uppercase font-black text-emerald-400">● LIVE LEAD SIMULATION</span>
+          <button type="button" onclick="document.getElementById('liveToastBox').style.display='none'" class="text-slate-500 hover:text-white text-xs">✕</button>
+        </div>
+        <p id="liveToastText" class="text-white font-semibold mt-0.5 leading-snug">🔔 Just Now: Amit Verma booked Cardiology OPD Token #14 (₹600) via WhatsApp!</p>
+        <p class="text-[10px] text-amber-300 font-mono mt-1">👆 Aise hi 24×7 orders aapke WhatsApp par aayenge!</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var ROI_UNIT_VALUE = 650;
+    var IS_DAILY_MULTIPLIER = true;
+    var DEMO_TOASTS = ["🔔 Just Now: Amit Verma booked Cardiology OPD Token #14 (₹600) via WhatsApp!", "🔔 2 mins ago: Sunita Rao scheduled Full Body Checkup Home Sample Pickup (₹1,299)!", "🔔 4 mins ago: Rajesh K. booked Dental Root Canal Consultation (₹400) for 6:30 PM!"];
+    var currentToastIdx = 0;
+
+    function updateRoiCalc() {
+      var qty = parseInt(document.getElementById('roiSlider').value, 10) || 1;
+      document.getElementById('roiQtyDisplay').innerText = qty;
+      var monthly = IS_DAILY_MULTIPLIER ? (qty * ROI_UNIT_VALUE * 30) : (qty * ROI_UNIT_VALUE);
+      var yearly = monthly * 12;
+      document.getElementById('roiMonthlyAmount').innerText = '₹' + monthly.toLocaleString('en-IN') + ' / mo';
+      document.getElementById('roiYearlyAmount').innerText = '₹' + yearly.toLocaleString('en-IN') + ' / year';
+    }
+
+    function applyClientPersonalization() {
+      var biz = document.getElementById('customBizInput').value.trim();
+      var city = document.getElementById('customCityInput').value.trim();
+      if (!biz) {
+        alert('Please type the Client Business Name first!');
+        document.getElementById('customBizInput').focus();
+        return;
+      }
+      var fullTitle = city ? (biz + ' — ' + city) : biz;
+      document.getElementById('dynamicBrandName').innerText = fullTitle;
+      document.getElementById('cardOverlayBrand').innerText = fullTitle;
+      var prefixEl = document.getElementById('heroCustomBrandPrefix');
+      prefixEl.innerText = '✨ Welcome to ' + fullTitle;
+      prefixEl.classList.remove('hidden');
+      if (city) {
+        document.getElementById('heroCityBadge').innerText = '#1 Trusted in ' + city;
+      }
+      var banner = document.getElementById('personalizedBanner');
+      document.getElementById('bannerBizName').innerText = fullTitle;
+      banner.classList.remove('hidden');
+      document.title = fullTitle + ' — Official Website Preview | UIKEY LABS';
+
+      var waMsg = "Hi UIKEY LABS! I just previewed the customized website for *" + fullTitle + "* (/demos/doctor) and want to LOCK my area slot at 50% OFF!";
+      var waHref = "https://wa.me/918770912734?text=" + encodeURIComponent(waMsg);
+      document.getElementById('topClaimWaBtn').href = waHref;
+      document.getElementById('bottomClaimWaBtn').href = waHref;
+      document.getElementById('roiLockBtn').href = waHref;
+    }
+
+    function copyPersonalizedClientLink() {
+      var biz = document.getElementById('customBizInput').value.trim() || 'CityCare Multispeciality Clinic & Diagnostics';
+      var city = document.getElementById('customCityInput').value.trim() || 'Your City';
+      var baseUrl = window.location.href.split('?')[0];
+      var shareUrl = baseUrl + '?biz=' + encodeURIComponent(biz) + '&city=' + encodeURIComponent(city);
+      var pitchText = "Namaste *" + biz + " (" + city + ")* Team! 👋\n\n"
+        + "Maine aapke business ke liye ek ultra-fast (<0.4s) *Live Demo Website* taiyar ki hai jisme aapka naam, rates aur direct WhatsApp Booking/Order system laga hai.\n\n"
+        + "👉 *Yahan click karke apna Live Preview dekhiye:*\n" + shareUrl + "\n\n"
+        + "🔥 First 10 Businesses ke liye *FLAT 50% OFF* (Starts ₹9,999) + 1 Area Exclusivity Lock hai. Bataiye ise aapke official domain par kab live karein? — *UIKEY LABS (+91 87709 12734)*";
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pitchText).then(function() {
+          var btn = document.getElementById('copyLinkBtn');
+          btn.innerText = '✅ Pitch + Link Copied!';
+          setTimeout(function() { btn.innerText = '📋 Copy Client Link'; }, 3000);
+        });
+      } else {
+        prompt('Copy this WhatsApp Client Pitch + Link:', pitchText);
+      }
+    }
+
+    // Auto-read ?biz=...&city=... on page load so clients see their own name immediately!
+    (function initFromUrlParams() {
+      var params = new URLSearchParams(window.location.search);
+      var bizParam = params.get('biz') || params.get('name');
+      var cityParam = params.get('city');
+      if (bizParam) {
+        document.getElementById('customBizInput').value = bizParam;
+        if (cityParam) document.getElementById('customCityInput').value = cityParam;
+        applyClientPersonalization();
+      }
+      setInterval(function() {
+        currentToastIdx = (currentToastIdx + 1) % DEMO_TOASTS.length;
+        var el = document.getElementById('liveToastText');
+        if (el) el.innerText = DEMO_TOASTS[currentToastIdx];
+      }, 6500);
+    })();
+
+    function quickBookItem(itemName, price) {
+      var selectEl = document.getElementById('simService');
+      var customText = itemName + ' (' + price + ')';
+      var opt = document.createElement('option');
+      opt.value = customText;
+      opt.text = customText;
+      selectEl.add(opt);
+      selectEl.value = customText;
+      document.getElementById('booking-simulator').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('simName').focus();
+    }
+
+    function submitDemoBooking(e) {
+      e.preventDefault();
+      var bizTitle = document.getElementById('dynamicBrandName').innerText;
+      var name = document.getElementById('simName').value.trim();
+      var phone = document.getElementById('simPhone').value.trim();
+      var service = document.getElementById('simService').value;
+      var date = document.getElementById('simDate').value.trim();
+      var note = document.getElementById('simNote').value.trim();
+
+      var msg = "Hello UIKEY LABS! I just tested the Live Demo for *" + bizTitle + "* (/demos/doctor).\n\n"
+        + "📋 *Simulated Customer Booking:*\n"
+        + "• Customer Name: " + name + "\n"
+        + "• Phone: " + phone + "\n"
+        + "• Selected Option: " + service + "\n"
+        + "• Preferred Time: " + date + "\n"
+        + (note ? "• Note: " + note + "\n" : "")
+        + "\n🚀 Mujhe apne business ke liye yahi exact website 50% OFF me book karni hai!";
+
+      var waUrl = "https://wa.me/918770912734?text=" + encodeURIComponent(msg);
+      window.open(waUrl, "_blank");
+    }
+  </script>
+</body>
+</html>
