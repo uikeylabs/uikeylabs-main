@@ -1215,7 +1215,7 @@
           </div>
         </div>
 
-        <!-- 4 Auth & Database Mode Switcher Buttons -->
+        <!-- 5 Auth & Database Mode Switcher Buttons (Including Sign Out) -->
         <div class="flex flex-wrap items-center gap-2">
           <button type="button" onclick="switchMerchantPortalTab('pos')" id="tabBtnPos" class="px-3.5 py-2 rounded-xl bg-emerald-400 text-[#050811] font-black text-xs transition-all shadow">
             ⚡ My Shop QR &amp; Quick Bill
@@ -1228,6 +1228,9 @@
           </button>
           <button type="button" onclick="switchMerchantPortalTab('database')" id="tabBtnDatabase" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-400/40 text-amber-300 font-bold text-xs transition-all">
             🗄️ View Database (<span id="totalMerchantsCountBadge">4</span>)
+          </button>
+          <button type="button" onclick="handleMerchantLogout()" id="tabBtnLogout" class="px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/35 border border-rose-400/60 text-rose-300 font-black text-xs transition-all">
+            🚪 Sign Out
           </button>
         </div>
       </div>
@@ -1257,7 +1260,7 @@
               <h3 class="text-lg sm:text-2xl font-black text-white mt-0.5">Login to Your Free Shop QR Account</h3>
             </div>
             <span class="px-2.5 py-1 rounded-lg bg-cyan-500/15 border border-cyan-400/40 text-cyan-300 font-mono text-[11px] font-bold">
-              SQLITE AUTH
+              SUPABASE / SQLITE AUTH
             </span>
           </div>
 
@@ -1300,7 +1303,7 @@
         <div id="quickBillPosBox" class="rounded-3xl bg-gradient-to-b from-[#0d1a2d] to-[#0A1022] border-2 border-emerald-400 p-6 sm:p-8 shadow-[0_0_50px_rgba(16,185,129,0.18)] space-y-5">
           <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-4">
             <div>
-              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono text-[10px] font-black uppercase">
+              <span id="activeMerchantAuthBadge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-mono text-[10px] font-black uppercase">
                 ✅ SIGNED IN &amp; VERIFIED IN DATABASE
               </span>
               <h3 id="activeProfileDisplayTitle" class="text-xl sm:text-2xl font-black text-white mt-1">
@@ -1314,8 +1317,8 @@
               <button type="button" onclick="switchMerchantPortalTab('signup')" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[11px] font-mono font-bold text-amber-300">
                 ⚙️ Edit Profile
               </button>
-              <button type="button" onclick="switchMerchantPortalTab('login')" class="px-3 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/40 text-[10px] font-mono font-bold text-cyan-300">
-                🔄 Switch Account
+              <button type="button" onclick="handleMerchantLogout()" class="px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/35 border border-rose-400/60 text-[11px] font-mono font-black text-rose-300">
+                🚪 Sign Out (Logout)
               </button>
             </div>
           </div>
@@ -2876,6 +2879,35 @@
 
     function toggleMerchantFormView() {
       switchMerchantPortalTab("signup");
+    }
+
+    // 🚪 HANDLE MERCHANT SIGN OUT (LOGOUT & LOCK QUICK-BILL POS)
+    function handleMerchantLogout() {
+      var prevName = (document.getElementById("activeProfileDisplayTitle") && document.getElementById("activeProfileDisplayTitle").textContent.trim()) || "Merchant";
+      localStorage.removeItem(ACTIVE_MERCHANT_ID_KEY);
+
+      var hdrName = document.getElementById("loggedInMerchantHeaderName");
+      var hdrCode = document.getElementById("loggedInMerchantHeaderCode");
+      if (hdrName) hdrName.textContent = "Not Signed In (Guest)";
+      if (hdrCode) hdrCode.textContent = "(Click 'Sign In' to Access Your QR)";
+
+      var posBox = document.getElementById("quickBillPosBox");
+      var loginBox = document.getElementById("merchantLoginBox");
+      var signupBox = document.getElementById("merchantRegistrationFormBox");
+      if (posBox) posBox.classList.add("hidden");
+      if (signupBox) signupBox.classList.add("hidden");
+      if (loginBox) {
+        loginBox.classList.remove("hidden");
+        loginBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      var pwdInput = document.getElementById("loginPasswordInput");
+      if (pwdInput) pwdInput.value = "";
+      var mobInput = document.getElementById("loginMobileInput");
+      if (mobInput) mobInput.focus();
+
+      renderSavedMerchantProfiles();
+      showMerchantAuthBanner("🚪 Signed Out from '" + prevName + "'! Apna Mobile Number aur 4-Digit PIN dalkar dobara Sign In karein.", false);
     }
 
     // 🔑 HANDLE MERCHANT SIGN IN (AUTHENTICATES AGAINST SUPABASE CLOUD -> SQLITE /api/login -> LOCAL STORAGE)

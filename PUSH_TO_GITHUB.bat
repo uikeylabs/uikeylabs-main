@@ -1,32 +1,39 @@
 @echo off
-title UIKEY LABS - GitHub One-Click Uploader (uikeylabs@gmail.com)
-color 0B
+title UIKEY LABS - Sign Out Old GitHub Account & Push to uikeylabs
+color 0E
 cd /d "%~dp0"
 
 echo =====================================================================
-echo   UIKEY LABS - UPLOADING TO https://github.com/uikeylabs/uikeylabs-main
-echo   Account Email: uikeylabs@gmail.com
+echo   STEP 1: SIGNING OUT OLD GITHUB ACCOUNT (uikeymahesh2025)
 echo =====================================================================
-echo.
-
-git config user.name "uikeylabs"
-git config user.email "uikeylabs@gmail.com"
-git config credential.helper manager
+git credential-manager github logout uikeymahesh2025 >nul 2>&1
 cmdkey /delete:git:https://github.com >nul 2>&1
 cmdkey /delete:LegacyGeneric:target=git:https://github.com >nul 2>&1
 
-git remote set-url origin https://github.com/uikeylabs/uikeylabs-main.git
-git add .
-git commit -m "Launch UIKEY LABS Website + Free Shop QR Portal + Supabase DB" >nul 2>&1
-git branch -M main
+git config --global user.name "uikeylabs"
+git config --global user.email "uikeylabs@gmail.com"
+git config user.name "uikeylabs"
+git config user.email "uikeylabs@gmail.com"
+git config credential.https://github.com.useHttpPath true
+git config credential.https://github.com.username uikeylabs
+git remote set-url origin https://uikeylabs@github.com/uikeylabs/uikeylabs-main.git
 
-echo [1/1] Opening GitHub Sign-In Window & Pushing 37 Files...
-echo (Kripya khulne wale GitHub popup me 'Sign in with your browser' dabayein!)
 echo.
+echo =====================================================================
+echo   STEP 2: COMMITTING NEW 'SIGN OUT' FEATURE IN index.html
+echo =====================================================================
+git add .
+git commit -m "Add Merchant Sign Out (Logout) option + Supabase Cloud & Shop QR POS"
+
+echo.
+echo =====================================================================
+echo   STEP 3: SIGN IN WITH 'uikeylabs@gmail.com' IN BROWSER & PUSH
+echo =====================================================================
+git credential-manager github login --web
 git push -u origin main --force
 
 echo.
 echo =====================================================================
-echo   DONE! Check: https://github.com/uikeylabs/uikeylabs-main
+echo   DONE! Check https://github.com/uikeylabs/uikeylabs-main
 echo =====================================================================
 pause
