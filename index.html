@@ -1430,34 +1430,59 @@
   <script src="./assets/supabase-portal.js"></script>
 
   <!-- ========================================================================
-       REAL OAUTH 2.0 & CRYPTOGRAPHIC PBKDF2 SIGN IN / SIGN UP / SIGN OUT MODAL
+       SUPABASE EMAIL / PASSWORD SIGN IN, SIGN UP & SIGN OUT MODAL (WITH VISIBLE SCROLLBAR)
        ======================================================================== -->
+  <style>
+    #uikeyAuthModal {
+      overflow-y: auto !important;
+      padding: 1rem !important;
+    }
+    #uikeyAuthModal .auth-modal-box {
+      max-height: 88vh !important;
+      overflow-y: scroll !important;
+      scrollbar-width: auto;
+      scrollbar-color: #f59e0b #0b1328;
+      padding-right: 1.15rem !important;
+    }
+    #uikeyAuthModal .auth-modal-box::-webkit-scrollbar,
+    #realSignUpFormWrap::-webkit-scrollbar {
+      width: 10px;
+      display: block;
+    }
+    #uikeyAuthModal .auth-modal-box::-webkit-scrollbar-track,
+    #realSignUpFormWrap::-webkit-scrollbar-track {
+      background: rgba(5, 9, 20, 0.95);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    #uikeyAuthModal .auth-modal-box::-webkit-scrollbar-thumb,
+    #realSignUpFormWrap::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #f59e0b, #22d3ee);
+      border-radius: 8px;
+      border: 2px solid #0b1328;
+      cursor: pointer;
+    }
+    #realSignUpFormWrap {
+      max-height: 62vh;
+      overflow-y: scroll;
+      padding-right: 0.5rem;
+      scrollbar-width: auto;
+      scrollbar-color: #f59e0b #0b1328;
+    }
+  </style>
   <div id="uikeyAuthModal" class="auth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="authModalTitle" aria-hidden="true" onclick="if(event.target===this) closeAuthModal()">
     <div class="auth-modal-box">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:0.85rem;">
         <div>
-          <span class="badge-pill badge-cyan">SUPABASE AUTH • OAUTH 2.0 &amp; OTP</span>
-          <h2 id="authModalTitle" style="font-size:1.22rem; font-weight:900; color:#fff; margin-top:0.25rem;">Shop Merchant Portal Sign In</h2>
+          <span class="badge-pill badge-cyan">SUPABASE AUTH • SHOP MERCHANT PORTAL</span>
+          <h2 id="authModalTitle" style="font-size:1.22rem; font-weight:900; color:#fff; margin-top:0.25rem;">Shop Owner Sign In &amp; Sign Up</h2>
         </div>
         <button type="button" onclick="closeAuthModal()" aria-label="Close Sign In Modal" style="width:40px; height:40px; border-radius:0.65rem; background:rgba(15,23,42,0.9); border:1px solid var(--border); color:#fff; font-weight:900; cursor:pointer;">✕</button>
       </div>
 
-      <!-- VIEW A: WHEN SIGNED OUT (Real Google OAuth 2.0 Popup + 2-Tab PBKDF2 Sign In / Sign Up) -->
+      <!-- VIEW A: WHEN SIGNED OUT (2-Tab Sign In / Register Shop) -->
       <div id="authModalSignedOutView">
-        <!-- 1. Official Sign in with Google (OAuth 2.0 Popup + JWT Signature Verification) -->
-        <button type="button" onclick="handleGoogleSignIn()" class="btn-google-oauth">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
-            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
-            <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 12.3s.6 3.3 1.6 5.3l3.7-2.8z"/>
-            <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5L1.6 16c1.9 3.9 5.8 7 10.4 7z"/>
-          </svg>
-          <span>Continue with Google (OAuth 2.0)</span>
-        </button>
-
-        <div class="auth-divider">OR EMAIL / PASSWORD LOGIN</div>
-
-        <!-- 2-Tab Switcher: Sign In vs Create Account (Sign Up) -->
+        <!-- 2-Tab Switcher: Sign In vs Register Shop -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.45rem; margin-bottom:0.85rem;">
           <button type="button" id="tabBtnSignIn" onclick="switchAuthTab('signin')" class="filter-btn active" style="width:100%;">
             🔐 Sign In
@@ -1467,12 +1492,12 @@
           </button>
         </div>
 
-        <!-- TAB 1: REAL SIGN IN (Requires Registered Account + Verified Password) -->
+        <!-- TAB 1: REAL SIGN IN -->
         <div id="realSignInFormWrap">
           <form onsubmit="handleRealAccountSignIn(event)" novalidate>
             <div class="form-group">
-              <label for="signinIdentifier" class="form-label">Registered Email or 10-Digit Mobile *</label>
-              <input id="signinIdentifier" type="text" required autocomplete="username" placeholder="demo@uikeylabs.in or yourname@gmail.com" class="form-input" />
+              <label for="signinIdentifier" class="form-label">Registered Email Address *</label>
+              <input id="signinIdentifier" type="text" required autocomplete="username" placeholder="demo@uikeylabs.in or yourshop@gmail.com" class="form-input" />
             </div>
             <div class="form-group">
               <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -1486,12 +1511,12 @@
             </button>
           </form>
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-top:0.75rem; font-size:0.75rem;">
-            <a href="login.html" style="color:var(--cyan); font-weight:800; text-decoration:underline;">🏪 Open Dedicated Login Page (login.html) →</a>
+            <a href="login.html" style="color:var(--cyan); font-weight:800; text-decoration:underline;">🏪 Open Full Login Page (login.html) →</a>
             <a href="forgot-password.html" style="color:#FDE68A; font-weight:700; text-decoration:underline;">🔑 Reset Password (OTP)</a>
           </div>
         </div>
 
-        <!-- TAB 2: REGISTER NEW SHOP (Owner Name, Country Code + Mobile No., Shop Name, Shop Address, Email, Password) -->
+        <!-- TAB 2: REGISTER NEW SHOP (Scrollable with Visible Slide Bar) -->
         <div id="realSignUpFormWrap" style="display:none;">
           <form onsubmit="handleRealAccountSignUp(event)" novalidate>
             <div class="form-group">
@@ -1536,7 +1561,7 @@
             <div style="margin-bottom:0.65rem; padding:0.55rem 0.75rem; border-radius:0.6rem; background:rgba(34,211,238,0.1); border:1px solid rgba(34,211,238,0.35); font-size:0.74rem; color:#A5F3FC;">
               ✨ <strong>Next Step:</strong> After Sign-Up, you will enter your <strong>Shop UPI ID &amp; Fixed Amount (₹)</strong> inside your Dashboard!
             </div>
-            <button type="submit" class="btn btn-amber" style="width:100%;">
+            <button type="submit" class="btn btn-amber" style="width:100%; margin-bottom:0.5rem;">
               🏪 Create Shop Account &amp; Continue to Dashboard →
             </button>
           </form>
