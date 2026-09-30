@@ -80,21 +80,14 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   outline-offset: 2px !important;
 }
 
-/* 2. Fluid Container (Tested at 360px, 390px, 768px, 1440px) */
+/* 2. Full-Width Fluid Container (Zero Blank Space on Laptop/Desktop + Zero Overflow on 360px Mobile) */
 .container {
   width: 100%;
-  max-width: 1180px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 0.875rem;
-  padding-right: 0.875rem;
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
+  padding-left: clamp(0.875rem, 2.25vw, 2.5rem);
+  padding-right: clamp(0.875rem, 2.25vw, 2.5rem);
 }
 
 .skip-link {
@@ -836,4 +829,66 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   font-weight: 700;
   color: var(--text-main);
 }
+
+/* 17. Client-Hunting Highlights & 4-Column Responsive Grid */
+html {
+  scroll-padding-top: 120px;
+}
+.grid-4 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.9rem;
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.15rem;
+  }
+}
+.popular-glow-card {
+  border: 2px solid #FBBF24 !important;
+  background: linear-gradient(160deg, rgba(251, 191, 36, 0.09) 0%, #0A1124 45%, #070C1A 100%) !important;
+  box-shadow: 0 0 28px rgba(251, 191, 36, 0.14);
+  position: relative;
+}
+.popular-ribbon-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #FBBF24, #F59E0B);
+  color: #050811;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.advance-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.55rem;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  color: #6EE7B7;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin-top: 0.4rem;
+}
+.door-opener-strip {
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.12), rgba(34, 211, 238, 0.12), rgba(16, 185, 129, 0.12));
+  border: 2px dashed rgba(251, 191, 36, 0.55);
+  border-radius: 1rem;
+  padding: 1.15rem 1.35rem;
+  margin-top: 1.5rem;
+}
+
 
