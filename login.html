@@ -6,12 +6,12 @@
     <title>Shop Owner Login &amp; Registration | UIKEY LABS (Betul, MP)</title>
     <meta
       name="description"
-      content="Secure Merchant Portal Login & Shop Registration with Email/Password, Google Social Login, Owner Name, Mobile Number, Shop Address, and UikeyLabs Branded Fixed-Amount QR Code."
+      content="Secure Merchant Portal Login & Shop Registration with Country Code + Mobile Number, Owner Name, Shop Address, Google Social Login, and Post-Login UPI & Fixed-Amount QR Setup."
     />
     <link rel="icon" type="image/jpeg" href="./uikeylabs-logo.jpg" />
-    <link rel="stylesheet" href="./assets/styles.min.css?v=10.0" />
+    <link rel="stylesheet" href="./assets/styles.min.css?v=11.0" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./assets/supabase-portal.js?v=10.0"></script>
+    <script src="./assets/supabase-portal.js?v=11.0"></script>
     <style>
       .auth-portal-wrap {
         min-height: calc(100vh - 70px);
@@ -65,6 +65,22 @@
           grid-template-columns: 1fr;
         }
       }
+      .phone-input-group {
+        display: grid;
+        grid-template-columns: 138px 1fr;
+        gap: 0.45rem;
+      }
+      .country-code-select {
+        padding: 0.7rem 0.5rem;
+        border-radius: 0.65rem;
+        border: 1px solid var(--border);
+        background: #050914;
+        color: #fde68a;
+        font-weight: 800;
+        font-size: 0.84rem;
+        outline: none;
+        cursor: pointer;
+      }
       .demo-pill-box {
         margin-bottom: 1rem;
         padding: 0.65rem 0.85rem;
@@ -78,6 +94,16 @@
         justify-content: space-between;
         gap: 0.6rem;
         flex-wrap: wrap;
+      }
+      .post-signup-hint {
+        margin: 0.65rem 0 0.85rem;
+        padding: 0.65rem 0.85rem;
+        border-radius: 0.7rem;
+        background: rgba(34, 211, 238, 0.1);
+        border: 1px solid rgba(34, 211, 238, 0.35);
+        color: #a5f3fc;
+        font-size: 0.77rem;
+        line-height: 1.45;
       }
     </style>
   </head>
@@ -117,7 +143,7 @@
       <div class="auth-portal-card">
         <div style="text-align: center; margin-bottom: 1.15rem">
           <span class="badge-pill badge-amber"
-            >UIKEY LABS • BRANDED QR &amp; FIXED AMOUNT PORTAL</span
+            >UIKEY LABS • SHOP OWNER PORTAL</span
           >
           <h1
             style="
@@ -130,11 +156,11 @@
             Shop Owner Login &amp; Sign Up
           </h1>
           <p style="font-size: 0.84rem; color: var(--text-muted)">
-            Sign in or register your shop with Mobile No., Owner Name &amp; Shop Address to generate your UikeyLabs Branded Fixed-Amount QR Code.
+            Sign in or register your shop details. After signing in, configure your UPI ID &amp; Fixed Amount (₹) inside your Dashboard.
           </p>
         </div>
 
-        <!-- 1. Continue with Google OAuth 2.0 Button (100% Working Inline Account & Shop Profile Selector) -->
+        <!-- 1. Continue with Google OAuth 2.0 Button -->
         <button
           type="button"
           id="googleLoginBtn"
@@ -180,7 +206,7 @@
             onclick="setAuthFormMode('signup')"
             class="tab-switch-btn"
           >
-            &#127978; Register New Shop (Full Details)
+            &#127978; Register New Shop
           </button>
         </div>
 
@@ -295,33 +321,50 @@
                 cursor: pointer;
               "
             >
-              Click here to Register New Shop (Name, Mobile, Address &amp; QR) &rarr;
+              Click here to Register New Shop &rarr;
             </button>
           </p>
         </form>
 
-        <!-- FORM B: REGISTER NEW SHOP OWNER (Saves Owner Name, Mobile No., Shop Name, Shop Address, UPI ID, Fixed Amount to Supabase 'shops') -->
+        <!-- FORM B: REGISTER NEW SHOP OWNER (Only Account & Shop Details; UPI ID & Fixed Amount are set AFTER Sign-Up in Dashboard) -->
         <form
           id="shopSignUpForm"
           onsubmit="handleShopRegistration(event)"
           style="display: none"
           novalidate
         >
-          <div class="two-col-form">
-            <div class="form-group">
-              <label for="regOwnerName" class="form-label">1. Owner Full Name *</label>
-              <input
-                id="regOwnerName"
-                type="text"
-                required
-                placeholder="e.g. Mahesh Kumar Uikey"
-                class="form-input"
-              />
-            </div>
-            <div class="form-group">
-              <label for="regMobileNumber" class="form-label"
-                >2. 10-Digit Mobile / WhatsApp No. *</label
+          <div class="form-group">
+            <label for="regOwnerName" class="form-label">1. Owner Full Name *</label>
+            <input
+              id="regOwnerName"
+              type="text"
+              required
+              placeholder="e.g. Mahesh Kumar Uikey"
+              class="form-input"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="regMobileNumber" class="form-label">
+              2. Mobile / WhatsApp Number (Select Country Code First) *
+            </label>
+            <div class="phone-input-group">
+              <select
+                id="regCountryCode"
+                class="country-code-select"
+                aria-label="Select Country Code"
               >
+                <option value="+91" selected>🇮🇳 +91 (India)</option>
+                <option value="+1">🇺🇸 +1 (USA/CA)</option>
+                <option value="+44">🇬🇧 +44 (UK)</option>
+                <option value="+971">🇦🇪 +971 (UAE)</option>
+                <option value="+61">🇦🇺 +61 (Australia)</option>
+                <option value="+65">🇸🇬 +65 (Singapore)</option>
+                <option value="+966">🇸🇦 +966 (Saudi)</option>
+                <option value="+974">🇶🇦 +974 (Qatar)</option>
+                <option value="+49">🇩🇪 +49 (Germany)</option>
+                <option value="+977">🇳🇵 +977 (Nepal)</option>
+              </select>
               <input
                 id="regMobileNumber"
                 type="tel"
@@ -333,21 +376,34 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="regShopName" class="form-label">3. Shop / Business Name *</label>
-            <input
-              id="regShopName"
-              type="text"
-              required
-              placeholder="e.g. Royal Spice Family Restaurant Betul"
-              class="form-input"
-            />
+          <div class="two-col-form">
+            <div class="form-group">
+              <label for="regShopName" class="form-label">3. Shop / Business Name *</label>
+              <input
+                id="regShopName"
+                type="text"
+                required
+                placeholder="e.g. Royal Spice Cafe Betul"
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="regCategory" class="form-label">4. Business Category *</label>
+              <input
+                id="regCategory"
+                type="text"
+                required
+                placeholder="Retail / Coaching / Clinic / Cafe"
+                value="Retail & Local Business"
+                class="form-input"
+              />
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="regShopAddress" class="form-label"
-              >4. Complete Shop Address (Displayed on Branded QR) *</label
-            >
+            <label for="regShopAddress" class="form-label">
+              5. Complete Shop Address *
+            </label>
             <input
               id="regShopAddress"
               type="text"
@@ -360,50 +416,7 @@
 
           <div class="two-col-form">
             <div class="form-group">
-              <label for="regCategory" class="form-label">5. Business Category *</label>
-              <input
-                id="regCategory"
-                type="text"
-                required
-                placeholder="Retail / Coaching / Clinic / Cafe"
-                value="Retail & Local Business"
-                class="form-input"
-              />
-            </div>
-            <div class="form-group">
-              <label for="regUpiId" class="form-label">6. Shop UPI ID *</label>
-              <input
-                id="regUpiId"
-                type="text"
-                required
-                placeholder="e.g. 9424647849@ybl"
-                value="9424647849@ybl"
-                class="form-input"
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="regFixedAmount" class="form-label">
-              7. Default Fixed Amount to Receive from Customer (₹)
-              <small style="color: var(--amber); font-weight: 700"
-                >(Enter 0 for Open Amount, or e.g. 500 to lock ₹500)</small
-              >
-            </label>
-            <input
-              id="regFixedAmount"
-              type="number"
-              min="0"
-              step="1"
-              placeholder="e.g. 500 (or 0 for any amount)"
-              value="500"
-              class="form-input"
-            />
-          </div>
-
-          <div class="two-col-form">
-            <div class="form-group">
-              <label for="regEmail" class="form-label">8. Owner Email Address *</label>
+              <label for="regEmail" class="form-label">6. Owner Email Address *</label>
               <input
                 id="regEmail"
                 type="email"
@@ -414,9 +427,9 @@
               />
             </div>
             <div class="form-group">
-              <label for="regPassword" class="form-label"
-                >9. Create Password (Min 6 chars) *</label
-              >
+              <label for="regPassword" class="form-label">
+                7. Create Password (Min 6 chars) *
+              </label>
               <input
                 id="regPassword"
                 type="password"
@@ -428,13 +441,17 @@
             </div>
           </div>
 
+          <div class="post-signup-hint">
+            &#10024; <strong>Next Step After Sign-Up:</strong> Once your account is created, you will get the option inside your Dashboard to enter your <strong>Shop UPI ID</strong> and <strong>Fixed Amount (₹)</strong> to generate your UikeyLabs Branded QR Code!
+          </div>
+
           <button
             type="submit"
             id="shopRegSubmitBtn"
             class="btn btn-amber"
-            style="width: 100%; margin-top: 0.4rem"
+            style="width: 100%; margin-top: 0.25rem"
           >
-            &#127978; Register Shop in Database &amp; Generate UikeyLabs QR &rarr;
+            &#127978; Create Shop Account &amp; Continue to Dashboard &rarr;
           </button>
         </form>
       </div>
@@ -473,7 +490,6 @@
         }
       }
 
-      /* Support ?mode=signup query parameter */
       if (window.location.search.indexOf("mode=signup") !== -1) {
         setAuthFormMode("signup");
       }
@@ -512,30 +528,29 @@
         }, 350);
       }
 
-      /* 2. Register New Shop Owner with Owner Name, Mobile No., Shop Name, Shop Address, UPI ID, and Fixed Amount */
+      /* 2. Register New Shop Owner (Saves Owner Name, Country Code + Mobile No., Shop Name, Shop Address) */
       async function handleShopRegistration(e) {
         e.preventDefault();
         var ownerName = document.getElementById("regOwnerName").value.trim();
+        var countryCode = document.getElementById("regCountryCode").value || "+91";
         var mobileNumber = document.getElementById("regMobileNumber").value.trim();
         var shopName = document.getElementById("regShopName").value.trim();
-        var shopAddress = document.getElementById("regShopAddress").value.trim();
         var category = document.getElementById("regCategory").value.trim();
-        var upiId = document.getElementById("regUpiId").value.trim();
-        var fixedAmount = parseFloat(document.getElementById("regFixedAmount").value) || 0;
+        var shopAddress = document.getElementById("regShopAddress").value.trim();
         var email = document.getElementById("regEmail").value.trim().toLowerCase();
         var password = document.getElementById("regPassword").value;
         var btn = document.getElementById("shopRegSubmitBtn");
 
         if (!ownerName || !mobileNumber || !shopName || !shopAddress || !email || password.length < 6) {
           showAlert(
-            "Please fill in Owner Name, 10-Digit Mobile No., Shop Name, Shop Address, Email, and a minimum 6-character Password.",
+            "Please fill in Owner Name, Country Code + Mobile No., Shop Name, Shop Address, Email, and a minimum 6-character Password.",
             true
           );
           return;
         }
 
         btn.disabled = true;
-        btn.textContent = "Saving Shop Details to Supabase & Generating Branded QR...";
+        btn.textContent = "Creating Shop Account in Supabase...";
 
         var result = await window.supabaseClient.auth.signUp({
           email: email,
@@ -543,18 +558,17 @@
           options: {
             data: {
               owner_name: ownerName,
+              country_code: countryCode,
               mobile_number: mobileNumber,
               shop_name: shopName,
               shop_address: shopAddress,
               category: category,
-              upi_id: upiId,
-              fixed_amount: fixedAmount,
             },
           },
         });
 
         btn.disabled = false;
-        btn.textContent = "🏪 Register Shop in Database & Generate UikeyLabs QR →";
+        btn.textContent = "🏪 Create Shop Account & Continue to Dashboard →";
 
         if (result.error) {
           showAlert("Error: " + result.error.message, true);
@@ -562,20 +576,20 @@
         }
 
         showAlert(
-          "Shop registered with Mobile No., Owner Name & Address! Redirecting to your Branded QR Dashboard...",
+          "Shop Account Created! Opening Dashboard so you can set your UPI ID & Fixed Amount (₹)...",
           false
         );
         setTimeout(function () {
-          window.location.replace("./dashboard.html");
+          window.location.replace("./dashboard.html?setup=upi");
         }, 400);
       }
 
-      /* 3. Continue with Google (Opens Instant Inline Google OAuth 2.0 + Shop Details Modal) */
+      /* 3. Continue with Google */
       async function loginWithGoogle() {
         await window.supabaseClient.auth.signInWithOAuth({
           provider: "google",
           options: {
-            redirectTo: "./dashboard.html",
+            redirectTo: "./dashboard.html?setup=upi",
           },
         });
       }

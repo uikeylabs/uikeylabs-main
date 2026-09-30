@@ -1491,16 +1491,27 @@
           </div>
         </div>
 
-        <!-- TAB 2: REGISTER NEW SHOP (Owner Name, Mobile No., Shop Name, Shop Address, UPI ID, Fixed Amount) -->
+        <!-- TAB 2: REGISTER NEW SHOP (Owner Name, Country Code + Mobile No., Shop Name, Shop Address, Email, Password) -->
         <div id="realSignUpFormWrap" style="display:none;">
           <form onsubmit="handleRealAccountSignUp(event)" novalidate>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.55rem;">
-              <div class="form-group">
-                <label for="signupOwnerName" class="form-label">1. Owner Full Name *</label>
-                <input id="signupOwnerName" type="text" required placeholder="Mahesh Kumar Uikey" class="form-input" />
-              </div>
-              <div class="form-group">
-                <label for="signupMobileNumber" class="form-label">2. 10-Digit Mobile No. *</label>
+            <div class="form-group">
+              <label for="signupOwnerName" class="form-label">1. Owner Full Name *</label>
+              <input id="signupOwnerName" type="text" required placeholder="e.g. Mahesh Kumar Uikey" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="signupMobileNumber" class="form-label">2. Mobile / WhatsApp No. (Select Country Code) *</label>
+              <div style="display:grid; grid-template-columns:132px 1fr; gap:0.45rem;">
+                <select id="signupCountryCode" class="form-input" style="padding:0.65rem 0.45rem; font-weight:800; color:var(--amber);">
+                  <option value="+91" selected>🇮🇳 +91 (IN)</option>
+                  <option value="+1">🇺🇸 +1 (US/CA)</option>
+                  <option value="+44">🇬🇧 +44 (UK)</option>
+                  <option value="+971">🇦🇪 +971 (UAE)</option>
+                  <option value="+61">🇦🇺 +61 (AU)</option>
+                  <option value="+65">🇸🇬 +65 (SG)</option>
+                  <option value="+966">🇸🇦 +966 (SA)</option>
+                  <option value="+974">🇶🇦 +974 (QA)</option>
+                  <option value="+977">🇳🇵 +977 (NP)</option>
+                </select>
                 <input id="signupMobileNumber" type="tel" maxlength="10" required placeholder="9424647849" class="form-input" />
               </div>
             </div>
@@ -1512,28 +1523,21 @@
               <label for="signupShopAddress" class="form-label">4. Complete Shop Address *</label>
               <input id="signupShopAddress" type="text" required placeholder="Ganj Main Road, Near Bus Stand, Betul, MP" value="Ganj Main Road, Betul, MP" class="form-input" />
             </div>
-            <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:0.55rem;">
-              <div class="form-group">
-                <label for="signupUpiId" class="form-label">5. Shop UPI ID *</label>
-                <input id="signupUpiId" type="text" required placeholder="9424647849@ybl" value="9424647849@ybl" class="form-input" />
-              </div>
-              <div class="form-group">
-                <label for="signupFixedAmount" class="form-label">6. Fixed Amount (₹)</label>
-                <input id="signupFixedAmount" type="number" min="0" step="1" placeholder="500 or 0" value="500" class="form-input" />
-              </div>
-            </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.55rem;">
               <div class="form-group">
-                <label for="signupIdentifier" class="form-label">7. Owner Email *</label>
+                <label for="signupIdentifier" class="form-label">5. Owner Email *</label>
                 <input id="signupIdentifier" type="email" required autocomplete="username" placeholder="yourshop@gmail.com" class="form-input" />
               </div>
               <div class="form-group">
-                <label for="signupPassword" class="form-label">8. Password (6+ chars) *</label>
+                <label for="signupPassword" class="form-label">6. Password (6+ chars) *</label>
                 <input id="signupPassword" type="password" required autocomplete="new-password" placeholder="Min 6 chars" class="form-input" />
               </div>
             </div>
+            <div style="margin-bottom:0.65rem; padding:0.55rem 0.75rem; border-radius:0.6rem; background:rgba(34,211,238,0.1); border:1px solid rgba(34,211,238,0.35); font-size:0.74rem; color:#A5F3FC;">
+              ✨ <strong>Next Step:</strong> After Sign-Up, you will enter your <strong>Shop UPI ID &amp; Fixed Amount (₹)</strong> inside your Dashboard!
+            </div>
             <button type="submit" class="btn btn-amber" style="width:100%;">
-              🏪 Register Shop &amp; Generate Branded Fixed-Amount QR →
+              🏪 Create Shop Account &amp; Continue to Dashboard →
             </button>
           </form>
         </div>
@@ -1579,7 +1583,7 @@
       if (typeof closeAuthModal === "function") closeAuthModal();
       await window.supabaseClient.auth.signInWithOAuth({
         provider: "google",
-        options: { redirectTo: "./dashboard.html" }
+        options: { redirectTo: "./dashboard.html?setup=upi" }
       });
     };
 
@@ -1602,11 +1606,10 @@
     window.handleRealAccountSignUp = async function (e) {
       e.preventDefault();
       var ownerName = (document.getElementById("signupOwnerName").value || "").trim();
+      var countryCode = (document.getElementById("signupCountryCode") && document.getElementById("signupCountryCode").value) || "+91";
       var mobileNumber = (document.getElementById("signupMobileNumber").value || "").trim();
       var shopName = (document.getElementById("signupFullName").value || "").trim();
       var shopAddress = (document.getElementById("signupShopAddress").value || "").trim();
-      var upiId = (document.getElementById("signupUpiId").value || "9424647849@ybl").trim();
-      var fixedAmount = parseFloat(document.getElementById("signupFixedAmount").value) || 0;
       var email = (document.getElementById("signupIdentifier").value || "").trim().toLowerCase();
       var password = document.getElementById("signupPassword").value || "";
       var statusEl = document.getElementById("modalAuthStatus");
@@ -1617,11 +1620,10 @@
         options: {
           data: {
             owner_name: ownerName,
+            country_code: countryCode,
             mobile_number: mobileNumber,
             shop_name: shopName,
-            shop_address: shopAddress,
-            upi_id: upiId,
-            fixed_amount: fixedAmount
+            shop_address: shopAddress
           }
         }
       });
@@ -1632,7 +1634,7 @@
         }
         return;
       }
-      window.location.href = "./dashboard.html";
+      window.location.href = "./dashboard.html?setup=upi";
     };
   </script>
 </body>

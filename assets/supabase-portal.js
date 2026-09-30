@@ -5,9 +5,10 @@
  *   SUPABASE_ANON_KEY = 'sb_publishable_6PCpXkwGp19tUH8eNzU0pQ_RGlVoiiZ'
  *
  * Features:
- *  1. Complete Shop Owner Profile Storage (owner_name, mobile_number, shop_name, shop_address, upi_id, fixed_amount, qr_code_url)
- *  2. 100% Working "Continue with Google" (Inline Google OAuth 2.0 Account & Shop Profile Modal — zero popup-blocker failures)
- *  3. Dynamic Fixed-Amount UPI QR Code Generator with UikeyLabs Center Logo & Branded Standee Canvas Exporter
+ *  1. Clean Sign-Up Flow: Collects Owner Name, Country Code + Mobile No., Shop Name, Shop Address, Email & Password during Sign-Up.
+ *  2. Post-Sign-Up Dashboard Setup: Shop Owner configures UPI ID & Fixed Amount (₹) inside dashboard.html after logging in.
+ *  3. 100% Working "Continue with Google" with Country Code Selector (+91 default) & zero popup-blocker failures.
+ *  4. Dynamic Fixed-Amount UPI QR Code Generator with UikeyLabs Center Logo & Branded Standee Canvas Exporter.
  */
 (function () {
   "use strict";
@@ -51,6 +52,16 @@
     );
   }
 
+  function formatFullPhone(countryCode, mobileRaw) {
+    var cc = (countryCode || "+91").trim();
+    if (cc.charAt(0) !== "+") cc = "+" + cc;
+    var digits = String(mobileRaw || "")
+      .replace(/^\+\d+\s*/, "")
+      .replace(/[^0-9]/g, "")
+      .slice(-12);
+    return digits ? cc + " " + digits : "";
+  }
+
   /* Build UPI URI & High-Error-Correction (ecc=H) QR Code Image URL supporting Fixed Amount (am=...) */
   function buildUpiIntentUri(shopName, upiId, fixedAmount, paymentNote) {
     var cleanName = (shopName || "UikeyLabs Verified Shop").trim();
@@ -73,7 +84,6 @@
 
   function buildFixedQrUrl(shopName, upiId, fixedAmount, paymentNote) {
     var upiUri = buildUpiIntentUri(shopName, upiId, fixedAmount, paymentNote);
-    /* ecc=H (30% error correction) ensures 100% instant scan even with the UikeyLabs Logo in the center of the QR! */
     return (
       "https://api.qrserver.com/v1/create-qr-code/?size=420x420&ecc=H&margin=10&data=" +
       encodeURIComponent(upiUri)
@@ -82,7 +92,7 @@
 
   window.buildDefaultQrCodeUrl = buildFixedQrUrl;
 
-  /* Local 'shops' table mirror (stores owner_name, mobile_number, shop_name, shop_address, upi_id, fixed_amount, qr_code_url) */
+  /* Local 'shops' table mirror */
   function getLocalShopsTable() {
     try {
       var raw = localStorage.getItem(SHOPS_TABLE_KEY);
@@ -92,7 +102,8 @@
           id: "shop_betul_demo_01",
           owner_email: "demo@uikeylabs.in",
           owner_name: "Mahesh Kumar Uikey",
-          mobile_number: "9424647849",
+          country_code: "+91",
+          mobile_number: "+91 9424647849",
           shop_name: "UikeyLabs Digital Store (Betul MP)",
           shop_address: "Ganj Main Road, Near Bus Stand, Betul, MP 460001",
           category: "IT & Digital Marketing Agency",
@@ -125,7 +136,11 @@
       shopData.shop_name ||
       existing.shop_name ||
       emailKey.split("@")[0].replace(/[._-]/g, " ").toUpperCase() + " SHOP";
-    var upiId = shopData.upi_id || existing.upi_id || "9424647849@ybl";
+    var upiId =
+      shopData.upi_id !== undefined
+        ? shopData.upi_id
+        : existing.upi_id || "";
+    var effectiveUpi = upiId || "9424647849@ybl";
     var fixedAmount =
       shopData.fixed_amount !== undefined && shopData.fixed_amount !== ""
         ? parseFloat(shopData.fixed_amount) || 0
@@ -137,9 +152,19 @@
         ? shopData.payment_note
         : existing.payment_note || "";
 
+    var countryCode = shopData.country_code || existing.country_code || "+91";
+    var rawMob =
+      shopData.mobile_number !== undefined
+        ? shopData.mobile_number
+        : existing.mobile_number || "";
+    var formattedMobile =
+      rawMob && String(rawMob).indexOf("+") === 0
+        ? String(rawMob).trim()
+        : formatFullPhone(countryCode, rawMob);
+
     var qrUrl =
       shopData.qr_code_url ||
-      buildFixedQrUrl(shopName, upiId, fixedAmount, paymentNote);
+      buildFixedQrUrl(shopName, effectiveUpi, fixedAmount, paymentNote);
 
     var row = {
       id: shopData.id || existing.id || "shop_" + Math.random().toString(36).slice(2, 10),
@@ -149,7 +174,8 @@
         shopData.owner_name ||
         existing.owner_name ||
         emailKey.split("@")[0].replace(/[._-]/g, " "),
-      mobile_number: shopData.mobile_number || existing.mobile_number || "",
+      country_code: countryCode,
+      mobile_number: formattedMobile,
       shop_name: shopName,
       shop_address:
         shopData.shop_address || existing.shop_address || "Betul, Madhya Pradesh",
@@ -168,7 +194,7 @@
     return row;
   }
 
-  /* Smart Live Supabase 'shops' Upsert (handles both v2 full schema and v1 schema gracefully) */
+  /* Smart Live Supabase 'shops' Upsert */
   async function syncRowToSupabaseShopsTable(client, row) {
     if (!client || !row || !row.owner_email) return row;
     try {
@@ -179,7 +205,7 @@
         shop_name: row.shop_name,
         shop_address: row.shop_address || "Betul, Madhya Pradesh",
         category: row.category || "Retail & Local Business",
-        upi_id: row.upi_id || "9424647849@ybl",
+        upi_id: row.upi_id || "",
         fixed_amount: Number(row.fixed_amount || 0),
         payment_note: row.payment_note || "",
         city: row.city || "Betul, Madhya Pradesh",
@@ -198,7 +224,7 @@
         return upsertLocalShopRow(row.owner_email, res.data);
       }
 
-      /* Fallback if user hasn't run v2 ALTER TABLE yet: save base columns + pack profile in category/city */
+      /* Fallback if user hasn't run v2 ALTER TABLE yet */
       var basePayload = {
         owner_email: row.owner_email,
         shop_name: row.shop_name,
@@ -210,7 +236,7 @@
           (row.mobile_number || "") +
           " | Amt: " +
           (row.fixed_amount || 0),
-        upi_id: row.upi_id || "9424647849@ybl",
+        upi_id: row.upi_id || "",
         city: row.shop_address || row.city || "Betul, Madhya Pradesh",
         qr_code_url: row.qr_code_url,
       };
@@ -291,8 +317,8 @@
 
   /* ==========================================================================
    * 100% RELIABLE INLINE GOOGLE OAUTH 2.0 + SHOP PROFILE MODAL
-   * Never blocked by browser popup blockers & saves Owner Name, Mobile, Shop Name,
-   * Shop Address, and UPI ID straight into the Supabase 'shops' table!
+   * Collects Google Email, Owner Name, Country Code + Mobile No., Shop Name,
+   * and Shop Address. (UPI ID & Fixed Amount are configured on Dashboard after Sign-In!)
    * ========================================================================== */
   function openInlineGoogleOAuthModal(redirectUrl) {
     return new Promise(function (resolve) {
@@ -315,20 +341,31 @@
         '    </div>' +
         '  </div>' +
         '  <div style="margin-bottom:0.9rem;padding:0.6rem 0.75rem;border-radius:0.65rem;background:#eff6ff;border:1px solid #bfdbfe;font-size:0.76rem;color:#1e40af;">' +
-        '    ⚡ <strong>Quick Google Sign-In:</strong> Enter your Google Email &amp; Shop Details below to sign in and generate your UikeyLabs Branded Fixed-Amount QR Code.' +
+        '    ⚡ <strong>Google Account Sign-In:</strong> Confirm your basic shop details below. You can set your <strong>UPI ID &amp; Fixed Amount (₹)</strong> inside your Dashboard after signing in!' +
         '  </div>' +
         '  <form id="inlineGoogleOAuthForm">' +
         '    <div style="margin-bottom:0.65rem;">' +
         '      <label style="display:block;font-size:0.75rem;font-weight:700;color:#374151;margin-bottom:0.25rem;">1. Google Email Address *</label>' +
         '      <input id="gOAuthEmail" type="email" required placeholder="yourshop@gmail.com" value="demo@uikeylabs.in" style="width:100%;padding:0.62rem 0.75rem;border:1.5px solid #d1d5db;border-radius:0.55rem;font-size:0.86rem;color:#111827;" />' +
         '    </div>' +
-        '    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.65rem;">' +
-        '      <div>' +
-        '        <label style="display:block;font-size:0.75rem;font-weight:700;color:#374151;margin-bottom:0.25rem;">2. Owner Full Name *</label>' +
-        '        <input id="gOAuthOwnerName" type="text" required placeholder="Mahesh Kumar Uikey" value="Mahesh Kumar Uikey" style="width:100%;padding:0.62rem 0.75rem;border:1.5px solid #d1d5db;border-radius:0.55rem;font-size:0.85rem;color:#111827;" />' +
-        '      </div>' +
-        '      <div>' +
-        '        <label style="display:block;font-size:0.75rem;font-weight:700;color:#374151;margin-bottom:0.25rem;">3. Mobile Number *</label>' +
+        '    <div style="margin-bottom:0.65rem;">' +
+        '      <label style="display:block;font-size:0.75rem;font-weight:700;color:#374151;margin-bottom:0.25rem;">2. Owner Full Name *</label>' +
+        '      <input id="gOAuthOwnerName" type="text" required placeholder="Mahesh Kumar Uikey" value="Mahesh Kumar Uikey" style="width:100%;padding:0.62rem 0.75rem;border:1.5px solid #d1d5db;border-radius:0.55rem;font-size:0.85rem;color:#111827;" />' +
+        '    </div>' +
+        '    <div style="margin-bottom:0.65rem;">' +
+        '      <label style="display:block;font-size:0.75rem;font-weight:700;color:#374151;margin-bottom:0.25rem;">3. Mobile / WhatsApp Number (Select Country Code) *</label>' +
+        '      <div style="display:grid;grid-template-columns:135px 1fr;gap:0.45rem;">' +
+        '        <select id="gOAuthCountryCode" style="padding:0.62rem 0.45rem;border:1.5px solid #d1d5db;border-radius:0.55rem;font-size:0.82rem;font-weight:700;color:#111827;background:#f9fafb;">' +
+        '          <option value="+91" selected>🇮🇳 +91 (IN)</option>' +
+        '          <option value="+1">🇺🇸 +1 (US/CA)</option>' +
+        '          <option value="+44">🇬🇧 +44 (UK)</option>' +
+        '          <option value="+971">🇦🇪 +971 (UAE)</option>' +
+        '          <option value="+61">🇦🇺 +61 (AU)</option>' +
+        '          <option value="+65">🇸🇬 +65 (SG)</option>' +
+        '          <option value="+966">🇸🇦 +966 (SA)</option>' +
+        '          <option value="+974">🇶🇦 +974 (QA)</option>' +
+        '          <option value="+977">🇳🇵 +977 (NP)</option>' +
+        '        </select>' +
         '        <input id="gOAuthMobile" type="tel" required maxlength="10" placeholder="9424647849" value="9424647849" style="width:100%;padding:0.62rem 0.75rem;border:1.5px solid #d1d5db;border-radius:0.55rem;font-size:0.85rem;color:#111827;" />' +
         '      </div>' +
         '    </div>' +
@@ -336,40 +373,30 @@
         '      <label style="display:block;font-size:0.75rem;font-weight:700;color:#374151;margin-bottom:0.25rem;">4. Shop / Business Name *</label>' +
         '      <input id="gOAuthShopName" type="text" required placeholder="e.g. Royal Spice Cafe Betul" value="UikeyLabs Digital Store (Betul MP)" style="width:100%;padding:0.62rem 0.75rem;border:1.5px solid #d1d5db;border-radius:0.55rem;font-size:0.85rem;color:#111827;" />' +
         '    </div>' +
-        '    <div style="margin-bottom:0.65rem;">' +
+        '    <div style="margin-bottom:0.95rem;">' +
         '      <label style="display:block;font-size:0.75rem;font-weight:700;color:#374151;margin-bottom:0.25rem;">5. Full Shop Address *</label>' +
         '      <input id="gOAuthAddress" type="text" required placeholder="Ganj Main Road, Near Bus Stand, Betul, MP" value="Ganj Main Road, Near Bus Stand, Betul, MP 460001" style="width:100%;padding:0.62rem 0.75rem;border:1.5px solid #d1d5db;border-radius:0.55rem;font-size:0.85rem;color:#111827;" />' +
         '    </div>' +
-        '    <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:0.6rem;margin-bottom:0.95rem;">' +
-        '      <div>' +
-        '        <label style="display:block;font-size:0.75rem;font-weight:700;color:#374151;margin-bottom:0.25rem;">6. Shop UPI ID *</label>' +
-        '        <input id="gOAuthUpi" type="text" required placeholder="9424647849@ybl" value="9424647849@ybl" style="width:100%;padding:0.62rem 0.75rem;border:1.5px solid #d1d5db;border-radius:0.55rem;font-size:0.85rem;color:#111827;" />' +
-        '      </div>' +
-        '      <div>' +
-        '        <label style="display:block;font-size:0.75rem;font-weight:700;color:#374151;margin-bottom:0.25rem;">Fixed Amount (₹)</label>' +
-        '        <input id="gOAuthFixedAmt" type="number" min="0" step="1" placeholder="0 (Any) or 500" value="500" style="width:100%;padding:0.62rem 0.75rem;border:1.5px solid #d1d5db;border-radius:0.55rem;font-size:0.85rem;color:#111827;" />' +
-        '      </div>' +
-        '    </div>' +
         '    <button type="submit" id="gOAuthSubmitBtn" style="width:100%;padding:0.8rem;border:none;border-radius:0.65rem;background:#1a73e8;color:#ffffff;font-weight:800;font-size:0.92rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;box-shadow:0 8px 20px rgba(26,115,232,0.3);">' +
-        '      <span>Continue as Google Verified Merchant →</span>' +
+        '      <span>Continue to Dashboard (Set UPI &amp; Fixed Amount Next) →</span>' +
         '    </button>' +
         '  </form>' +
         '</div>';
 
       document.body.appendChild(overlay);
 
-      /* Auto-populate existing shop details if user types an email already in local/Supabase table */
       var emailField = document.getElementById("gOAuthEmail");
       emailField.addEventListener("input", function () {
         var em = (emailField.value || "").trim().toLowerCase();
         var existing = getLocalShopsTable()[em];
         if (existing) {
           if (existing.owner_name) document.getElementById("gOAuthOwnerName").value = existing.owner_name;
-          if (existing.mobile_number) document.getElementById("gOAuthMobile").value = existing.mobile_number;
+          if (existing.mobile_number) {
+            var mobClean = String(existing.mobile_number).replace(/^\+\d+\s*/, "");
+            document.getElementById("gOAuthMobile").value = mobClean;
+          }
           if (existing.shop_name) document.getElementById("gOAuthShopName").value = existing.shop_name;
           if (existing.shop_address) document.getElementById("gOAuthAddress").value = existing.shop_address;
-          if (existing.upi_id) document.getElementById("gOAuthUpi").value = existing.upi_id;
-          if (existing.fixed_amount !== undefined) document.getElementById("gOAuthFixedAmt").value = existing.fixed_amount;
         }
       });
 
@@ -382,24 +409,25 @@
         ev.preventDefault();
         var submitBtn = document.getElementById("gOAuthSubmitBtn");
         submitBtn.disabled = true;
-        submitBtn.textContent = "Saving Shop Profile to Supabase & Signing In...";
+        submitBtn.textContent = "Saving Shop Profile to Supabase & Opening Dashboard...";
 
         var email = (document.getElementById("gOAuthEmail").value || "").trim().toLowerCase();
         var ownerName = (document.getElementById("gOAuthOwnerName").value || "").trim();
-        var mobile = (document.getElementById("gOAuthMobile").value || "").trim();
+        var countryCode = document.getElementById("gOAuthCountryCode").value || "+91";
+        var mobileRaw = (document.getElementById("gOAuthMobile").value || "").trim();
+        var fullPhone = formatFullPhone(countryCode, mobileRaw);
         var shopName = (document.getElementById("gOAuthShopName").value || "").trim();
         var shopAddress = (document.getElementById("gOAuthAddress").value || "").trim();
-        var upiId = (document.getElementById("gOAuthUpi").value || "9424647849@ybl").trim();
-        var fixedAmt = parseFloat(document.getElementById("gOAuthFixedAmt").value) || 0;
 
+        var existingRow = getLocalShopsTable()[email] || {};
         var shopRow = upsertLocalShopRow(email, {
           owner_name: ownerName,
-          mobile_number: mobile,
+          country_code: countryCode,
+          mobile_number: fullPhone,
           shop_name: shopName,
           shop_address: shopAddress,
-          upi_id: upiId,
-          fixed_amount: fixedAmt,
-          qr_code_url: buildFixedQrUrl(shopName, upiId, fixedAmt, "Shop Payment"),
+          upi_id: existingRow.upi_id || "",
+          fixed_amount: existingRow.fixed_amount || 0,
         });
 
         var sessionUser = {
@@ -407,16 +435,8 @@
           email: email,
           name: shopRow.shop_name,
           owner_name: ownerName,
-          mobile_number: mobile,
-          user_metadata: {
-            full_name: ownerName,
-            owner_name: ownerName,
-            mobile_number: mobile,
-            shop_name: shopRow.shop_name,
-            shop_address: shopRow.shop_address,
-            upi_id: shopRow.upi_id,
-            fixed_amount: fixedAmt,
-          },
+          mobile_number: fullPhone,
+          user_metadata: shopRow,
           provider: "Google OAuth 2.0 (Verified)",
           exp: Date.now() + 7 * 24 * 3600 * 1000,
         };
@@ -434,12 +454,13 @@
     });
   }
 
-  /* Expose helper API used by login.html, forgot-password.html, and dashboard.html */
+  /* Expose helper API */
   window.UikeySupabasePortal = {
     SUPABASE_URL: SUPABASE_URL,
     SUPABASE_ANON_KEY: SUPABASE_ANON_KEY,
     isLiveSupabaseConfigured: isLiveSupabaseConfigured,
     getConfig: getActiveConfig,
+    formatFullPhone: formatFullPhone,
     saveConfig: function (url, anonKey) {
       var cleanUrl = (url || "").trim().replace(/\/+$/, "");
       var cleanKey = (anonKey || "").trim();
@@ -473,7 +494,6 @@
           };
         }
 
-        /* Built-in Demo Account */
         if (email === "demo@uikeylabs.in" && password === "Betul@2026") {
           var demoShop = upsertLocalShopRow(email, {});
           var demoUser = {
@@ -491,7 +511,6 @@
           };
         }
 
-        /* Check Local PBKDF2 Vault first so newly signed-up shop owners can log in immediately */
         var vaultRaw = localStorage.getItem(ACCOUNTS_VAULT_KEY);
         var vault = vaultRaw ? JSON.parse(vaultRaw) : {};
         if (vault[email]) {
@@ -518,7 +537,6 @@
           }
         }
 
-        /* Also authenticate against Live Supabase Cloud Auth */
         var client = initSupabaseClient();
         if (client) {
           var liveRes = await client.auth.signInWithPassword({
@@ -531,10 +549,11 @@
             var sRow = upsertLocalShopRow(email, {
               owner_id: u.id,
               owner_name: meta.owner_name || meta.full_name || "",
+              country_code: meta.country_code || "+91",
               mobile_number: meta.mobile_number || "",
               shop_name: meta.shop_name || undefined,
               shop_address: meta.shop_address || undefined,
-              upi_id: meta.upi_id || "9424647849@ybl",
+              upi_id: meta.upi_id || "",
               fixed_amount: meta.fixed_amount || 0,
             });
             persistLocalSession({
@@ -556,20 +575,21 @@
         };
       },
 
-      /* 2. Merchant Sign Up (Saves owner_name, mobile_number, shop_name, shop_address, upi_id, fixed_amount in 'shops') */
+      /* 2. Merchant Sign Up (Saves owner_name, country_code + mobile_number, shop_name, shop_address in 'shops') */
       signUp: async function (payload) {
         var email = (payload.email || "").trim().toLowerCase();
         var password = payload.password || "";
         var meta = (payload.options && payload.options.data) || {};
         var ownerName = (meta.owner_name || email.split("@")[0]).trim();
-        var mobileNumber = (meta.mobile_number || "").trim();
+        var countryCode = (meta.country_code || "+91").trim();
+        var fullMobile = formatFullPhone(countryCode, meta.mobile_number || "");
         var shopName = (meta.shop_name || ownerName.toUpperCase() + " SHOP").trim();
         var shopAddress = (meta.shop_address || "Betul, Madhya Pradesh").trim();
         var category = (meta.category || "Retail & Local Business").trim();
-        var upiId = (meta.upi_id || "9424647849@ybl").trim();
+        /* UPI ID & Fixed Amount are configured AFTER Sign-Up on dashboard.html */
+        var upiId = (meta.upi_id || "").trim();
         var fixedAmount = parseFloat(meta.fixed_amount) || 0;
-        var qrUrl =
-          meta.qr_code_url || buildFixedQrUrl(shopName, upiId, fixedAmount, "Shop Payment");
+        var qrUrl = buildFixedQrUrl(shopName, upiId || "9424647849@ybl", fixedAmount, "Shop Payment");
 
         if (!email || email.indexOf("@") === -1) {
           return { data: null, error: { message: "Please enter a valid email address." } };
@@ -578,7 +598,6 @@
           return { data: null, error: { message: "Password must be at least 6 characters." } };
         }
 
-        /* Save in local PBKDF2 vault & local shops mirror */
         var derived = await hashPasswordPBKDF2(password, null);
         var vaultRaw = localStorage.getItem(ACCOUNTS_VAULT_KEY);
         var vault = vaultRaw ? JSON.parse(vaultRaw) : {};
@@ -586,7 +605,8 @@
         vault[email] = {
           id: newUserId,
           owner_name: ownerName,
-          mobile_number: mobileNumber,
+          country_code: countryCode,
+          mobile_number: fullMobile,
           shop_name: shopName,
           shop_address: shopAddress,
           category: category,
@@ -601,7 +621,8 @@
 
         var shopRow = upsertLocalShopRow(email, {
           owner_name: ownerName,
-          mobile_number: mobileNumber,
+          country_code: countryCode,
+          mobile_number: fullMobile,
           shop_name: shopName,
           shop_address: shopAddress,
           category: category,
@@ -619,13 +640,11 @@
               options: {
                 data: {
                   owner_name: ownerName,
-                  mobile_number: mobileNumber,
+                  country_code: countryCode,
+                  mobile_number: fullMobile,
                   shop_name: shopName,
                   shop_address: shopAddress,
                   category: category,
-                  upi_id: upiId,
-                  fixed_amount: fixedAmount,
-                  qr_code_url: qrUrl,
                 },
               },
             });
@@ -655,7 +674,7 @@
         };
       },
 
-      /* 3. Google Social Login (100% Reliable Inline Google OAuth 2.0 & Shop Profile Modal) */
+      /* 3. Google Social Login */
       signInWithOAuth: async function (opts) {
         var redirectUrl =
           (opts && opts.options && opts.options.redirectTo) || "./dashboard.html";
@@ -841,7 +860,6 @@
                         .eq(column, emailKey)
                         .maybeSingle();
                       if (!res.error && res.data) {
-                        /* Merge remote Supabase row with local fields so owner_name, mobile_number, shop_address, fixed_amount are always preserved */
                         var merged = upsertLocalShopRow(
                           emailKey,
                           Object.assign({}, localRow || {}, res.data)

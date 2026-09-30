@@ -551,8 +551,8 @@
       <div class="main-grid">
         <!-- LEFT COLUMN: Fixed Amount Terminal + UikeyLabs Branded QR Standee with Center Logo -->
         <div class="panel-card">
-          <!-- 1. Instant Fixed Amount Input Box (Solves receiving exact Fixed Amount from clients!) -->
-          <div class="amount-calculator-box">
+          <!-- 1. Post-Sign-Up UPI ID & Fixed Amount Setup Box -->
+          <div class="amount-calculator-box" id="postSignupUpiBox">
             <div
               style="
                 display: flex;
@@ -562,8 +562,8 @@
                 margin-bottom: 0.45rem;
               "
             >
-              <span style="font-size: 0.88rem; font-weight: 900; color: #6ee7b7">
-                &#128176; Enter Fixed Amount to Receive from Client (₹)
+              <span style="font-size: 0.9rem; font-weight: 900; color: #6ee7b7">
+                &#128176; Step 1 (After Sign-Up): Set Your UPI ID &amp; Fixed Amount (₹)
               </span>
               <span
                 style="
@@ -579,15 +579,30 @@
               </span>
             </div>
             <p style="font-size: 0.76rem; color: #cbd5e1; margin-bottom: 0.65rem">
-              Type the exact ₹ amount below (or click a preset). When your client scans this QR code, the exact ₹ amount is automatically filled &amp; locked!
+              Enter your <strong>Shop UPI ID</strong> and the <strong>Fixed Amount (₹)</strong> you want to receive from your customer. When the client scans your UikeyLabs QR below, this exact ₹ amount is locked on their phone!
             </p>
+
+            <div class="field-group" style="margin-bottom: 0.65rem">
+              <label
+                for="liveUpiIdInput"
+                style="display: block; font-size: 0.75rem; font-weight: 800; color: #6ee7b7; margin-bottom: 0.25rem"
+                >1. Your Shop UPI ID (PhonePe / GPay / Paytm Merchant UPI) *</label
+              >
+              <input
+                id="liveUpiIdInput"
+                type="text"
+                placeholder="e.g. yourmobile@ybl or 9424647849@ybl"
+                class="input-field"
+                style="font-weight: 800; border-color: #10b981; color: #ffffff"
+              />
+            </div>
 
             <div class="two-col">
               <div>
                 <label
                   for="liveFixedAmountInput"
                   style="display: block; font-size: 0.74rem; font-weight: 800; color: #fde68a; margin-bottom: 0.25rem"
-                  >Fixed Amount (₹) (0 = Open Amount)</label
+                  >2. Fixed Amount (₹) (0 = Open Amount)</label
                 >
                 <input
                   id="liveFixedAmountInput"
@@ -603,7 +618,7 @@
                 <label
                   for="livePaymentNoteInput"
                   style="display: block; font-size: 0.74rem; font-weight: 800; color: #cbd5e1; margin-bottom: 0.25rem"
-                  >Bill No. / Payment Remark</label
+                  >3. Bill No. / Payment Remark</label
                 >
                 <input
                   id="livePaymentNoteInput"
@@ -645,7 +660,7 @@
               class="btn-emerald"
               style="width: 100%"
             >
-              &#9889; Lock Fixed Amount in QR &amp; Save to Database
+              &#9889; Generate QR with UPI ID &amp; Fixed Amount + Save to Database
             </button>
           </div>
 
@@ -749,16 +764,33 @@
               </div>
               <div class="field-group">
                 <label for="inputMobileNumber"
-                  >2. 10-Digit Mobile No. (<code>mobile_number</code>) *</label
+                  >2. Mobile No. with Country Code (<code>mobile_number</code>) *</label
                 >
-                <input
-                  id="inputMobileNumber"
-                  type="tel"
-                  maxlength="10"
-                  class="input-field"
-                  placeholder="9424647849"
-                  required
-                />
+                <div style="display: grid; grid-template-columns: 126px 1fr; gap: 0.45rem">
+                  <select
+                    id="inputCountryCode"
+                    class="input-field"
+                    style="padding: 0.72rem 0.45rem; font-weight: 800; color: #fde68a"
+                  >
+                    <option value="+91" selected>🇮🇳 +91 (IN)</option>
+                    <option value="+1">🇺🇸 +1 (US/CA)</option>
+                    <option value="+44">🇬🇧 +44 (UK)</option>
+                    <option value="+971">🇦🇪 +971 (UAE)</option>
+                    <option value="+61">🇦🇺 +61 (AU)</option>
+                    <option value="+65">🇸🇬 +65 (SG)</option>
+                    <option value="+966">🇸🇦 +966 (SA)</option>
+                    <option value="+974">🇶🇦 +974 (QA)</option>
+                    <option value="+977">🇳🇵 +977 (NP)</option>
+                  </select>
+                  <input
+                    id="inputMobileNumber"
+                    type="tel"
+                    maxlength="10"
+                    class="input-field"
+                    placeholder="9424647849"
+                    required
+                  />
+                </div>
               </div>
             </div>
 
@@ -796,7 +828,7 @@
                   id="inputUpiId"
                   type="text"
                   class="input-field"
-                  placeholder="9424647849@ybl"
+                  placeholder="e.g. yourmobile@ybl or 9424647849@ybl"
                   required
                 />
               </div>
@@ -828,7 +860,7 @@
             </div>
 
             <button type="submit" class="btn-gold" style="width: 100%; padding: 0.9rem">
-              &#128190; Save All Details (Name, Mobile, Address &amp; Fixed Amount) to Database
+              &#128190; Save All Details (Name, Country Code + Mobile, Address, UPI &amp; Fixed Amount)
             </button>
           </form>
 
@@ -870,7 +902,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./assets/supabase-portal.js?v=10.0"></script>
+    <script src="./assets/supabase-portal.js?v=11.0"></script>
     <script>
       var currentUser = null;
       var currentShop = null;
@@ -879,7 +911,9 @@
         currentShop = shop || {};
         var ownerEmail = currentShop.owner_email || userEmail;
         var ownerName = currentShop.owner_name || "Mahesh Kumar Uikey";
-        var mobileNumber = currentShop.mobile_number || "9424647849";
+        var countryCode = currentShop.country_code || "+91";
+        var rawMobile = String(currentShop.mobile_number || "9424647849").replace(/^\+\d+\s*/, "");
+        var fullPhone = window.UikeySupabasePortal.formatFullPhone(countryCode, rawMobile);
         var shopName = currentShop.shop_name || "UikeyLabs Verified Shop (Betul MP)";
         var shopAddress =
           currentShop.shop_address || currentShop.city || "Ganj Main Road, Betul, MP";
@@ -901,12 +935,13 @@
           paymentNote
         );
         currentShop.qr_code_url = qrCodeUrl;
+        currentShop.mobile_number = fullPhone;
 
         /* Header & Hero Banner */
         document.getElementById("ownerEmailBadge").textContent = ownerEmail;
         document.getElementById("shopNameHeading").textContent = shopName;
         document.getElementById("metaOwnerName").textContent = ownerName;
-        document.getElementById("metaMobileNumber").textContent = "+91 " + mobileNumber;
+        document.getElementById("metaMobileNumber").textContent = fullPhone;
         document.getElementById("metaShopAddress").textContent = shopAddress;
         document.getElementById("metaUpiId").textContent = upiId;
         document.getElementById("metaFixedAmount").textContent =
@@ -916,7 +951,7 @@
         document.getElementById("standeeShopName").textContent = shopName;
         document.getElementById("standeeShopAddress").textContent = "📍 " + shopAddress;
         document.getElementById("standeeOwnerContact").textContent =
-          "👤 Owner: " + ownerName + " • 📞 +91 " + mobileNumber;
+          "👤 Owner: " + ownerName + " • 📞 " + fullPhone;
         document.getElementById("shopQrCodeImg").src = qrCodeUrl;
         document.getElementById("standeeUpiId").textContent = "UPI ID: " + upiId;
 
@@ -934,24 +969,28 @@
           pill.innerHTML = "&#128242; SCAN &amp; PAY ANY AMOUNT VIA UPI";
         }
 
-        /* Live Fixed Amount Calculator Inputs */
+        /* Live Post-Sign-Up UPI & Fixed Amount Calculator Inputs */
+        var liveUpiEl = document.getElementById("liveUpiIdInput");
+        if (liveUpiEl) liveUpiEl.value = currentShop.upi_id || "";
         document.getElementById("liveFixedAmountInput").value = fixedAmount;
         document.getElementById("livePaymentNoteInput").value = paymentNote;
 
         /* Profile Form Inputs */
         document.getElementById("inputOwnerName").value = ownerName;
-        document.getElementById("inputMobileNumber").value = mobileNumber;
+        var ccSelect = document.getElementById("inputCountryCode");
+        if (ccSelect) ccSelect.value = countryCode;
+        document.getElementById("inputMobileNumber").value = rawMobile;
         document.getElementById("inputShopName").value = shopName;
         document.getElementById("inputShopAddress").value = shopAddress;
         document.getElementById("inputCategory").value = category;
-        document.getElementById("inputUpiId").value = upiId;
+        document.getElementById("inputUpiId").value = currentShop.upi_id || "";
         document.getElementById("inputFixedAmount").value = fixedAmount;
         document.getElementById("inputPaymentNote").value = paymentNote;
 
         /* Database Table Inspector */
         document.getElementById("rowEmailCell").textContent = ownerEmail;
         document.getElementById("rowOwnerNameCell").textContent = ownerName;
-        document.getElementById("rowMobileCell").textContent = mobileNumber;
+        document.getElementById("rowMobileCell").textContent = fullPhone;
         document.getElementById("rowShopNameCell").textContent = shopName;
         document.getElementById("rowAddressCell").textContent = shopAddress;
         document.getElementById("rowFixedAmountCell").textContent =
@@ -966,34 +1005,45 @@
         window.applyAndSaveFixedAmount();
       };
 
-      /* Live Update on Typing Fixed Amount */
-      document
-        .getElementById("liveFixedAmountInput")
-        .addEventListener("input", function (e) {
-          var val = parseFloat(e.target.value) || 0;
+      /* Live Update on Typing UPI ID or Fixed Amount */
+      ["liveUpiIdInput", "liveFixedAmountInput"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener("input", function () {
+          if (!currentShop) return;
+          var newUpi = (document.getElementById("liveUpiIdInput").value || "").trim();
+          var val = parseFloat(document.getElementById("liveFixedAmountInput").value) || 0;
+          currentShop.upi_id = newUpi;
+          currentShop.fixed_amount = val;
+          currentShop.payment_note =
+            document.getElementById("livePaymentNoteInput").value.trim();
+          document.getElementById("inputUpiId").value = newUpi;
           document.getElementById("inputFixedAmount").value = val;
-          if (currentShop) {
-            currentShop.fixed_amount = val;
-            currentShop.payment_note =
-              document.getElementById("livePaymentNoteInput").value.trim();
-            renderShopToDom(currentShop, currentUser ? currentUser.email : "");
-          }
+          renderShopToDom(currentShop, currentUser ? currentUser.email : "");
         });
+      });
 
-      /* Lock Fixed Amount in QR & Persist to Supabase 'shops' table */
+      /* Lock UPI ID & Fixed Amount in QR & Persist to Supabase 'shops' table */
       window.applyAndSaveFixedAmount = async function () {
         if (!currentUser || !currentShop) return;
+        var enteredUpi =
+          (document.getElementById("liveUpiIdInput").value || "").trim() ||
+          currentShop.upi_id ||
+          "9424647849@ybl";
         var fixedAmt =
           parseFloat(document.getElementById("liveFixedAmountInput").value) || 0;
         var note = document.getElementById("livePaymentNoteInput").value.trim();
+
+        document.getElementById("inputUpiId").value = enteredUpi;
         document.getElementById("inputFixedAmount").value = fixedAmt;
         document.getElementById("inputPaymentNote").value = note;
 
+        currentShop.upi_id = enteredUpi;
         currentShop.fixed_amount = fixedAmt;
         currentShop.payment_note = note;
         currentShop.qr_code_url = window.UikeySupabasePortal.buildFixedQrUrl(
           currentShop.shop_name,
-          currentShop.upi_id,
+          enteredUpi,
           fixedAmt,
           note
         );
@@ -1004,10 +1054,14 @@
         var toast = document.getElementById("updateToast");
         toast.textContent =
           fixedAmt > 0
-            ? "✅ Fixed Amount ₹" +
+            ? "✅ UPI ID (" +
+              enteredUpi +
+              ") & Fixed Amount ₹" +
               fixedAmt.toFixed(2) +
-              " locked in your UikeyLabs QR Code & saved to Supabase database!"
-            : "✅ QR Code set to Open Amount (client can pay any amount) & saved to database!";
+              " locked in your UikeyLabs QR Code & saved to database!"
+            : "✅ UPI ID (" +
+              enteredUpi +
+              ") & Open Amount QR saved to database!";
         toast.style.display = "block";
         setTimeout(function () {
           toast.style.display = "none";
@@ -1241,7 +1295,15 @@
           if (!currentUser) return;
 
           var ownerName = document.getElementById("inputOwnerName").value.trim();
+          var countryCode =
+            (document.getElementById("inputCountryCode") &&
+              document.getElementById("inputCountryCode").value) ||
+            "+91";
           var mobileNumber = document.getElementById("inputMobileNumber").value.trim();
+          var fullPhone = window.UikeySupabasePortal.formatFullPhone(
+            countryCode,
+            mobileNumber
+          );
           var shopName = document.getElementById("inputShopName").value.trim();
           var shopAddress = document.getElementById("inputShopAddress").value.trim();
           var category = document.getElementById("inputCategory").value.trim();
@@ -1261,7 +1323,8 @@
             owner_id: currentUser.id,
             owner_email: currentUser.email.toLowerCase(),
             owner_name: ownerName,
-            mobile_number: mobileNumber,
+            country_code: countryCode,
+            mobile_number: fullPhone,
             shop_name: shopName,
             shop_address: shopAddress,
             category: category,
