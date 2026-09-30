@@ -20,21 +20,21 @@
   <meta name="twitter:description" content="Mobile-first business websites with integrated WhatsApp inquiry funnels and local SEO setup for local businesses." />
   <meta name="twitter:image" content="https://uikeylabs.com/uikeylabs-logo.jpg" />
 
-  <link rel="icon" type="image/jpeg" href="/uikeylabs-logo.jpg" />
-  <link rel="preload" as="image" href="/uikeylabs-logo.webp" type="image/webp" />
+  <link rel="icon" type="image/jpeg" href="uikeylabs-logo.jpg" />
+  <link rel="preload" as="image" href="uikeylabs-logo.webp" type="image/webp" />
 
-  <!-- Google Fonts with font-display: swap (Reduced to required weights only) -->
+  <!-- Google Fonts with font-display: swap -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet" />
 
-  <!-- Compiled Production Stylesheet (Zero Render-Blocking Tailwind CDN) -->
-  <link rel="stylesheet" href="/assets/styles.min.css" />
+  <!-- Compiled Production Stylesheet -->
+  <link rel="stylesheet" href="assets/styles.min.css" />
 
   <!-- Deferred Production Frontend Module -->
-  <script src="/assets/main.min.js" defer></script>
+  <script src="assets/main.min.js" defer></script>
 
-  <!-- Accurate JSON-LD Structured Data (ProfessionalService, Service, Offer, FAQPage, BreadcrumbList) -->
+  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,54 +63,7 @@
         "provider": {
           "@id": "https://uikeylabs.com/#organization"
         },
-        "areaServed": "IN",
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Website Development Packages",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "name": "Starter Business Presence Website",
-              "price": "4999",
-              "priceCurrency": "INR"
-            },
-            {
-              "@type": "Offer",
-              "name": "Growth Pro Website + WhatsApp Lead Funnel",
-              "price": "9999",
-              "priceCurrency": "INR"
-            },
-            {
-              "@type": "Offer",
-              "name": "Enterprise Custom Web Application & Portal",
-              "price": "19999",
-              "priceCurrency": "INR"
-            }
-          ]
-        }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://uikeylabs.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Industry Demos",
-            "item": "https://uikeylabs.com/#demos"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Pricing Packages",
-            "item": "https://uikeylabs.com/#pricing"
-          }
-        ]
+        "areaServed": "IN"
       },
       {
         "@type": "FAQPage",
@@ -122,22 +75,6 @@
               "@type": "Answer",
               "text": "Every package includes a mobile-responsive custom design, direct WhatsApp lead buttons and inquiry forms, Google Maps location embed, SSL security configuration, on-page local SEO setup, and 30 days of post-launch technical support."
             }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the typical launch timeline?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Starter and Growth Pro business websites typically launch within 3 to 7 business days, depending on how quickly content, photos, and staging approvals are provided."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How do domain, hosting, and payment terms work?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Projects start with a 50% booking advance and the remaining 50% is payable after you review and approve the live staging link before deployment to your custom domain."
-            }
           }
         ]
       }
@@ -148,31 +85,26 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- 1. COMPACT PROMOTIONAL OFFER BANNER (Labeled transparently as a promotional campaign offer) -->
+  <!-- 1. COMPACT PROMOTIONAL OFFER BANNER -->
   <div class="campaign-banner" role="region" aria-label="Promotional Campaign Offer">
     <div class="container campaign-inner">
-      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem;">
-        <span class="badge-pill badge-amber">PROMOTIONAL CAMPAIGN OFFER</span>
-        <span>Introductory <strong>50% Promotional Discount</strong> on Starter &amp; Growth Website Packages for Local Businesses.</span>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.45rem;">
+        <span class="badge-pill badge-amber">PROMOTIONAL OFFER</span>
+        <span><strong>50% Introductory Discount</strong> on Starter &amp; Growth Website Packages.</span>
       </div>
-      <div style="display:flex; align-items:center; gap:0.75rem;">
-        <a href="mailto:contact@uikeylabs.com" class="desktop-only" style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-muted);">
-          contact@uikeylabs.com
-        </a>
-        <a href="#pricing" style="color:var(--amber); font-weight:800; text-decoration:underline;">
-          View Package Pricing →
-        </a>
-      </div>
+      <button type="button" onclick="switchAppView('pricing')" style="background:none; border:none; color:var(--amber); font-weight:800; text-decoration:underline; cursor:pointer; min-height:auto; font-size:0.78rem;">
+        View Packages →
+      </button>
     </div>
   </div>
 
-  <!-- STICKY HEADER (Mobile shows ONLY Logo + Single CTA + Hamburger Menu) -->
+  <!-- 2. STICKY HEADER + APP-STYLE INSTANT TAB SWITCHER (NO ENDLESS SCROLLING!) -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="/" class="brand-link" aria-label="UIKEY LABS Home">
+      <a href="index.html" onclick="switchAppView('home'); return false;" class="brand-link" aria-label="UIKEY LABS Home">
         <picture>
-          <source srcset="/uikeylabs-logo.webp" type="image/webp" />
-          <img src="/uikeylabs-logo.jpg" alt="UIKEY LABS Official Logo" width="44" height="44" class="brand-logo" />
+          <source srcset="uikeylabs-logo.webp" type="image/webp" />
+          <img src="uikeylabs-logo.jpg" alt="UIKEY LABS Official Logo" width="40" height="40" class="brand-logo" />
         </picture>
         <div>
           <span class="brand-name"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></span>
@@ -180,234 +112,255 @@
         </div>
       </a>
 
-      <nav class="desktop-nav" aria-label="Primary Navigation">
-        <a href="#proof" aria-current="page">Why Us</a>
-        <a href="#demos">Industry Demos (9)</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#case-studies">Case Studies</a>
-        <a href="#process">3-Step Process</a>
-        <a href="#faq">FAQ</a>
-        <a href="/merchant-qr">Free Shop QR</a>
-      </nav>
-
       <div class="header-actions">
-        <button type="button" onclick="toggleSiteLanguage()" aria-label="Switch Website Language between English and Hindi" aria-pressed="false" class="btn btn-outline desktop-only lang-toggle-btn" style="padding:0.55rem 0.85rem; font-size:0.8125rem;">
+        <button type="button" onclick="toggleSiteLanguage()" aria-label="Switch Website Language between English and Hindi" aria-pressed="false" class="btn btn-outline lang-toggle-btn" style="padding:0.45rem 0.75rem; font-size:0.75rem; min-height:38px;">
           🇮🇳 हिंदी / Hinglish
         </button>
 
-        <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp desktop-only" style="padding:0.6rem 1rem; font-size:0.85rem;">
+        <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp desktop-only" style="padding:0.55rem 0.95rem; font-size:0.82rem;">
           WhatsApp पर Free Consultation लें
         </a>
 
         <button type="button" id="mobileMenuTriggerBtn" onclick="toggleMobileMenu()" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open Navigation Menu" class="mobile-menu-btn">
-          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
     </div>
 
-    <!-- Accessible Mobile Navigation Drawer -->
+    <!-- APP-STYLE PAGE TABS (Click Any Tab -> Opens Immediately Without Long Scrolling!) -->
+    <div class="app-tab-strip">
+      <div class="container app-tab-inner" role="tablist" aria-label="Website Sections">
+        <button type="button" role="tab" aria-selected="true" data-view-target="home" onclick="switchAppView('home')" class="app-tab-btn active">
+          🏠 Home Overview
+        </button>
+        <button type="button" role="tab" aria-selected="false" data-view-target="demos" onclick="switchAppView('demos')" class="app-tab-btn">
+          🚀 9 Live Demos
+        </button>
+        <button type="button" role="tab" aria-selected="false" data-view-target="pricing" onclick="switchAppView('pricing')" class="app-tab-btn">
+          💎 Pricing (50% OFF)
+        </button>
+        <button type="button" role="tab" aria-selected="false" data-view-target="faq" onclick="switchAppView('faq')" class="app-tab-btn">
+          ❓ Process &amp; FAQ
+        </button>
+        <button type="button" role="tab" aria-selected="false" data-view-target="contact" onclick="switchAppView('contact')" class="app-tab-btn">
+          📞 Free Consultation
+        </button>
+        <a href="merchant-qr.html" class="app-tab-btn" style="border-color:rgba(251,191,36,0.5); color:var(--amber);">
+          🏪 Free Shop QR Maker ↗
+        </a>
+        <a href="quote.html" class="app-tab-btn">
+          📄 Quote PDF ↗
+        </a>
+        <a href="payment.html" class="app-tab-btn">
+          💳 UPI Pay ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Hamburger Menu Drawer -->
     <nav id="mobile-menu" class="mobile-menu-panel" aria-label="Mobile Navigation">
       <ul class="mobile-nav-list">
-        <li><a href="#demos" onclick="toggleMobileMenu(true)"><span>Live Industry Demos (9 Previews)</span><span style="color:var(--cyan)">→</span></a></li>
-        <li><a href="#pricing" onclick="toggleMobileMenu(true)"><span>Website Pricing Packages</span><span style="color:var(--amber)">→</span></a></li>
-        <li><a href="#case-studies" onclick="toggleMobileMenu(true)"><span>Architecture &amp; Case Benchmarks</span><span>→</span></a></li>
-        <li><a href="#process" onclick="toggleMobileMenu(true)"><span>3-Step Launch Process</span><span>→</span></a></li>
-        <li><a href="#faq" onclick="toggleMobileMenu(true)"><span>Frequently Asked Questions (FAQ)</span><span>→</span></a></li>
-        <li><a href="/merchant-qr" onclick="toggleMobileMenu(true)"><span>Free Shop UPI QR Utility</span><span class="badge-pill badge-amber">Tool</span></a></li>
-        <li><a href="/quote" onclick="toggleMobileMenu(true)"><span>Official Quotation Generator</span><span>→</span></a></li>
-        <li><a href="/payment" onclick="toggleMobileMenu(true)"><span>UPI Payment &amp; Booking Desk</span><span>→</span></a></li>
-        <li><a href="/legal" onclick="toggleMobileMenu(true)"><span>Legal, Privacy &amp; Refund Policies</span><span>→</span></a></li>
-        <li>
-          <button type="button" onclick="toggleSiteLanguage(); toggleMobileMenu(true);" aria-label="Toggle Language" aria-pressed="false" class="lang-toggle-btn" style="color:var(--amber);">
-            🇮🇳 हिंदी / Hinglish
-          </button>
-        </li>
+        <li><button type="button" onclick="switchAppView('home')"><span>🏠 Home Dashboard</span><span style="color:var(--cyan)">Open</span></button></li>
+        <li><button type="button" onclick="switchAppView('demos')"><span>🚀 9 Live Industry Demos</span><span class="badge-pill badge-cyan">9 Live</span></button></li>
+        <li><button type="button" onclick="switchAppView('pricing')"><span>💎 Website Pricing Packages</span><span class="badge-pill badge-amber">50% OFF</span></button></li>
+        <li><button type="button" onclick="switchAppView('faq')"><span>❓ 3-Step Process &amp; FAQs</span><span>Open</span></button></li>
+        <li><button type="button" onclick="switchAppView('contact')"><span>📞 Request Free Consultation</span><span>Open</span></button></li>
+        <li><a href="merchant-qr.html"><span>🏪 Free Shop UPI QR Standee Maker</span><span class="badge-pill badge-emerald">Free Tool</span></a></li>
+        <li><a href="quote.html"><span>📄 Official Quotation PDF Generator</span><span>→</span></a></li>
+        <li><a href="payment.html"><span>💳 Project Booking &amp; UPI Payment Desk</span><span>→</span></a></li>
+        <li><a href="legal.html"><span>⚖️ Legal, Privacy &amp; Refund Policies</span><span>→</span></a></li>
       </ul>
     </nav>
   </header>
 
   <main id="main-content">
-    <!-- 2 & 3. HERO SECTION + PRIMARY WHATSAPP CTA & SECONDARY DEMO CTA -->
-    <section class="section-block" aria-labelledby="heroMainHeading">
-      <div class="container hero-grid">
-        <div>
-          <span id="heroBadgeText" class="badge-pill badge-cyan">
-            TARGET SUB-1-SECOND LOAD TIME • MOBILE-FIRST WEB ENGINEERING
-          </span>
+    <!-- ======================================================================
+         VIEW 1: COMPACT HOME DASHBOARD (Fits cleanly without boring long scroll!)
+         ====================================================================== -->
+    <section id="view-home" class="app-view-panel is-active" aria-labelledby="heroMainHeading">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <span id="heroBadgeText" class="badge-pill badge-cyan">
+              TARGET SUB-1-SECOND LOAD TIME • MOBILE-FIRST WEB ENGINEERING
+            </span>
 
-          <h1 id="heroMainHeading" class="h1-title">
-            Turn Local Search &amp; Mobile Visitors Into Daily Clients With <span class="text-gradient">Fast WhatsApp Lead Websites</span>
-          </h1>
+            <h1 id="heroMainHeading" class="h1-title">
+              Turn Local Search &amp; Mobile Visitors Into Daily Clients With <span class="text-gradient">Fast WhatsApp Lead Websites</span>
+            </h1>
 
-          <p id="heroSubHeading" class="lead-text">
-            We design and engineer mobile-responsive, SEO-ready business websites and automated WhatsApp inquiry funnels for Doctors, Schools, Real Estate, Restaurants, Retail Stores, Salons, Gyms &amp; Law Firms.
-          </p>
+            <p id="heroSubHeading" class="lead-text">
+              Select any section below to explore 9 Live Industry Demos, Website Packages, Free Shop QR Standee Maker, or connect with us on WhatsApp—without endless scrolling!
+            </p>
 
-          <div style="display:flex; flex-wrap:wrap; gap:0.875rem; margin-top:1.75rem;">
-            <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
-              <span>WhatsApp पर Free Consultation लें</span>
-              <span aria-hidden="true">→</span>
-            </a>
+            <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.35rem;">
+              <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                <span>WhatsApp पर Free Consultation लें</span>
+                <span aria-hidden="true">→</span>
+              </a>
 
-            <a href="#demos" class="btn btn-secondary">
-              <span>Live Industry Demo देखें</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Hero Right Card: Engineering Architecture Overview -->
-        <aside class="card card-featured" aria-label="Web Engineering Architecture Highlights">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; padding-bottom:1rem; border-bottom:1px solid var(--border); margin-bottom:1rem;">
-            <div style="display:flex; align-items:center; gap:0.75rem;">
-              <picture>
-                <source srcset="/uikeylabs-logo.webp" type="image/webp" />
-                <img src="/uikeylabs-logo.jpg" alt="UIKEY LABS Badge" width="44" height="44" style="border-radius:0.75rem; border:1px solid var(--cyan);" />
-              </picture>
-              <div>
-                <span style="font-size:0.75rem; font-family:'JetBrains Mono',monospace; color:var(--cyan); display:block;">PRODUCTION ARCHITECTURE</span>
-                <strong style="font-size:1.05rem;">Built for Mobile Conversion</strong>
-              </div>
+              <button type="button" onclick="switchAppView('demos')" class="btn btn-secondary">
+                <span>Live Industry Demo देखें (9)</span>
+              </button>
             </div>
-            <span class="badge-pill badge-emerald">SSL + SEO READY</span>
           </div>
 
-          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.875rem; font-size:0.9375rem; color:var(--text-muted);">
-            <li style="padding:0.75rem; border-radius:0.75rem; background:#050811; border:1px solid var(--border);">
-              <strong style="color:#fff; display:block;">⚡ Designed for Fast Mobile Performance</strong>
-              Compiled static CSS, WebP imagery, and zero heavy plugin bloat for rapid loading on 4G/5G mobile connections.
-            </li>
-            <li style="padding:0.75rem; border-radius:0.75rem; background:#050811; border:1px solid var(--border);">
-              <strong style="color:#fff; display:block;">📲 Direct WhatsApp Lead Routing</strong>
-              Visitors tap once to send pre-formatted appointment, admission, or order inquiries directly to your WhatsApp desk.
-            </li>
-            <li style="padding:0.75rem; border-radius:0.75rem; background:#050811; border:1px solid var(--border);">
-              <strong style="color:#fff; display:block;">📍 Local SEO &amp; Schema Markup Included</strong>
-              Structured JSON-LD schema, canonical metadata, sitemap.xml, and Google Business Profile link integration.
-            </li>
-          </ul>
-        </aside>
-      </div>
-    </section>
+          <!-- Interactive 4-Card Quick Portal Grid (1-Tap Navigation Instead of Boring Scrolling!) -->
+          <div>
+            <p style="font-size:0.75rem; font-family:'JetBrains Mono',monospace; color:var(--amber); font-weight:800; margin-bottom:0.6rem;">
+              ⚡ TAP ANY CARD TO OPEN INSTANTLY (NO LONG SCROLL):
+            </p>
+            <div class="grid-4-nav" style="grid-template-columns: repeat(2, 1fr);">
+              <button type="button" onclick="switchAppView('demos')" class="portal-tile">
+                <div>
+                  <span class="badge-pill badge-cyan" style="margin-bottom:0.5rem;">9 LIVE DEMOS</span>
+                  <h2 style="font-size:1.05rem; font-weight:900; color:#fff;">Industry Websites</h2>
+                  <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.25rem;">Doctor, School, Cafe, Real Estate, Retail, Gym, Salon</p>
+                </div>
+                <span style="color:var(--cyan); font-size:0.8rem; font-weight:800; margin-top:0.75rem; display:block;">Open Demos →</span>
+              </button>
 
-    <!-- 4. THREE TRUST / PROOF POINTS -->
-    <section id="proof" class="section-block" aria-labelledby="proof-heading">
-      <div class="container">
-        <span class="badge-pill badge-cyan">WHY LOCAL BUSINESSES CHOOSE UIKEY LABS</span>
-        <h2 id="proof-heading" class="h2-title">Three Engineering Standards Built Into Every Website</h2>
-        <div class="grid-3" style="margin-top:1.75rem;">
+              <button type="button" onclick="switchAppView('pricing')" class="portal-tile" style="border-color:rgba(251,191,36,0.5);">
+                <div>
+                  <span class="badge-pill badge-amber" style="margin-bottom:0.5rem;">50% OFF</span>
+                  <h2 style="font-size:1.05rem; font-weight:900; color:#fff;">Pricing Packages</h2>
+                  <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.25rem;">Starter ₹4,999 • Growth ₹9,999 • Custom Portal</p>
+                </div>
+                <span style="color:var(--amber); font-size:0.8rem; font-weight:800; margin-top:0.75rem; display:block;">View Pricing →</span>
+              </button>
+
+              <a href="merchant-qr.html" class="portal-tile" style="border-color:rgba(52,211,153,0.45);">
+                <div>
+                  <span class="badge-pill badge-emerald" style="margin-bottom:0.5rem;">100% FREE TOOL</span>
+                  <h2 style="font-size:1.05rem; font-weight:900; color:#fff;">Free Shop QR</h2>
+                  <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.25rem;">Create Co-Branded UPI Standee for Your Shop</p>
+                </div>
+                <span style="color:var(--emerald); font-size:0.8rem; font-weight:800; margin-top:0.75rem; display:block;">Create Shop QR ↗</span>
+              </a>
+
+              <a href="quote.html" class="portal-tile">
+                <div>
+                  <span class="badge-pill badge-cyan" style="margin-bottom:0.5rem;">INSTANT PDF</span>
+                  <h2 style="font-size:1.05rem; font-weight:900; color:#fff;">Official Quote</h2>
+                  <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.25rem;">Download Printable A4 Estimate &amp; UPI Booking</p>
+                </div>
+                <span style="color:var(--cyan); font-size:0.8rem; font-weight:800; margin-top:0.75rem; display:block;">Get Quote PDF ↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compact 3 Trust Pillars Strip -->
+        <div class="grid-3" style="margin-top:2rem;">
           <article class="card">
-            <span class="badge-pill badge-emerald" style="margin-bottom:0.75rem;">1. SPEED &amp; RESPONSIVENESS</span>
-            <h3 style="font-size:1.25rem; font-weight:800; margin-bottom:0.5rem;">Target Sub-1-Second Mobile Load Architecture</h3>
-            <p style="color:var(--text-muted); font-size:0.9375rem;">
-              Instead of slow, plugin-heavy builders, we engineer clean semantic HTML5, compiled CSS, and compressed WebP visuals tested across 320px to 1440px screens.
+            <span class="badge-pill badge-emerald" style="margin-bottom:0.4rem;">1. MOBILE SPEED</span>
+            <h3 style="font-size:1.05rem; font-weight:800;">Target Sub-1s Mobile Load</h3>
+            <p style="color:var(--text-muted); font-size:0.84rem; margin-top:0.25rem;">
+              Compiled CSS and WebP visuals engineered for instant 4G/5G loading without plugin bloat.
             </p>
           </article>
-
           <article class="card">
-            <span class="badge-pill badge-amber" style="margin-bottom:0.75rem;">2. CONVERSION FOCUSED</span>
-            <h3 style="font-size:1.25rem; font-weight:800; margin-bottom:0.5rem;">Pre-Filled WhatsApp Inquiry Funnels</h3>
-            <p style="color:var(--text-muted); font-size:0.9375rem;">
-              Every service card, doctor OPD slot, school admission form, and product catalog connects directly to your WhatsApp number so you never miss a customer lead.
+            <span class="badge-pill badge-amber" style="margin-bottom:0.4rem;">2. WHATSAPP FUNNEL</span>
+            <h3 style="font-size:1.05rem; font-weight:800;">Direct WhatsApp Lead Routing</h3>
+            <p style="color:var(--text-muted); font-size:0.84rem; margin-top:0.25rem;">
+              Every appointment, admission, or catalog order lands directly on your WhatsApp number.
             </p>
           </article>
-
           <article class="card">
-            <span class="badge-pill badge-cyan" style="margin-bottom:0.75rem;">3. TRANSPARENT GOVERNANCE</span>
-            <h3 style="font-size:1.25rem; font-weight:800; margin-bottom:0.5rem;">Staging Approval Before Final Payment</h3>
-            <p style="color:var(--text-muted); font-size:0.9375rem;">
-              Review your complete interactive website on a live staging link first. You pay the final 50% milestone only when your website is ready for domain deployment.
+            <span class="badge-pill badge-cyan" style="margin-bottom:0.4rem;">3. SAFE MILESTONES</span>
+            <h3 style="font-size:1.05rem; font-weight:800;">Approve Staging Before Final Pay</h3>
+            <p style="color:var(--text-muted); font-size:0.84rem; margin-top:0.25rem;">
+              Test your live website on staging first; pay the final 50% only when ready for domain launch.
             </p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 5 & 6. INDUSTRY SELECTOR + SELECTED INDUSTRY DEMOS -->
-    <section id="demos" class="section-block" aria-labelledby="demos-heading">
+    <!-- ======================================================================
+         VIEW 2: 9 LIVE INDUSTRY DEMOS TAB (Opens instantly at top of screen!)
+         ====================================================================== -->
+    <section id="view-demos" class="app-view-panel" aria-labelledby="demos-heading">
       <div class="container">
-        <span class="badge-pill badge-amber">9 INTERACTIVE INDUSTRY PREVIEWS</span>
-        <h2 id="demos-heading" class="h2-title">Select Your Industry &amp; Explore Live Website Demos</h2>
-        <p class="lead-text">
-          Choose your business category below to preview a complete, working multi-section demo website tailored to your industry.
-        </p>
+        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.75rem;">
+          <div>
+            <span class="badge-pill badge-amber">9 INTERACTIVE INDUSTRY PREVIEWS</span>
+            <h2 id="demos-heading" class="h2-title">Select Your Industry &amp; Open Live Demo</h2>
+          </div>
+          <button type="button" onclick="switchAppView('pricing')" class="btn btn-outline" style="font-size:0.8rem;">
+            See Website Pricing →
+          </button>
+        </div>
 
-        <!-- 5. Industry Selector Filter Bar -->
         <div class="filter-bar" role="toolbar" aria-label="Filter demos by industry">
-          <button type="button" data-industry-filter="all" onclick="filterIndustryDemos('all', this)" aria-pressed="true" class="filter-btn active">All Industries (9)</button>
+          <button type="button" data-industry-filter="all" onclick="filterIndustryDemos('all', this)" aria-pressed="true" class="filter-btn active">All (9)</button>
           <button type="button" data-industry-filter="healthcare" onclick="filterIndustryDemos('healthcare', this)" aria-pressed="false" class="filter-btn">Doctor &amp; Clinic</button>
           <button type="button" data-industry-filter="education" onclick="filterIndustryDemos('education', this)" aria-pressed="false" class="filter-btn">School &amp; Coaching</button>
           <button type="button" data-industry-filter="food" onclick="filterIndustryDemos('food', this)" aria-pressed="false" class="filter-btn">Cafe &amp; Restaurant</button>
           <button type="button" data-industry-filter="property" onclick="filterIndustryDemos('property', this)" aria-pressed="false" class="filter-btn">Real Estate</button>
-          <button type="button" data-industry-filter="retail" onclick="filterIndustryDemos('retail', this)" aria-pressed="false" class="filter-btn">Retail &amp; Kirana</button>
+          <button type="button" data-industry-filter="retail" onclick="filterIndustryDemos('retail', this)" aria-pressed="false" class="filter-btn">Retail Store</button>
           <button type="button" data-industry-filter="legal" onclick="filterIndustryDemos('legal', this)" aria-pressed="false" class="filter-btn">Advocate &amp; CA</button>
-          <button type="button" data-industry-filter="wellness" onclick="filterIndustryDemos('wellness', this)" aria-pressed="false" class="filter-btn">Salon, Spa &amp; Gym</button>
-          <button type="button" data-industry-filter="events" onclick="filterIndustryDemos('events', this)" aria-pressed="false" class="filter-btn">Wedding &amp; Events</button>
+          <button type="button" data-industry-filter="wellness" onclick="filterIndustryDemos('wellness', this)" aria-pressed="false" class="filter-btn">Salon &amp; Gym</button>
+          <button type="button" data-industry-filter="events" onclick="filterIndustryDemos('events', this)" aria-pressed="false" class="filter-btn">Wedding</button>
         </div>
 
-        <!-- 6. Selected Industry Demos Grid -->
         <div class="grid-3 sm-2">
-          <!-- 1. Doctor & Clinic -->
+          <!-- 1. Doctor -->
           <article class="card" data-industry-card="healthcare" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <div class="demo-thumb-wrap">
                 <picture>
-                  <source srcset="/doctor-demo.webp" type="image/webp" />
-                  <img src="/doctor-demo.jpg" alt="Doctor Clinic and Hospital OPD Appointment Website Demo" width="800" height="544" loading="lazy" decoding="async" />
+                  <source srcset="doctor-demo.webp" type="image/webp" />
+                  <img src="doctor-demo.jpg" alt="Doctor Clinic and Hospital OPD Website Demo" width="800" height="544" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <span class="badge-pill badge-cyan">HEALTHCARE &amp; OPD</span>
-              <h3 style="font-size:1.2rem; font-weight:800; margin:0.5rem 0;">Doctor Clinic, Hospital &amp; Dental Center</h3>
-              <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem;">
-                Includes OPD time-slot selector, specialist profile cards, emergency contact bar, and WhatsApp appointment booking.
-              </p>
+              <h3 style="font-size:1.15rem; font-weight:800; margin:0.4rem 0;">Doctor Clinic, Hospital &amp; Dental</h3>
+              <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">OPD slot booking, doctor profiles, and WhatsApp patient appointment desk.</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:0.5rem;">
-              <a href="/demos/doctor.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
-              <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Doctor%20%2F%20Clinic%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
+            <div style="display:flex; flex-direction:column; gap:0.45rem;">
+              <a href="demos/doctor.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
+              <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Doctor%20Clinic%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
             </div>
           </article>
 
-          <!-- 2. School & Coaching -->
+          <!-- 2. School -->
           <article class="card" data-industry-card="education" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <div class="demo-thumb-wrap">
                 <picture>
-                  <source srcset="/school-demo.webp" type="image/webp" />
-                  <img src="/school-demo.jpg" alt="School, College and Coaching Institute Admission Website Demo" width="800" height="446" loading="lazy" decoding="async" />
+                  <source srcset="school-demo.webp" type="image/webp" />
+                  <img src="school-demo.jpg" alt="School and Coaching Institute Website Demo" width="800" height="446" loading="lazy" decoding="async" />
                 </picture>
               </div>
-              <span class="badge-pill badge-amber">EDUCATION &amp; ADMISSIONS</span>
-              <h3 style="font-size:1.2rem; font-weight:800; margin:0.5rem 0;">School, College &amp; Coaching Academy</h3>
-              <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem;">
-                Features online admission inquiry funnel, topper gallery, syllabus download, and parent fee payment desk.
-              </p>
+              <span class="badge-pill badge-amber">EDUCATION</span>
+              <h3 style="font-size:1.15rem; font-weight:800; margin:0.4rem 0;">School, College &amp; Coaching</h3>
+              <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">Admission inquiry funnel, topper gallery, and parent fee payment desk.</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:0.5rem;">
-              <a href="/demos/school.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
-              <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20School%20%2F%20Coaching%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
+            <div style="display:flex; flex-direction:column; gap:0.45rem;">
+              <a href="demos/school.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
+              <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20School%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
             </div>
           </article>
 
-          <!-- 3. Cafe & Restaurant -->
+          <!-- 3. Cafe -->
           <article class="card" data-industry-card="food" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <div class="demo-thumb-wrap">
                 <picture>
-                  <source srcset="/cafe-demo.webp" type="image/webp" />
-                  <img src="/cafe-demo.jpg" alt="Cafe, Restaurant and Bakery QR Menu Ordering Website Demo" width="800" height="548" loading="lazy" decoding="async" />
+                  <source srcset="cafe-demo.webp" type="image/webp" />
+                  <img src="cafe-demo.jpg" alt="Cafe and Restaurant QR Menu Website Demo" width="800" height="548" loading="lazy" decoding="async" />
                 </picture>
               </div>
-              <span class="badge-pill badge-emerald">FOOD &amp; HOSPITALITY</span>
-              <h3 style="font-size:1.2rem; font-weight:800; margin:0.5rem 0;">Cafe, Family Restaurant &amp; Bakery</h3>
-              <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem;">
-                Interactive digital menu with zero-commission WhatsApp food ordering, table reservation, and party booking.
-              </p>
+              <span class="badge-pill badge-emerald">FOOD &amp; CAFE</span>
+              <h3 style="font-size:1.15rem; font-weight:800; margin:0.4rem 0;">Cafe, Restaurant &amp; Bakery</h3>
+              <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">Digital QR menu with zero-commission WhatsApp ordering and table booking.</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:0.5rem;">
-              <a href="/demos/cafe.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
-              <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Cafe%20%2F%20Restaurant%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
+            <div style="display:flex; flex-direction:column; gap:0.45rem;">
+              <a href="demos/cafe.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
+              <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Cafe%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
             </div>
           </article>
 
@@ -416,155 +369,144 @@
             <div>
               <div class="demo-thumb-wrap">
                 <picture>
-                  <source srcset="/realestate-demo.webp" type="image/webp" />
-                  <img src="/realestate-demo.jpg" alt="Real Estate Developer and Property Listing Website Demo" width="800" height="600" loading="lazy" decoding="async" />
+                  <source srcset="realestate-demo.webp" type="image/webp" />
+                  <img src="realestate-demo.jpg" alt="Real Estate Builder and Property Website Demo" width="800" height="600" loading="lazy" decoding="async" />
                 </picture>
               </div>
-              <span class="badge-pill badge-cyan">REAL ESTATE &amp; INFRA</span>
-              <h3 style="font-size:1.2rem; font-weight:800; margin:0.5rem 0;">Real Estate Builder, Township &amp; Broker</h3>
-              <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem;">
-                Showcases residential plots, RERA project details, floor plan downloads, and instant site-visit scheduling.
-              </p>
+              <span class="badge-pill badge-cyan">REAL ESTATE</span>
+              <h3 style="font-size:1.15rem; font-weight:800; margin:0.4rem 0;">Real Estate Builder &amp; Property</h3>
+              <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">Plot/flat listings, RERA details, brochure download, and site-visit booking.</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:0.5rem;">
-              <a href="/demos/realestate.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
+            <div style="display:flex; flex-direction:column; gap:0.45rem;">
+              <a href="demos/realestate.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
               <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Real%20Estate%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
             </div>
           </article>
 
-          <!-- 5. Retail & Supermarket -->
+          <!-- 5. Retail -->
           <article class="card" data-industry-card="retail" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <div class="demo-thumb-wrap">
                 <picture>
-                  <source srcset="/retail-demo.webp" type="image/webp" />
-                  <img src="/retail-demo.jpg" alt="Retail Store, Supermarket and Kirana Catalog Website Demo" width="800" height="600" loading="lazy" decoding="async" />
+                  <source srcset="retail-demo.webp" type="image/webp" />
+                  <img src="retail-demo.jpg" alt="Retail Store and Supermarket Catalog Website Demo" width="800" height="600" loading="lazy" decoding="async" />
                 </picture>
               </div>
-              <span class="badge-pill badge-amber">RETAIL &amp; E-COMMERCE</span>
-              <h3 style="font-size:1.2rem; font-weight:800; margin:0.5rem 0;">Supermarket, Kirana &amp; Showroom Catalog</h3>
-              <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem;">
-                Interactive product catalog with WhatsApp cart checkout for local home delivery and wholesale orders.
-              </p>
+              <span class="badge-pill badge-amber">RETAIL STORE</span>
+              <h3 style="font-size:1.15rem; font-weight:800; margin:0.4rem 0;">Supermarket, Kirana &amp; Showroom</h3>
+              <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">Online product catalog with direct WhatsApp order cart for local delivery.</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:0.5rem;">
-              <a href="/demos/retail.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
+            <div style="display:flex; flex-direction:column; gap:0.45rem;">
+              <a href="demos/retail.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
               <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Retail%20Shop%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
             </div>
           </article>
 
-          <!-- 6. Law Firm & CA -->
+          <!-- 6. Law & CA -->
           <article class="card" data-industry-card="legal" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <div class="demo-thumb-wrap">
                 <picture>
-                  <source srcset="/law-demo.webp" type="image/webp" />
-                  <img src="/law-demo.jpg" alt="Advocate, Law Firm and Chartered Accountant Chamber Website Demo" width="800" height="533" loading="lazy" decoding="async" />
+                  <source srcset="law-demo.webp" type="image/webp" />
+                  <img src="law-demo.jpg" alt="Advocate and CA Chamber Website Demo" width="800" height="533" loading="lazy" decoding="async" />
                 </picture>
               </div>
-              <span class="badge-pill badge-cyan">LEGAL &amp; TAX ADVISORY</span>
-              <h3 style="font-size:1.2rem; font-weight:800; margin:0.5rem 0;">Advocate Chamber, Law Firm &amp; CA Office</h3>
-              <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem;">
-                Authoritative chamber profile with GST/ITR/Legal practice areas, document checklist, and consultation booking.
-              </p>
+              <span class="badge-pill badge-cyan">LEGAL &amp; TAX</span>
+              <h3 style="font-size:1.15rem; font-weight:800; margin:0.4rem 0;">Advocate, Law Firm &amp; CA Office</h3>
+              <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">Practice areas, GST/ITR advisory desk, and appointment scheduling.</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:0.5rem;">
-              <a href="/demos/law.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
+            <div style="display:flex; flex-direction:column; gap:0.45rem;">
+              <a href="demos/law.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
               <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Law%20%2F%20CA%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
             </div>
           </article>
 
-          <!-- 7. Luxury Salon & Bridal -->
+          <!-- 7. Salon -->
           <article class="card" data-industry-card="wellness" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <div class="demo-thumb-wrap">
                 <picture>
-                  <source srcset="/salon-demo.webp" type="image/webp" />
-                  <img src="/salon-demo.jpg" alt="Luxury Salon, Bridal Makeup Studio and Spa Booking Website Demo" width="800" height="600" loading="lazy" decoding="async" />
+                  <source srcset="salon-demo.webp" type="image/webp" />
+                  <img src="salon-demo.jpg" alt="Luxury Salon and Bridal Studio Website Demo" width="800" height="600" loading="lazy" decoding="async" />
                 </picture>
               </div>
-              <span class="badge-pill badge-amber">BEAUTY &amp; BRIDAL STUDIO</span>
-              <h3 style="font-size:1.2rem; font-weight:800; margin:0.5rem 0;">Luxury Salon, Bridal Studio &amp; Wellness Spa</h3>
-              <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem;">
-                Showcases bridal makeup packages, rate cards, lookbook gallery, and instant WhatsApp chair booking.
-              </p>
+              <span class="badge-pill badge-amber">SALON &amp; BRIDAL</span>
+              <h3 style="font-size:1.15rem; font-weight:800; margin:0.4rem 0;">Luxury Salon, Bridal &amp; Spa</h3>
+              <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">Bridal packages, service rate card, gallery, and instant WhatsApp booking.</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:0.5rem;">
-              <a href="/demos/salon.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
+            <div style="display:flex; flex-direction:column; gap:0.45rem;">
+              <a href="demos/salon.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
               <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Salon%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
             </div>
           </article>
 
-          <!-- 8. Gym & Fitness -->
+          <!-- 8. Gym -->
           <article class="card" data-industry-card="wellness" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <div class="demo-thumb-wrap">
                 <picture>
-                  <source srcset="/gym-demo.webp" type="image/webp" />
-                  <img src="/gym-demo.jpg" alt="Gym, CrossFit and Yoga Fitness Center Website Demo" width="800" height="533" loading="lazy" decoding="async" />
+                  <source srcset="gym-demo.webp" type="image/webp" />
+                  <img src="gym-demo.jpg" alt="Gym and Fitness Club Website Demo" width="800" height="533" loading="lazy" decoding="async" />
                 </picture>
               </div>
-              <span class="badge-pill badge-emerald">FITNESS &amp; CLUBS</span>
-              <h3 style="font-size:1.2rem; font-weight:800; margin:0.5rem 0;">Gym, CrossFit Club &amp; Yoga Studio</h3>
-              <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem;">
-                Features membership pricing tiers, trainer certifications, BMI calculator, and free trial pass booking.
-              </p>
+              <span class="badge-pill badge-emerald">FITNESS &amp; GYM</span>
+              <h3 style="font-size:1.15rem; font-weight:800; margin:0.4rem 0;">Gym, CrossFit &amp; Yoga Club</h3>
+              <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">Membership plans, trainer profiles, BMI calculator, and free trial pass.</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:0.5rem;">
-              <a href="/demos/gym.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
+            <div style="display:flex; flex-direction:column; gap:0.45rem;">
+              <a href="demos/gym.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
               <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Gym%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
             </div>
           </article>
 
-          <!-- 9. Wedding & Event Planner -->
+          <!-- 9. Wedding -->
           <article class="card" data-industry-card="events" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <div class="demo-thumb-wrap">
                 <picture>
-                  <source srcset="/wedding-demo.webp" type="image/webp" />
-                  <img src="/wedding-demo.jpg" alt="Wedding Photography Studio, Banquet Lawn and Event Planner Website Demo" width="800" height="446" loading="lazy" decoding="async" />
+                  <source srcset="wedding-demo.webp" type="image/webp" />
+                  <img src="wedding-demo.jpg" alt="Wedding Studio and Event Planner Website Demo" width="800" height="446" loading="lazy" decoding="async" />
                 </picture>
               </div>
-              <span class="badge-pill badge-amber">WEDDINGS &amp; EVENTS</span>
-              <h3 style="font-size:1.2rem; font-weight:800; margin:0.5rem 0;">Wedding Studio, Banquet Lawn &amp; Event Planner</h3>
-              <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:1.25rem;">
-                High-resolution portfolio showcase, event decor packages, and wedding date availability checker via WhatsApp.
-              </p>
+              <span class="badge-pill badge-amber">WEDDINGS</span>
+              <h3 style="font-size:1.15rem; font-weight:800; margin:0.4rem 0;">Wedding Studio &amp; Event Planner</h3>
+              <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:1rem;">Film &amp; photography lookbook, banquet packages, and wedding date inquiry.</p>
             </div>
-            <div style="display:flex; flex-direction:column; gap:0.5rem;">
-              <a href="/demos/wedding.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
-              <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Wedding%20%2F%20Event%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
+            <div style="display:flex; flex-direction:column; gap:0.45rem;">
+              <a href="demos/wedding.html" class="btn btn-secondary" style="width:100%;">Live Industry Demo देखें →</a>
+              <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Wedding%20Website%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">WhatsApp पर Free Consultation लें</a>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 7. PRICING PACKAGES (1-Column on Mobile, 3-Column on Desktop) -->
-    <section id="pricing" class="section-block" aria-labelledby="pricing-heading">
+    <!-- ======================================================================
+         VIEW 3: PRICING PACKAGES TAB (Opens instantly at top of screen!)
+         ====================================================================== -->
+    <section id="view-pricing" class="app-view-panel" aria-labelledby="pricing-heading">
       <div class="container">
         <span class="badge-pill badge-emerald">TRANSPARENT INVESTMENT TIERS</span>
         <h2 id="pricing-heading" class="h2-title">Simple, Honest Website Packages</h2>
-        <p class="lead-text" style="margin-bottom:2rem;">
-          All packages include mobile-first responsive engineering, WhatsApp inquiry automation, local SEO setup, and staging preview approval before final handover.
+        <p class="lead-text" style="margin-bottom:1.5rem;">
+          50% Booking Advance to start • Remaining 50% only after you review and approve your live staging website.
         </p>
 
         <div class="grid-3">
-          <!-- Tier 1: Starter -->
           <article class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <span class="badge-pill badge-cyan">STARTER PRESENCE</span>
-              <h3 style="font-size:1.35rem; font-weight:900; margin-top:0.5rem;">Local Business Starter</h3>
-              <div style="margin:1rem 0;">
-                <span style="font-size:2.25rem; font-weight:900; color:#fff;">₹4,999</span>
+              <h3 style="font-size:1.3rem; font-weight:900; margin-top:0.5rem;">Local Business Starter</h3>
+              <div style="margin:0.85rem 0;">
+                <span style="font-size:2.1rem; font-weight:900; color:#fff;">₹4,999</span>
                 <span style="font-size:0.85rem; color:var(--text-dim); text-decoration:line-through; margin-left:0.4rem;">₹9,999</span>
               </div>
-              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem; font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem;">
-                <li>✓ Single-Page High-Conversion Responsive Website</li>
-                <li>✓ Direct WhatsApp Click-to-Chat Lead Button</li>
-                <li>✓ Google Maps &amp; Business Hours Integration</li>
-                <li>✓ On-Page Local SEO Metadata &amp; SSL Setup</li>
-                <li>✓ 30 Days Post-Launch Technical Support</li>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                <li>✓ Single-Page Responsive Website</li>
+                <li>✓ Direct WhatsApp Lead Button</li>
+                <li>✓ Google Maps &amp; Business Hours</li>
+                <li>✓ On-Page Local SEO &amp; SSL Setup</li>
+                <li>✓ 30 Days Technical Support</li>
               </ul>
             </div>
             <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Starter%20Website%20Package%20(%E2%82%B94,999)%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
@@ -572,21 +514,20 @@
             </a>
           </article>
 
-          <!-- Tier 2: Growth Pro (Featured) -->
           <article class="card card-featured" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
-              <span class="badge-pill badge-amber">MOST POPULAR FOR BUSINESSES</span>
-              <h3 style="font-size:1.35rem; font-weight:900; margin-top:0.5rem;">Growth Pro + Lead Funnel</h3>
-              <div style="margin:1rem 0;">
-                <span style="font-size:2.25rem; font-weight:900; color:var(--amber);">₹9,999</span>
+              <span class="badge-pill badge-amber">MOST POPULAR</span>
+              <h3 style="font-size:1.3rem; font-weight:900; margin-top:0.5rem;">Growth Pro + Lead Funnel</h3>
+              <div style="margin:0.85rem 0;">
+                <span style="font-size:2.1rem; font-weight:900; color:var(--amber);">₹9,999</span>
                 <span style="font-size:0.85rem; color:var(--text-dim); text-decoration:line-through; margin-left:0.4rem;">₹19,999</span>
               </div>
-              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem; font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem;">
-                <li>✓ Up to 5 Custom Sections / Pages + Industry Demo Layout</li>
-                <li>✓ Pre-Filled WhatsApp Booking / Catalog / Inquiry Funnel</li>
-                <li>✓ Bilingual Support (English + Hindi / Hinglish Option)</li>
-                <li>✓ JSON-LD Schema, Sitemap.xml &amp; Local SEO Setup</li>
-                <li>✓ Co-Branded Shop UPI QR Standee &amp; 60-Day Support</li>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                <li>✓ Up to 5 Custom Sections / Industry Layout</li>
+                <li>✓ Pre-Filled WhatsApp Booking / Catalog Funnel</li>
+                <li>✓ Bilingual (English + Hindi / Hinglish)</li>
+                <li>✓ JSON-LD Schema, Sitemap &amp; Local SEO</li>
+                <li>✓ Free Co-Branded Shop QR + 60-Day Support</li>
               </ul>
             </div>
             <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Growth%20Pro%20Package%20(%E2%82%B99,999)%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
@@ -594,21 +535,19 @@
             </a>
           </article>
 
-          <!-- Tier 3: Enterprise -->
           <article class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
-              <span class="badge-pill badge-emerald">CUSTOM WEB APPLICATION</span>
-              <h3 style="font-size:1.35rem; font-weight:900; margin-top:0.5rem;">Enterprise Portal &amp; CRM</h3>
-              <div style="margin:1rem 0;">
-                <span style="font-size:2.25rem; font-weight:900; color:#fff;">₹19,999+</span>
-                <span style="font-size:0.85rem; color:var(--text-dim); margin-left:0.4rem;">Custom Scope</span>
+              <span class="badge-pill badge-emerald">CUSTOM PORTAL</span>
+              <h3 style="font-size:1.3rem; font-weight:900; margin-top:0.5rem;">Enterprise Web App</h3>
+              <div style="margin:0.85rem 0;">
+                <span style="font-size:2.1rem; font-weight:900; color:#fff;">₹19,999+</span>
               </div>
-              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem; font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem;">
-                <li>✓ Multi-Page Custom Architecture &amp; Database Integration</li>
-                <li>✓ Role-Based Admin Dashboard &amp; Lead Management</li>
-                <li>✓ Custom Payment / Admission / Appointment Workflows</li>
-                <li>✓ Dedicated Cloud Deployment (Vercel / Supabase / Custom)</li>
-                <li>✓ Priority Technical SLA &amp; Custom Feature Engineering</li>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                <li>✓ Custom Multi-Page Portal &amp; Database</li>
+                <li>✓ Admin CRM Dashboard &amp; Role Access</li>
+                <li>✓ Custom Admission / OPD / Order Workflows</li>
+                <li>✓ Cloud Deployment (Vercel / Supabase)</li>
+                <li>✓ Priority Technical SLA</li>
               </ul>
             </div>
             <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Enterprise%20Custom%20Portal%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
@@ -619,255 +558,102 @@
       </div>
     </section>
 
-    <!-- 8. REAL ENGINEERING ARCHITECTURE BENCHMARKS & CASE STUDIES -->
-    <section id="case-studies" class="section-block" aria-labelledby="cases-heading">
+    <!-- ======================================================================
+         VIEW 4: PROCESS, CASE BENCHMARKS & FAQ TAB
+         ====================================================================== -->
+    <section id="view-faq" class="app-view-panel" aria-labelledby="faq-heading">
       <div class="container">
-        <span class="badge-pill badge-cyan">VERIFIABLE ENGINEERING BENCHMARKS</span>
-        <h2 id="cases-heading" class="h2-title">How Our Architecture Solves Common Local Business Website Problems</h2>
-        <p class="lead-text" style="margin-bottom:2rem;">
-          Below are documented architectural improvements delivered across our Healthcare, Education, and Hospitality build templates (measured via local Lighthouse &amp; payload inspection, September 2026).
-        </p>
-
-        <div class="grid-3">
+        <span class="badge-pill badge-amber">3-STEP LAUNCH WORKFLOW</span>
+        <h2 class="h2-title">How We Launch Your Website in 3 Simple Steps</h2>
+        <div class="grid-3" style="margin-bottom:2.25rem;">
           <article class="card">
-            <span class="badge-pill badge-emerald">HEALTHCARE CLINIC FUNNEL</span>
-            <h3 style="font-size:1.2rem; font-weight:800; margin:0.6rem 0;">OPD Appointment Booking Flow</h3>
-            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:0.75rem;">
-              <strong>Challenge:</strong> Patients struggled with multi-step login forms on mobile phones when trying to book urgent OPD slots.
-            </p>
-            <p style="color:var(--text-muted); font-size:0.9rem;">
-              <strong>Engineering Solution:</strong> Replaced complex login forms with a 1-screen department &amp; time-slot selector that formats a structured WhatsApp booking message in under 15 seconds.
-            </p>
+            <strong style="color:var(--cyan);">STEP 01 • Select Demo</strong>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.35rem;">Message us on WhatsApp, choose your industry layout, and share your business details &amp; photos.</p>
           </article>
-
           <article class="card">
-            <span class="badge-pill badge-amber">EDUCATION &amp; SCHOOL PORTAL</span>
-            <h3 style="font-size:1.2rem; font-weight:800; margin:0.6rem 0;">Image &amp; Script Payload Optimization</h3>
-            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:0.75rem;">
-              <strong>Challenge:</strong> Uncompressed campus photos (`>1.0 MB` each) and runtime CSS scripts slowed mobile page loads on 4G networks.
-            </p>
-            <p style="color:var(--text-muted); font-size:0.9rem;">
-              <strong>Engineering Solution:</strong> Converted hero and gallery assets to WebP (`79 KB` vs `1,018 KB` — 92% reduction) and compiled static CSS (`assets/styles.min.css`).
-            </p>
+            <strong style="color:var(--amber);">STEP 02 • Staging Preview</strong>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.35rem;">We customize your website and share an interactive staging link for your review and revisions.</p>
           </article>
-
           <article class="card">
-            <span class="badge-pill badge-cyan">RESTAURANT &amp; RETAIL CATALOG</span>
-            <h3 style="font-size:1.2rem; font-weight:800; margin:0.6rem 0;">Zero-Commission Direct Ordering</h3>
-            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:0.75rem;">
-              <strong>Challenge:</strong> Local cafes and kirana stores wanted a digital menu and direct UPI QR without paying 25–30% third-party aggregator commissions.
-            </p>
-            <p style="color:var(--text-muted); font-size:0.9rem;">
-              <strong>Engineering Solution:</strong> Built an interactive item cart that sends itemized orders directly to the owner's WhatsApp along with a direct bank-to-bank UPI QR standee.
-            </p>
+            <strong style="color:var(--emerald);">STEP 03 • Domain Go-Live</strong>
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.35rem;">After your approval, we connect your custom domain with SSL and submit your sitemap to Google.</p>
           </article>
         </div>
-      </div>
-    </section>
 
-    <!-- 9. THREE-STEP LAUNCH PROCESS -->
-    <section id="process" class="section-block" aria-labelledby="process-heading">
-      <div class="container">
-        <span class="badge-pill badge-amber">SIMPLE WORKFLOW</span>
-        <h2 id="process-heading" class="h2-title">Launch Your Business Website in 3 Clear Steps</h2>
-        <div class="grid-3" style="margin-top:1.75rem;">
-          <article class="card">
-            <span style="font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:var(--cyan); font-weight:800;">STEP 01</span>
-            <h3 style="font-size:1.25rem; font-weight:800; margin:0.4rem 0;">Free Consultation &amp; Demo Selection</h3>
-            <p style="color:var(--text-muted); font-size:0.9375rem;">
-              Connect with us on WhatsApp, pick your favorite industry demo layout, and share your business name, services, photos, and contact details.
-            </p>
-          </article>
-
-          <article class="card">
-            <span style="font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:var(--amber); font-weight:800;">STEP 02</span>
-            <h3 style="font-size:1.25rem; font-weight:800; margin:0.4rem 0;">Custom Engineering &amp; Staging Preview</h3>
-            <p style="color:var(--text-muted); font-size:0.9375rem;">
-              We customize the design, configure your WhatsApp inquiry buttons, optimize images, and share a live staging link for your review and revisions.
-            </p>
-          </article>
-
-          <article class="card">
-            <span style="font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:var(--emerald); font-weight:800;">STEP 03</span>
-            <h3 style="font-size:1.25rem; font-weight:800; margin:0.4rem 0;">Final Approval &amp; Domain Go-Live</h3>
-            <p style="color:var(--text-muted); font-size:0.9375rem;">
-              Once you approve the staging preview, we connect your custom domain with HTTPS/SSL, submit your sitemap for Google indexing, and hand over full access.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10. COMPREHENSIVE 9-POINT FAQ SECTION -->
-    <section id="faq" class="section-block" aria-labelledby="faq-heading">
-      <div class="container">
-        <span class="badge-pill badge-cyan">TRANSPARENT ANSWERS</span>
         <h2 id="faq-heading" class="h2-title">Frequently Asked Questions (FAQ)</h2>
-        <p class="lead-text" style="margin-bottom:2rem;">
-          Everything you need to know about deliverables, timelines, domain &amp; hosting, revisions, SEO scope, and payment terms.
-        </p>
-
-        <div style="max-width:860px;">
+        <div style="max-width:860px; margin-top:1rem;">
           <details class="faq-item">
-            <summary class="faq-summary">
-              <span>1. What is included in every website package?</span>
-              <span aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Every website package includes custom mobile-responsive design, click-to-WhatsApp inquiry integration, Google Maps embed, SSL security certificate configuration, on-page SEO metadata (Title, Meta Description, Open Graph, JSON-LD schema), WebP image optimization, and 30 days of post-launch technical support.
-            </div>
+            <summary class="faq-summary"><span>1. What is included in every website package?</span><span>+</span></summary>
+            <div class="faq-answer">Responsive mobile/desktop design, direct WhatsApp lead buttons, Google Maps integration, SSL setup, on-page local SEO metadata, and 30 days post-launch support.</div>
           </details>
-
           <details class="faq-item">
-            <summary class="faq-summary">
-              <span>2. What is the realistic launch timeline?</span>
-              <span aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Starter and Growth Pro websites typically launch within <strong>3 to 7 business days</strong>. Exact launch timeline depends on how quickly content (business details, service pricing, photos, logo) and staging approvals are provided by your team.
-            </div>
+            <summary class="faq-summary"><span>2. What is the launch timeline?</span><span>+</span></summary>
+            <div class="faq-answer">Starter and Growth Pro websites typically launch within 3 to 7 business days depending on content and staging approval speed.</div>
           </details>
-
           <details class="faq-item">
-            <summary class="faq-summary">
-              <span>3. How do domain name and web hosting work?</span>
-              <span aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              You retain 100% ownership of your custom domain name (e.g., <code>.com</code> or <code>.in</code>). We can connect your existing domain or guide you in registering a new one in your own name, and deploy your website on high-speed global cloud hosting (GitHub Pages, Vercel, Netlify, or your preferred host).
-            </div>
+            <summary class="faq-summary"><span>3. How do domain, hosting, and payment terms work?</span><span>+</span></summary>
+            <div class="faq-answer">You own your domain 100%. Payment is split into a 50% booking advance and 50% upon staging approval before live deployment.</div>
           </details>
-
           <details class="faq-item">
-            <summary class="faq-summary">
-              <span>4. How many design and content revisions are included?</span>
-              <span aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              We include up to <strong>2 structured rounds of revisions</strong> during the staging review phase so you can refine text, colors, photos, and package pricing before going live.
-            </div>
-          </details>
-
-          <details class="faq-item">
-            <summary class="faq-summary">
-              <span>5. How does the WhatsApp lead automation work?</span>
-              <span aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              When a visitor fills out your inquiry form or clicks a service/product button, our script validates their inputs and opens WhatsApp with a pre-formatted message addressed directly to your official business WhatsApp number—with zero monthly per-message software fees.
-            </div>
-          </details>
-
-          <details class="faq-item">
-            <summary class="faq-summary">
-              <span>6. What is the SEO scope included?</span>
-              <span aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              We implement complete technical and on-page local SEO foundations: clean heading hierarchy (H1–H3), canonical URLs, `robots.txt`, `sitemap.xml`, Open Graph tags, fast mobile loading, and `LocalBusiness` / `ProfessionalService` JSON-LD schema. Search rankings depend on local competition, domain age, and ongoing business activity.
-            </div>
-          </details>
-
-          <details class="faq-item">
-            <summary class="faq-summary">
-              <span>7. What are the payment terms?</span>
-              <span aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              We follow a milestone-based structure: <strong>50% booking advance</strong> to initiate project setup and design, and the remaining <strong>50% upon staging link approval</strong> prior to final live domain deployment.
-            </div>
-          </details>
-
-          <details class="faq-item">
-            <summary class="faq-summary">
-              <span>8. What is the cancellation and refund policy?</span>
-              <span aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              If you cancel a booking within 24 hours before custom design and coding begin, your advance is refundable (minus any payment gateway fees). Once your custom staging website has been engineered and delivered for review, booking advances cover the completed engineering labor. Full details are available on our <a href="/legal" style="color:var(--cyan); text-decoration:underline;">Legal Policies</a> page.
-            </div>
-          </details>
-
-          <details class="faq-item">
-            <summary class="faq-summary">
-              <span>9. What support is provided after launch?</span>
-              <span aria-hidden="true">+</span>
-            </summary>
-            <div class="faq-answer">
-              Every website includes 30 days of free post-launch support (60 days on Growth Pro) covering minor text/phone number updates, bug fixes, and SSL/domain health checks. Optional annual maintenance plans are also available.
-            </div>
+            <summary class="faq-summary"><span>4. What is the cancellation and refund policy?</span><span>+</span></summary>
+            <div class="faq-answer">Cancellations within 24 hours prior to design initiation are refundable (minus gateway fees). Full terms are listed on our <a href="legal.html" style="color:var(--cyan); text-decoration:underline;">Legal Policies</a> page.</div>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- 11. FINAL WHATSAPP CTA & VALIDATED CONSULTATION FORM -->
-    <section id="contact" class="section-block" aria-labelledby="final-cta-heading">
+    <!-- ======================================================================
+         VIEW 5: DIRECT CONSULTATION & CONTACT FORM TAB
+         ====================================================================== -->
+    <section id="view-contact" class="app-view-panel" aria-labelledby="final-cta-heading">
       <div class="container">
-        <div class="card card-featured" style="padding:2rem 1.5rem;">
+        <div class="card card-featured">
           <div class="grid-2" style="align-items:center;">
             <div>
-              <span class="badge-pill badge-amber">PROMOTIONAL CAMPAIGN OFFER • DIRECT CONSULTATION</span>
-              <h2 id="final-cta-heading" class="h2-title">Ready to Launch a Fast, Mobile-First Website for Your Business?</h2>
-              <p class="lead-text" style="margin-bottom:1.25rem;">
-                Speak directly with our engineering desk on WhatsApp or submit your business details on the right to receive a customized demo link and official quotation.
+              <span class="badge-pill badge-amber">DIRECT ENGINEERING DESK</span>
+              <h2 id="final-cta-heading" class="h2-title">Get Your Free Website Consultation on WhatsApp</h2>
+              <p class="lead-text" style="margin-bottom:1rem;">
+                Fill in your business name and mobile number to open a direct WhatsApp consultation with our team.
               </p>
-              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.9375rem; color:var(--text-muted); margin-bottom:1.5rem;">
-                <li>📞 <strong>Direct Call / WhatsApp:</strong> <a href="tel:+918770912734" style="color:var(--cyan); font-weight:800;">+91 87709 12734</a></li>
-                <li>✉️ <strong>Official Email:</strong> <a href="mailto:contact@uikeylabs.com" style="color:var(--amber); font-weight:800;">contact@uikeylabs.com</a></li>
-                <li>📍 <strong>Location:</strong> Chhindwara, Madhya Pradesh (Serving Pan-India)</li>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.45rem; font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                <li>📞 <strong>Phone / WhatsApp:</strong> <a href="tel:+918770912734" style="color:var(--cyan); font-weight:800;">+91 87709 12734</a></li>
+                <li>✉️ <strong>Email:</strong> <a href="mailto:contact@uikeylabs.com" style="color:var(--amber); font-weight:800;">contact@uikeylabs.com</a></li>
               </ul>
-
-              <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
-                <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
-                  WhatsApp पर Free Consultation लें →
-                </a>
-                <a href="#demos" class="btn btn-secondary">
-                  Live Industry Demo देखें
-                </a>
-              </div>
             </div>
 
-            <!-- Validated Consultation Form -->
             <div class="card" style="background:#050811;">
-              <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:1rem;">Request Free Website Demo &amp; Consultation</h3>
               <form id="consultationLeadForm" onsubmit="handleConsultationSubmit(event)" novalidate>
                 <div class="form-group">
-                  <label for="leadBusinessName" class="form-label">1. Your Business / Organization Name *</label>
-                  <input id="leadBusinessName" name="business_name" type="text" required autocomplete="organization" placeholder="e.g. City Care Clinic / Sharma Store" class="form-input" />
+                  <label for="leadBusinessName" class="form-label">1. Business / Shop Name *</label>
+                  <input id="leadBusinessName" name="business_name" type="text" required placeholder="e.g. City Care Clinic / Sharma Store" class="form-input" />
                 </div>
-
                 <div class="form-group">
-                  <label for="leadIndustrySelect" class="form-label">2. Select Your Industry Category *</label>
+                  <label for="leadIndustrySelect" class="form-label">2. Industry Category *</label>
                   <select id="leadIndustrySelect" name="industry" required class="form-input">
-                    <option value="Doctor Clinic / Hospital">Doctor Clinic / Hospital / Medical</option>
-                    <option value="School / Coaching Institute">School / College / Coaching Institute</option>
-                    <option value="Restaurant / Cafe / Bakery">Restaurant / Cafe / Cloud Kitchen</option>
-                    <option value="Real Estate / Builder">Real Estate / Property Developer</option>
-                    <option value="Retail / Kirana / Showroom">Retail Store / Supermarket / Showroom</option>
-                    <option value="Advocate / CA Chamber">Advocate / Law Firm / CA Office</option>
-                    <option value="Salon / Bridal Studio">Salon / Bridal Makeup / Spa</option>
-                    <option value="Gym / Fitness Studio">Gym / Yoga / Fitness Club</option>
-                    <option value="Wedding / Event Planner">Wedding Studio / Event Planner</option>
-                    <option value="Other Local Business">Other Custom Website / Web App</option>
+                    <option value="Doctor Clinic / Hospital">Doctor Clinic / Hospital</option>
+                    <option value="School / Coaching Institute">School / Coaching Institute</option>
+                    <option value="Restaurant / Cafe">Restaurant / Cafe / Bakery</option>
+                    <option value="Real Estate">Real Estate / Builder</option>
+                    <option value="Retail / Kirana">Retail Store / Supermarket</option>
+                    <option value="Advocate / CA">Advocate / Law Firm / CA</option>
+                    <option value="Salon / Gym">Salon / Spa / Gym</option>
+                    <option value="Wedding / Event">Wedding / Event Planner</option>
+                    <option value="Other Business">Other Local Business</option>
                   </select>
                 </div>
-
-                <div class="grid-2" style="gap:0.75rem;">
+                <div class="grid-2" style="gap:0.65rem;">
                   <div class="form-group">
-                    <label for="leadPhoneInput" class="form-label">3. 10-Digit WhatsApp Mobile *</label>
-                    <input id="leadPhoneInput" name="mobile" type="tel" required autocomplete="tel" pattern="[0-9]{10,12}" placeholder="e.g. 9876543210" class="form-input" />
+                    <label for="leadPhoneInput" class="form-label">3. 10-Digit Mobile *</label>
+                    <input id="leadPhoneInput" name="mobile" type="tel" required placeholder="9876543210" class="form-input" />
                   </div>
                   <div class="form-group">
-                    <label for="leadCityInput" class="form-label">4. Your City / Town</label>
-                    <input id="leadCityInput" name="city" type="text" autocomplete="address-level2" placeholder="e.g. Chhindwara / Bhopal" class="form-input" />
+                    <label for="leadCityInput" class="form-label">4. City</label>
+                    <input id="leadCityInput" name="city" type="text" placeholder="Chhindwara" class="form-input" />
                   </div>
                 </div>
-
                 <button type="submit" id="leadSubmitBtn" class="btn btn-whatsapp" style="width:100%;">
                   WhatsApp पर Free Consultation लें →
                 </button>
-
                 <div id="leadFormStatus" class="form-status" role="status" aria-live="polite"></div>
               </form>
             </div>
@@ -877,67 +663,47 @@
     </section>
   </main>
 
-  <!-- 12. SEMANTIC FOOTER -->
-  <footer style="background:#03060C; border-top:1px solid var(--border); padding:3rem 0 2rem;" role="contentinfo">
-    <div class="container">
-      <div class="grid-3" style="margin-bottom:2rem;">
-        <div>
-          <a href="/" class="brand-link" style="margin-bottom:0.75rem;">
-            <img src="/uikeylabs-logo.webp" alt="UIKEY LABS Logo" width="40" height="40" class="brand-logo" />
-            <span class="brand-name"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></span>
-          </a>
-          <p style="color:var(--text-dim); font-size:0.875rem;">
-            Mobile-first web engineering, live industry demos, local SEO setup, and WhatsApp lead funnels for Indian businesses.
-          </p>
-        </div>
-
-        <div>
-          <h3 style="font-size:0.95rem; font-weight:800; margin-bottom:0.75rem; color:#fff;">Live Industry Demos</h3>
-          <ul style="list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:0.4rem; font-size:0.85rem; color:var(--text-muted);">
-            <li><a href="/demos/doctor.html">Doctor Clinic</a></li>
-            <li><a href="/demos/school.html">School &amp; Coaching</a></li>
-            <li><a href="/demos/cafe.html">Cafe &amp; Restaurant</a></li>
-            <li><a href="/demos/realestate.html">Real Estate</a></li>
-            <li><a href="/demos/retail.html">Retail Store</a></li>
-            <li><a href="/demos/law.html">Advocate &amp; CA</a></li>
-            <li><a href="/demos/salon.html">Salon &amp; Bridal</a></li>
-            <li><a href="/demos/gym.html">Gym &amp; Fitness</a></li>
-            <li><a href="/demos/wedding.html">Wedding Studio</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 style="font-size:0.95rem; font-weight:800; margin-bottom:0.75rem; color:#fff;">Client Utilities &amp; Governance</h3>
-          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.4rem; font-size:0.85rem; color:var(--text-muted);">
-            <li><a href="/merchant-qr">🏪 Free Shop UPI QR Standee Generator (`/merchant-qr`)</a></li>
-            <li><a href="/quote">📄 Official Website Quotation Generator (`/quote`)</a></li>
-            <li><a href="/payment">💳 Project Booking &amp; UPI Payment Desk (`/payment`)</a></li>
-            <li><a href="/dashboard">🔐 Protected Merchant Dashboard (`/dashboard`)</a></li>
-            <li><a href="/legal">⚖️ Terms, Privacy &amp; Refund Policies (`/legal`)</a></li>
-          </ul>
-        </div>
+  <!-- COMPACT FOOTER -->
+  <footer style="background:#03060C; border-top:1px solid var(--border); padding:2rem 0;" role="contentinfo">
+    <div class="container" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; font-size:0.8rem; color:var(--text-dim);">
+      <div>
+        <strong style="color:#fff;">UIKEY LABS</strong> (uikeylabs.com) • +91 87709 12734 • contact@uikeylabs.com
       </div>
-
-      <div style="border-top:1px solid rgba(30,41,59,0.6); padding-top:1.25rem; display:flex; flex-wrap:wrap; justify-content:space-between; gap:0.75rem; font-size:0.8125rem; color:var(--text-dim);">
-        <span>© 2026 UIKEY LABS (uikeylabs.com). All rights reserved.</span>
-        <span>Contact: <a href="tel:+918770912734" style="color:var(--text-muted);">+91 87709 12734</a> • <a href="mailto:contact@uikeylabs.com" style="color:var(--text-muted);">contact@uikeylabs.com</a></span>
+      <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+        <a href="merchant-qr.html" style="color:var(--amber);">🏪 Free Shop QR</a>
+        <a href="quote.html">📄 Quote PDF</a>
+        <a href="payment.html">💳 UPI Pay</a>
+        <a href="dashboard.html">🔐 Dashboard</a>
+        <a href="legal.html">⚖️ Legal Policies</a>
       </div>
     </div>
   </footer>
 
-  <!-- Fixed Mobile Bottom Conversion Bar with env(safe-area-inset-bottom) -->
-  <div class="mobile-sticky-bar" role="region" aria-label="Quick Mobile Actions">
-    <a href="#demos" class="btn btn-secondary" style="flex:1; padding:0.65rem 0.5rem; font-size:0.8125rem;">
-      Live Industry Demo देखें
+  <!-- ========================================================================
+       SINGLE NON-OVERLAPPING MOBILE APP BOTTOM NAVIGATION BAR (5 TABS)
+       Fixes the overlapping green badge from the user's screenshot!
+       ======================================================================== -->
+  <nav class="mobile-app-dock" aria-label="Mobile Bottom App Bar">
+    <button type="button" data-dock-target="home" onclick="switchAppView('home')" class="dock-btn active">
+      <span style="font-size:1.1rem;">🏠</span>
+      <span>Home</span>
+    </button>
+    <button type="button" data-dock-target="demos" onclick="switchAppView('demos')" class="dock-btn">
+      <span style="font-size:1.1rem;">🚀</span>
+      <span>9 Demos</span>
+    </button>
+    <button type="button" data-dock-target="pricing" onclick="switchAppView('pricing')" class="dock-btn">
+      <span style="font-size:1.1rem;">💎</span>
+      <span>Pricing</span>
+    </button>
+    <a href="merchant-qr.html" class="dock-btn" style="color:var(--amber);">
+      <span style="font-size:1.1rem;">🏪</span>
+      <span>Shop QR</span>
     </a>
-    <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="flex:1.35; padding:0.65rem 0.5rem; font-size:0.8125rem;">
-      WhatsApp पर Free Consultation लें
+    <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="dock-btn dock-btn-wa">
+      <span style="font-size:1.1rem;">💬</span>
+      <span>WhatsApp</span>
     </a>
-  </div>
-
-  <!-- Desktop-Only Floating WhatsApp Button (Never overlaps mobile bottom bar) -->
-  <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="desktop-floating-wa" aria-label="Chat on WhatsApp for Free Consultation">
-    <span>💬 WhatsApp पर Free Consultation लें</span>
-  </a>
+  </nav>
 </body>
 </html>
