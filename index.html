@@ -28,28 +28,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet" />
 
-  <!-- Compiled Production Stylesheet (Cache-Busted v4.0) -->
-  <link rel="stylesheet" href="assets/styles.min.css?v=4.0" />
+  <!-- Compiled Production Stylesheet (Cache-Busted v5.0) -->
+  <link rel="stylesheet" href="assets/styles.min.css?v=5.0" />
 
-  <!-- Critical Inline Mobile & App-Tab Guard (Prevents cached CSS from stacking tabs or overflowing width) -->
+  <!-- Critical Inline Mobile & App-Tab Guard v5.0 (Prevents right-side cut-off & long scroll on all mobile browsers) -->
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; min-width: 0; }
     html, body {
       width: 100% !important;
       max-width: 100vw !important;
       overflow-x: clip !important;
       margin: 0 !important;
       padding: 0 !important;
-      background-color: #090d16;
+      background-color: #050811;
       color: #f8fafc;
     }
     .app-view-panel { display: none !important; }
     .app-view-panel.is-active { display: block !important; }
+    .hero-grid, .grid-2, .grid-3, .grid-4-nav { grid-template-columns: minmax(0, 1fr); width: 100%; }
+    @media (max-width: 767px) {
+      .app-tab-inner { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 0.35rem !important; width: 100% !important; }
+      .app-tab-btn { width: 100% !important; white-space: normal !important; font-size: 0.72rem !important; padding: 0.42rem 0.25rem !important; justify-content: center !important; }
+    }
     img, svg, video, canvas { max-width: 100%; height: auto; }
   </style>
 
-  <!-- Deferred Production Frontend Module (Cache-Busted v4.0) -->
-  <script src="assets/main.min.js?v=4.0" defer></script>
+  <!-- Deferred Production Frontend Module (Cache-Busted v5.0) -->
+  <script src="assets/main.min.js?v=5.0" defer></script>
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -105,23 +110,23 @@
   <!-- 1. COMPACT PROMOTIONAL OFFER BANNER -->
   <div class="campaign-banner" role="region" aria-label="Promotional Campaign Offer">
     <div class="container campaign-inner">
-      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.45rem;">
-        <span class="badge-pill badge-amber">PROMOTIONAL OFFER</span>
-        <span><strong>50% Introductory Discount</strong> on Starter &amp; Growth Website Packages.</span>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.4rem;">
+        <span class="badge-pill badge-amber">50% OFF OFFER</span>
+        <span>Introductory Discount on Starter &amp; Growth Website Packages.</span>
       </div>
-      <button type="button" onclick="switchAppView('pricing')" style="background:none; border:none; color:var(--amber); font-weight:800; text-decoration:underline; cursor:pointer; min-height:auto; font-size:0.78rem;">
+      <button type="button" onclick="switchAppView('pricing')" style="background:none; border:none; color:var(--amber); font-weight:800; text-decoration:underline; cursor:pointer; min-height:auto; font-size:0.75rem;">
         View Packages →
       </button>
     </div>
   </div>
 
-  <!-- 2. STICKY HEADER + APP-STYLE INSTANT TAB SWITCHER (NO ENDLESS SCROLLING!) -->
+  <!-- 2. STICKY HEADER + APP-STYLE 2x3 MOBILE TAB GRID (ZERO CUT-OFF & ZERO LONG SCROLLING!) -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" onclick="switchAppView('home'); return false;" class="brand-link" aria-label="UIKEY LABS Home">
         <picture>
           <source srcset="uikeylabs-logo.webp" type="image/webp" />
-          <img src="uikeylabs-logo.jpg" alt="UIKEY LABS Official Logo" width="40" height="40" class="brand-logo" />
+          <img src="uikeylabs-logo.jpg" alt="UIKEY LABS Official Logo" width="38" height="38" class="brand-logo" />
         </picture>
         <div>
           <span class="brand-name"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></span>
@@ -130,8 +135,8 @@
       </a>
 
       <div class="header-actions">
-        <button type="button" onclick="toggleSiteLanguage()" aria-label="Switch Website Language between English and Hindi" aria-pressed="false" class="btn btn-outline lang-toggle-btn" style="padding:0.45rem 0.75rem; font-size:0.75rem; min-height:38px;">
-          🇮🇳 हिंदी / Hinglish
+        <button type="button" onclick="toggleSiteLanguage()" aria-label="Switch Website Language between English and Hindi" aria-pressed="false" class="btn btn-outline lang-toggle-btn" style="padding:0.35rem 0.6rem; font-size:0.72rem; min-height:38px;">
+          🇮🇳 हिंदी / EN
         </button>
 
         <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp desktop-only" style="padding:0.55rem 0.95rem; font-size:0.82rem;">
@@ -146,32 +151,26 @@
       </div>
     </div>
 
-    <!-- APP-STYLE PAGE TABS (Click Any Tab -> Opens Immediately Without Long Scrolling!) -->
+    <!-- APP-STYLE PAGE TABS (2x3 Full-Width Grid on Mobile, Pill Strip on Desktop -> ZERO Cut-Off!) -->
     <div class="app-tab-strip">
       <div class="container app-tab-inner" role="tablist" aria-label="Website Sections">
         <button type="button" role="tab" aria-selected="true" data-view-target="home" onclick="switchAppView('home')" class="app-tab-btn active">
-          🏠 Home Overview
+          🏠 Home
         </button>
         <button type="button" role="tab" aria-selected="false" data-view-target="demos" onclick="switchAppView('demos')" class="app-tab-btn">
-          🚀 9 Live Demos
+          🚀 9 Demos
         </button>
         <button type="button" role="tab" aria-selected="false" data-view-target="pricing" onclick="switchAppView('pricing')" class="app-tab-btn">
-          💎 Pricing (50% OFF)
+          💎 Pricing
         </button>
         <button type="button" role="tab" aria-selected="false" data-view-target="faq" onclick="switchAppView('faq')" class="app-tab-btn">
-          ❓ Process &amp; FAQ
+          ❓ Process/FAQ
         </button>
         <button type="button" role="tab" aria-selected="false" data-view-target="contact" onclick="switchAppView('contact')" class="app-tab-btn">
-          📞 Free Consultation
+          📞 Contact
         </button>
         <a href="merchant-qr.html" class="app-tab-btn" style="border-color:rgba(251,191,36,0.5); color:var(--amber);">
-          🏪 Free Shop QR Maker ↗
-        </a>
-        <a href="quote.html" class="app-tab-btn">
-          📄 Quote PDF ↗
-        </a>
-        <a href="payment.html" class="app-tab-btn">
-          💳 UPI Pay ↗
+          🏪 Shop QR ↗
         </a>
       </div>
     </div>
@@ -201,7 +200,7 @@
         <div class="hero-grid">
           <div>
             <span id="heroBadgeText" class="badge-pill badge-cyan">
-              TARGET SUB-1-SECOND LOAD TIME • MOBILE-FIRST WEB ENGINEERING
+              FAST MOBILE-FIRST WEBSITES • DIRECT WHATSAPP LEADS
             </span>
 
             <h1 id="heroMainHeading" class="h1-title">
@@ -209,10 +208,10 @@
             </h1>
 
             <p id="heroSubHeading" class="lead-text">
-              Select any section below to explore 9 Live Industry Demos, Website Packages, Free Shop QR Standee Maker, or connect with us on WhatsApp—without endless scrolling!
+              Tap any section tab or card below to explore 9 Live Industry Demos, Website Packages, or our Free Shop QR Standee Maker—instantly without long scrolling!
             </p>
 
-            <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.35rem;">
+            <div class="hero-cta-group">
               <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
                 <span>WhatsApp पर Free Consultation लें</span>
                 <span aria-hidden="true">→</span>
@@ -226,10 +225,10 @@
 
           <!-- Interactive 4-Card Quick Portal Grid (1-Tap Navigation Instead of Boring Scrolling!) -->
           <div>
-            <p style="font-size:0.75rem; font-family:'JetBrains Mono',monospace; color:var(--amber); font-weight:800; margin-bottom:0.6rem;">
-              ⚡ TAP ANY CARD TO OPEN INSTANTLY (NO LONG SCROLL):
+            <p style="font-size:0.74rem; font-family:'JetBrains Mono',monospace; color:var(--amber); font-weight:800; margin-bottom:0.55rem;">
+              ⚡ TAP ANY CARD TO OPEN INSTANTLY:
             </p>
-            <div class="grid-4-nav" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="grid-4-nav">
               <button type="button" onclick="switchAppView('demos')" class="portal-tile">
                 <div>
                   <span class="badge-pill badge-cyan" style="margin-bottom:0.5rem;">9 LIVE DEMOS</span>
