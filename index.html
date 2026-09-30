@@ -28,11 +28,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet" />
 
-  <!-- Compiled Production Stylesheet -->
-  <link rel="stylesheet" href="assets/styles.min.css" />
+  <!-- Compiled Production Stylesheet (Cache-Busted v4.0) -->
+  <link rel="stylesheet" href="assets/styles.min.css?v=4.0" />
 
-  <!-- Deferred Production Frontend Module -->
-  <script src="assets/main.min.js" defer></script>
+  <!-- Critical Inline Mobile & App-Tab Guard (Prevents cached CSS from stacking tabs or overflowing width) -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      width: 100% !important;
+      max-width: 100vw !important;
+      overflow-x: clip !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: #090d16;
+      color: #f8fafc;
+    }
+    .app-view-panel { display: none !important; }
+    .app-view-panel.is-active { display: block !important; }
+    img, svg, video, canvas { max-width: 100%; height: auto; }
+  </style>
+
+  <!-- Deferred Production Frontend Module (Cache-Busted v4.0) -->
+  <script src="assets/main.min.js?v=4.0" defer></script>
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
