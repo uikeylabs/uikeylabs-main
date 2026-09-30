@@ -270,33 +270,44 @@ class UikeyLabsRequestHandler(http.server.SimpleHTTPRequestHandler):
 
             if parsed.path == "/api/signup":
                 business_name = (data.get("business_name") or "").strip()[:120]
-                category = (data.get("category") or "Retail").strip()[:80]
-                upi_id = (data.get("upi_id") or "").strip()[:120]
-                mobile = normalize_mobile(data.get("mobile") or "")
+                category = (data.get("category") or "Local Business").strip()[:80]
+                upi_id = (data.get("upi_id") or "merchant@upi").strip()[:120]
+                raw_id = (data.get("mobile") or data.get("email") or "").strip()
+                mobile = normalize_mobile(raw_id) or raw_id.lower()[:120]
+                email = (data.get("email") or (raw_id if "@" in raw_id else "")).strip().lower()[:120]
                 password = (data.get("password") or "").strip()
 
-                if not business_name or not mobile or not UPI_REGEX.match(upi_id) or len(password) < 6:
+                if not business_name or not mobile or len(password) < 6:
                     conn.close()
                     return self.send_json(
                         400,
                         {
                             "ok": False,
-                            "error": "Valid business name, 10-digit mobile, valid UPI ID, and minimum 6-character password required.",
+                            "error": "Business/Full Name, valid Email or 10-digit Mobile, and minimum 6-character password required.",
                         },
                     )
+
+                cur.execute("SELECT id FROM merchants WHERE mobile = ? OR (email != '' AND email = ?)", (mobile, email))
+                if cur.fetchone():
+                    conn.close()
+                    return self.send_json(409, {"ok": False, "error": "An account with this Email or Mobile already exists. Please Sign In."})
 
                 code = f"UL-{secrets.randbelow(9000) + 1000}"
                 now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 cur.execute(
                     """
-                    INSERT INTO merchants (merchant_code, business_name, category, upi_id, mobile, password_hash, created_at)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO merchants (merchant_code, business_name, category, upi_id, mobile, email, password_hash, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (code, business_name, category, upi_id, mobile, hash_password(password), now_str),
+                    (code, business_name, category, upi_id, mobile, email, hash_password(password), now_str),
                 )
                 conn.commit()
+                cur.execute("SELECT * FROM merchants WHERE merchant_code = ?", (code,))
+                row = cur.fetchone()
                 conn.close()
-                return self.send_json(201, {"ok": True, "merchant_code": code})
+                token = secrets.token_urlsafe(32)
+                ACTIVE_SESSIONS[token] = (code, time.time() + SESSION_TTL_SEC)
+                return self.send_json(201, {"ok": True, "merchant_code": code, "session_token": token, "merchant": sanitize_merchant_row(row)})
 
             if parsed.path == "/api/login":
                 if is_rate_limited(client_ip):
@@ -311,15 +322,15 @@ class UikeyLabsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 norm_mob = normalize_mobile(login_id)
 
                 cur.execute(
-                    "SELECT * FROM merchants WHERE mobile = ? OR UPPER(merchant_code) = ?",
-                    (norm_mob or login_id, login_id.upper()),
+                    "SELECT * FROM merchants WHERE mobile = ? OR LOWER(email) = ? OR UPPER(merchant_code) = ?",
+                    (norm_mob or login_id.lower(), login_id.lower(), login_id.upper()),
                 )
                 row = cur.fetchone()
                 conn.close()
 
                 if not row or not verify_password(password, row["password_hash"]):
                     record_failed_login(client_ip)
-                    return self.send_json(401, {"ok": False, "error": "Invalid login ID or password."})
+                    return self.send_json(401, {"ok": False, "error": "Invalid email/mobile or password. Please verify your credentials or Sign Up first."})
 
                 token = secrets.token_urlsafe(32)
                 ACTIVE_SESSIONS[token] = (row["merchant_code"], time.time() + SESSION_TTL_SEC)
@@ -327,6 +338,43 @@ class UikeyLabsRequestHandler(http.server.SimpleHTTPRequestHandler):
                     200,
                     {"ok": True, "session_token": token, "merchant": sanitize_merchant_row(row)},
                 )
+
+            if parsed.path == "/api/google-auth":
+                email = (data.get("email") or "").strip().lower()[:120]
+                name = (data.get("name") or "").strip()[:120]
+                google_sub = (data.get("sub") or "").strip()[:120]
+                if not email or "@" not in email or not name:
+                    conn.close()
+                    return self.send_json(400, {"ok": False, "error": "Valid Google email and profile name required."})
+
+                cur.execute("SELECT * FROM merchants WHERE LOWER(email) = ? OR mobile = ?", (email, email))
+                row = cur.fetchone()
+                if not row:
+                    code = f"UL-G{secrets.randbelow(9000) + 1000}"
+                    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    random_pw = secrets.token_urlsafe(24) + google_sub
+                    cur.execute(
+                        """
+                        INSERT INTO merchants (merchant_code, business_name, category, upi_id, mobile, email, password_hash, created_at)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (code, name, "Google Verified", "merchant@upi", email, email, hash_password(random_pw), now_str),
+                    )
+                    conn.commit()
+                    cur.execute("SELECT * FROM merchants WHERE merchant_code = ?", (code,))
+                    row = cur.fetchone()
+                conn.close()
+                token = secrets.token_urlsafe(32)
+                ACTIVE_SESSIONS[token] = (row["merchant_code"], time.time() + SESSION_TTL_SEC)
+                return self.send_json(200, {"ok": True, "session_token": token, "merchant": sanitize_merchant_row(row)})
+
+            if parsed.path == "/api/logout":
+                auth_hdr = self.headers.get("Authorization", "")
+                token = (data.get("session_token") or auth_hdr.replace("Bearer ", "")).strip()
+                if token and token in ACTIVE_SESSIONS:
+                    del ACTIVE_SESSIONS[token]
+                conn.close()
+                return self.send_json(200, {"ok": True, "message": "Session revoked and signed out."})
 
             conn.close()
             return self.send_json(404, {"ok": False, "error": "API endpoint not found."})

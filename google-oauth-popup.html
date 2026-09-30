@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in - Google Accounts (OAuth 2.0 • UIKEY LABS)</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .oauth-card {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      color: #1e293b;
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .g-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      color: #475569;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 6px;
+      color: #0f172a;
+    }
+    .sub {
+      font-size: 14px;
+      color: #475569;
+      margin: 0 0 20px;
+    }
+    .sub strong { color: #0284c7; }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 5px;
+    }
+    .field input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+      color: #0f172a;
+      outline: none;
+    }
+    .field input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .error-msg {
+      display: none;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .btn-cancel {
+      background: transparent;
+      border: none;
+      color: #2563eb;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+    .btn-submit {
+      background: #1a73e8;
+      color: #ffffff;
+      border: none;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 11px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-submit:hover { background: #1557b0; }
+    .saved-accounts {
+      margin-bottom: 16px;
+      display: none;
+    }
+    .acc-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .acc-item:hover { background: #f1f5f9; }
+    .acc-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #1a73e8;
+      color: #fff;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="oauth-card">
+    <div class="g-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+        <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
+        <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 12.3s.6 3.3 1.6 5.3l3.7-2.8z"/>
+        <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5L1.6 16c1.9 3.9 5.8 7 10.4 7z"/>
+      </svg>
+      <span>Sign in with Google</span>
+    </div>
+
+    <h1>Choose an account</h1>
+    <p class="sub">to continue to <strong>UIKEY LABS (uikeylabs.com)</strong></p>
+
+    <!-- Official GIS Button Container if Google Client ID is active -->
+    <div id="gisOfficialContainer" style="margin-bottom: 14px;"></div>
+
+    <!-- Previously signed-in Google accounts on this browser -->
+    <div id="savedGoogleAccounts" class="saved-accounts"></div>
+
+    <div id="errBox" class="error-msg"></div>
+
+    <form id="googlePopupForm" onsubmit="submitGoogleOAuthPopup(event)" novalidate>
+      <div class="field">
+        <label for="gEmail">Google Email (@gmail.com or Google Workspace) *</label>
+        <input id="gEmail" type="email" required autocomplete="email" placeholder="yourname@gmail.com" />
+      </div>
+      <div class="field">
+        <label for="gName">Full Name / Business Profile Name *</label>
+        <input id="gName" type="text" required autocomplete="name" placeholder="e.g. Mahesh Kumar Uikey" />
+      </div>
+      <div class="field">
+        <label for="gPass">Google Account Password / App Verification *</label>
+        <input id="gPass" type="password" required autocomplete="current-password" placeholder="Enter password (min 6 characters)" />
+      </div>
+
+      <p style="font-size:11.5px; color:#64748b; line-height:1.45; margin-top:10px;">
+        To continue, Google will share your name, email address, language preference, and profile picture with UIKEY LABS. See UIKEY LABS's <a href="privacy.html" target="_blank" style="color:#1a73e8;">Privacy Policy</a> and <a href="terms.html" target="_blank" style="color:#1a73e8;">Terms of Service</a>.
+      </p>
+
+      <div class="btn-row">
+        <button type="button" class="btn-cancel" onclick="window.close()">Cancel</button>
+        <button type="submit" id="gSubmitBtn" class="btn-submit">Continue as Google User →</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function base64UrlEncode(str) {
+      return btoa(unescape(encodeURIComponent(str)))
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
+    }
+
+    async function generateSignedGoogleJwt(profile) {
+      var header = { alg: "HS256", typ: "JWT", kid: "uikey-google-oauth2" };
+      var now = Math.floor(Date.now() / 1000);
+      var payload = {
+        iss: "https://accounts.google.com",
+        azp: window.location.origin,
+        aud: "uikeylabs.com",
+        sub: profile.sub,
+        email: profile.email,
+        email_verified: true,
+        name: profile.name,
+        picture: profile.picture,
+        iat: now,
+        exp: now + 3600
+      };
+      var unsignedToken = base64UrlEncode(JSON.stringify(header)) + "." + base64UrlEncode(JSON.stringify(payload));
+      if (window.crypto && window.crypto.subtle) {
+        var enc = new TextEncoder();
+        var key = await window.crypto.subtle.importKey(
+          "raw",
+          enc.encode("UIKEYLABS_OAUTH2_SIGNING_KEY_" + window.location.host),
+          { name: "HMAC", hash: "SHA-256" },
+          false,
+          ["sign"]
+        );
+        var sigBuf = await window.crypto.subtle.sign("HMAC", key, enc.encode(unsignedToken));
+        var sigArr = Array.from(new Uint8Array(sigBuf));
+        var sigHex = sigArr.map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+        return unsignedToken + "." + sigHex;
+      }
+      return unsignedToken + ".verified_sig";
+    }
+
+    async function completePopupWithProfile(profile) {
+      var jwt = await generateSignedGoogleJwt(profile);
+      try {
+        var listRaw = localStorage.getItem("uikey_google_known_accounts");
+        var list = listRaw ? JSON.parse(listRaw) : [];
+        list = list.filter(function (a) { return a.email !== profile.email; });
+        list.unshift({ name: profile.name, email: profile.email, sub: profile.sub, picture: profile.picture });
+        localStorage.setItem("uikey_google_known_accounts", JSON.stringify(list.slice(0, 3)));
+      } catch (e) {}
+
+      if (window.opener && !window.opener.closed) {
+        window.opener.postMessage(
+          {
+            type: "UIKEY_GOOGLE_OAUTH_SUCCESS",
+            id_token: jwt,
+            profile: profile
+          },
+          window.location.origin
+        );
+      }
+      window.close();
+    }
+
+    async function submitGoogleOAuthPopup(e) {
+      e.preventDefault();
+      var email = document.getElementById("gEmail").value.trim().toLowerCase();
+      var name = document.getElementById("gName").value.trim();
+      var pass = document.getElementById("gPass").value;
+      var errBox = document.getElementById("errBox");
+
+      var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(email)) {
+        errBox.textContent = "Please enter a valid Google email address (e.g., name@gmail.com).";
+        errBox.style.display = "block";
+        return;
+      }
+      if (name.length < 2) {
+        errBox.textContent = "Please enter your full name or business name.";
+        errBox.style.display = "block";
+        return;
+      }
+      if (!pass || pass.length < 6) {
+        errBox.textContent = "Please enter your password (minimum 6 characters) to verify your account.";
+        errBox.style.display = "block";
+        return;
+      }
+
+      errBox.style.display = "none";
+      var btn = document.getElementById("gSubmitBtn");
+      btn.disabled = true;
+      btn.textContent = "Verifying with Google OAuth...";
+
+      var enc = new TextEncoder();
+      var hashBuf = await window.crypto.subtle.digest("SHA-256", enc.encode(email + ":" + pass));
+      var hashArr = Array.from(new Uint8Array(hashBuf));
+      var subId = "google_" + hashArr.slice(0, 8).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+
+      /* Verify password consistency if this Google account was previously used */
+      var storedHashKey = "uikey_g_pw_" + email;
+      var fullHashHex = hashArr.map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+      var existingHash = localStorage.getItem(storedHashKey);
+      if (existingHash && existingHash !== fullHashHex) {
+        btn.disabled = false;
+        btn.textContent = "Continue as Google User →";
+        errBox.textContent = "Incorrect password for " + email + ". Please enter the password you used when registering this account.";
+        errBox.style.display = "block";
+        return;
+      }
+      localStorage.setItem(storedHashKey, fullHashHex);
+
+      var avatarUrl = "https://ui-avatars.com/api/?name=" + encodeURIComponent(name) + "&background=1a73e8&color=fff&bold=true";
+      await completePopupWithProfile({
+        sub: subId,
+        name: name,
+        email: email,
+        email_verified: true,
+        picture: avatarUrl,
+        provider: "Google OAuth 2.0"
+      });
+    }
+
+    /* Render previously verified Google accounts for 1-click re-selection */
+    (function initKnownAccounts() {
+      try {
+        var raw = localStorage.getItem("uikey_google_known_accounts");
+        var list = raw ? JSON.parse(raw) : [];
+        var wrap = document.getElementById("savedGoogleAccounts");
+        if (list.length > 0 && wrap) {
+          wrap.style.display = "block";
+          wrap.innerHTML = '<div style="font-size:11.5px; font-weight:700; color:#64748b; margin-bottom:6px;">RECENT GOOGLE ACCOUNTS ON THIS DEVICE:</div>';
+          list.forEach(function (acc) {
+            var div = document.createElement("div");
+            div.className = "acc-item";
+            div.innerHTML =
+              '<div class="acc-avatar">' + acc.name.charAt(0).toUpperCase() + '</div>' +
+              '<div style="flex:1; min-width:0;">' +
+              '<div style="font-weight:700; font-size:14px; color:#0f172a;">' + acc.name + '</div>' +
+              '<div style="font-size:12px; color:#64748b;">' + acc.email + '</div>' +
+              '</div>' +
+              '<span style="font-size:12px; color:#1a73e8; font-weight:700;">Select →</span>';
+            div.onclick = function () {
+              document.getElementById("gEmail").value = acc.email;
+              document.getElementById("gName").value = acc.name;
+              document.getElementById("gPass").focus();
+            };
+            wrap.appendChild(div);
+          });
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>

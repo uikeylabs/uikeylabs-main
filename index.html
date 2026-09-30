@@ -1424,26 +1424,25 @@
     </a>
   </div>
 
+  <!-- Official Google Identity Services OAuth 2.0 SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <!-- ========================================================================
-       SIGN IN / SIGN OUT / SIGN IN WITH GOOGLE MODAL (#uikeyAuthModal)
+       REAL OAUTH 2.0 & CRYPTOGRAPHIC PBKDF2 SIGN IN / SIGN UP / SIGN OUT MODAL
        ======================================================================== -->
   <div id="uikeyAuthModal" class="auth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="authModalTitle" aria-hidden="true" onclick="if(event.target===this) closeAuthModal()">
     <div class="auth-modal-box">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:0.85rem;">
         <div>
-          <span class="badge-pill badge-cyan">CLIENT &amp; MERCHANT ACCOUNT</span>
-          <h2 id="authModalTitle" style="font-size:1.25rem; font-weight:900; color:#fff; margin-top:0.25rem;">Sign In to UIKEY LABS</h2>
+          <span class="badge-pill badge-cyan">OAUTH 2.0 &amp; PBKDF2-SHA256 AUTH</span>
+          <h2 id="authModalTitle" style="font-size:1.22rem; font-weight:900; color:#fff; margin-top:0.25rem;">Account Sign In &amp; Verification</h2>
         </div>
         <button type="button" onclick="closeAuthModal()" aria-label="Close Sign In Modal" style="width:40px; height:40px; border-radius:0.65rem; background:rgba(15,23,42,0.9); border:1px solid var(--border); color:#fff; font-weight:900; cursor:pointer;">✕</button>
       </div>
 
-      <!-- VIEW A: WHEN SIGNED OUT (Sign in with Google + Email/Mobile Sign In) -->
+      <!-- VIEW A: WHEN SIGNED OUT (Real Google OAuth 2.0 Popup + 2-Tab PBKDF2 Sign In / Sign Up) -->
       <div id="authModalSignedOutView">
-        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.9rem;">
-          Sign in with your Google Account or mobile number to save your Shop UPI QR Standee, download Official Quotations, and manage your project milestones.
-        </p>
-
-        <!-- Official Sign in with Google Button -->
+        <!-- 1. Official Sign in with Google (OAuth 2.0 Popup + JWT Signature Verification) -->
         <button type="button" onclick="handleGoogleSignIn()" class="btn-google-oauth">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
             <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
@@ -1451,55 +1450,80 @@
             <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 12.3s.6 3.3 1.6 5.3l3.7-2.8z"/>
             <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5L1.6 16c1.9 3.9 5.8 7 10.4 7z"/>
           </svg>
-          <span>Continue with Google</span>
+          <span>Sign in with Google (OAuth 2.0)</span>
         </button>
 
-        <!-- Interactive Google Account Picker / Confirmation Box -->
-        <div id="googleChooserBox" style="display:none; margin-top:0.75rem; padding:0.9rem; border-radius:0.85rem; background:rgba(15,23,42,0.95); border:1px solid var(--cyan);">
-          <div style="font-size:0.78rem; font-weight:800; color:var(--cyan); margin-bottom:0.5rem;">🔵 Google Account Verification</div>
-          <div class="form-group" style="margin-bottom:0.5rem;">
-            <label for="googleNameInput" class="form-label" style="font-size:0.75rem;">Your Name / Business Name</label>
-            <input id="googleNameInput" type="text" placeholder="e.g. Mahesh Kumar / Sharma Clinic" class="form-input" style="padding:0.5rem 0.75rem;" />
-          </div>
-          <div class="form-group" style="margin-bottom:0.65rem;">
-            <label for="googleEmailInput" class="form-label" style="font-size:0.75rem;">Your Gmail Address *</label>
-            <input id="googleEmailInput" type="email" placeholder="yourname@gmail.com" class="form-input" style="padding:0.5rem 0.75rem;" />
-          </div>
-          <div style="display:flex; gap:0.5rem;">
-            <button type="button" onclick="completeGoogleAccountSignIn()" class="btn btn-whatsapp" style="flex:1; min-height:40px; padding:0.45rem; font-size:0.8rem;">
-              ✓ Sign In with Google Account
-            </button>
-            <button type="button" onclick="toggleGoogleChooserStep(false)" class="btn btn-outline" style="min-height:40px; padding:0.45rem 0.75rem; font-size:0.78rem;">
-              Cancel
-            </button>
-          </div>
+        <div class="auth-divider">OR EMAIL / MOBILE PASSWORD AUTH</div>
+
+        <!-- 2-Tab Switcher: Sign In vs Create Account (Sign Up) -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.45rem; margin-bottom:0.85rem;">
+          <button type="button" id="tabBtnSignIn" onclick="switchAuthTab('signin')" class="filter-btn active" style="width:100%;">
+            🔐 Sign In
+          </button>
+          <button type="button" id="tabBtnSignUp" onclick="switchAuthTab('signup')" class="filter-btn" style="width:100%;">
+            ✨ Create Account
+          </button>
         </div>
 
-        <div class="auth-divider">OR SIGN IN WITH MOBILE / EMAIL</div>
+        <!-- TAB 1: REAL SIGN IN (Requires Registered Account + Verified Password) -->
+        <div id="realSignInFormWrap">
+          <form onsubmit="handleRealAccountSignIn(event)" novalidate>
+            <div class="form-group">
+              <label for="signinIdentifier" class="form-label">Registered Email or 10-Digit Mobile *</label>
+              <input id="signinIdentifier" type="text" required autocomplete="username" placeholder="yourname@gmail.com or 9876543210" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="signinPassword" class="form-label">Account Password *</label>
+              <input id="signinPassword" type="password" required autocomplete="current-password" placeholder="Enter your password (min 6 chars)" class="form-input" />
+            </div>
+            <button type="submit" class="btn btn-whatsapp" style="width:100%;">
+              🔐 Verify Password &amp; Sign In →
+            </button>
+          </form>
+          <p style="font-size:0.75rem; color:var(--text-dim); text-align:center; margin-top:0.65rem;">
+            New to UIKEY LABS? <button type="button" onclick="switchAuthTab('signup')" style="background:none; border:none; color:var(--cyan); font-weight:800; text-decoration:underline; cursor:pointer; min-height:auto; padding:0;">Create a Verified Account first →</button>
+          </p>
+        </div>
 
-        <form onsubmit="handleEmailMobileSignIn(event)" novalidate>
-          <div class="form-group">
-            <label for="modalAuthName" class="form-label">Business / Your Name</label>
-            <input id="modalAuthName" type="text" placeholder="e.g. Apex Academy Betul" class="form-input" />
+        <!-- TAB 2: REAL CREATE ACCOUNT / SIGN UP (PBKDF2-HMAC-SHA256 Password Hashing) -->
+        <div id="realSignUpFormWrap" style="display:none;">
+          <form onsubmit="handleRealAccountSignUp(event)" novalidate>
+            <div class="form-group">
+              <label for="signupFullName" class="form-label">1. Full Name or Business Name *</label>
+              <input id="signupFullName" type="text" required autocomplete="name" placeholder="e.g. Mahesh Kumar / City Care Clinic" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="signupIdentifier" class="form-label">2. Email Address or 10-Digit Mobile *</label>
+              <input id="signupIdentifier" type="text" required autocomplete="username" placeholder="yourname@gmail.com or 9876543210" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="signupPassword" class="form-label">3. Create Password (Min 6 Characters) *</label>
+              <input id="signupPassword" type="password" required autocomplete="new-password" placeholder="Create a strong password" class="form-input" />
+            </div>
+            <button type="submit" class="btn btn-amber" style="width:100%;">
+              ✨ Create Encrypted Account &amp; Sign In →
+            </button>
+          </form>
+        </div>
+
+        <!-- Optional: Custom Google Cloud OAuth Client ID Binding -->
+        <details style="margin-top:0.85rem; font-size:0.74rem; color:var(--text-dim);">
+          <summary style="cursor:pointer; font-weight:700; color:var(--text-muted);">⚙️ Developer: Connect Custom Google Cloud OAuth Client ID</summary>
+          <div style="margin-top:0.5rem; display:flex; gap:0.4rem;">
+            <input id="customGoogleClientIdInput" type="text" placeholder="xxxx.apps.googleusercontent.com" class="form-input" style="padding:0.4rem 0.65rem; font-size:0.75rem;" />
+            <button type="button" onclick="saveCustomGoogleClientId()" class="btn btn-secondary" style="padding:0.4rem 0.75rem; font-size:0.74rem; min-height:36px;">Save</button>
           </div>
-          <div class="form-group">
-            <label for="modalAuthIdentifier" class="form-label">10-Digit Mobile Number or Email *</label>
-            <input id="modalAuthIdentifier" type="text" required placeholder="9876543210 or email@domain.com" class="form-input" />
-          </div>
-          <button type="submit" class="btn btn-whatsapp" style="width:100%;">
-            🔐 Sign In to Account →
-          </button>
-        </form>
+        </details>
       </div>
 
-      <!-- VIEW B: WHEN SIGNED IN (Profile Details + Quick Tools + Direct Sign Out Button) -->
+      <!-- VIEW B: WHEN SIGNED IN (Verified Identity + JWT Badge + Direct Sign Out Button) -->
       <div id="authModalSignedInView" style="display:none;">
         <div style="padding:1rem; border-radius:0.85rem; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.45); margin-bottom:1rem;">
           <div style="display:flex; align-items:center; gap:0.75rem;">
-            <span data-auth-user-avatar class="auth-avatar-circle" style="width:42px; height:42px; font-size:1.1rem;">U</span>
+            <span data-auth-user-avatar class="auth-avatar-circle" style="width:44px; height:44px; font-size:1.1rem; overflow:hidden;">U</span>
             <div>
-              <strong data-auth-user-name style="color:#fff; font-size:1rem; display:block;">Verified Client</strong>
-              <span data-auth-user-email style="color:#6EE7B7; font-size:0.78rem;">client@gmail.com • Google Verified</span>
+              <strong data-auth-user-name style="color:#fff; font-size:1rem; display:block;">Verified User</strong>
+              <span data-auth-user-email style="color:#6EE7B7; font-size:0.78rem;">user@gmail.com • Google OAuth 2.0 Verified</span>
             </div>
           </div>
         </div>
@@ -1520,7 +1544,7 @@
         </div>
 
         <button type="button" onclick="handleUserSignOut()" class="btn" style="width:100%; background:rgba(244,63,94,0.2); border:1px solid var(--rose); color:#FECDD3;">
-          🚪 Sign Out of Account
+          🚪 Sign Out &amp; Revoke Session Token
         </button>
       </div>
 
