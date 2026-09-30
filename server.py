@@ -183,6 +183,8 @@ class UikeyLabsRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
         clean_routes = {
+            "/login": "/login.html",
+            "/forgot-password": "/forgot-password.html",
             "/merchant-qr": "/merchant-qr.html",
             "/payment": "/payment.html",
             "/quote": "/quote.html",

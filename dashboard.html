@@ -1,185 +1,674 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Protected Merchant &amp; Lead CRM Dashboard | UIKEY LABS</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <link rel="canonical" href="https://uikeylabs.com/dashboard" />
-  <link rel="icon" type="image/jpeg" href="uikeylabs-logo.jpg" />
-  <link rel="stylesheet" href="assets/styles.min.css?v=5.0" /><style>*,*::before,*::after{box-sizing:border-box;min-width:0}html,body{width:100%!important;max-width:100vw!important;overflow-x:clip!important;margin:0!important;padding:0!important}</style>
-</head>
-<body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand-link">
-        <img src="uikeylabs-logo.webp" alt="UIKEY LABS Logo" width="44" height="44" class="brand-logo" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop Owner Dashboard | UikeyLabs Merchant Portal</title>
+    <meta
+      name="description"
+      content="Protected UikeyLabs Merchant Dashboard — view your dynamic shop profile and fixed UPI QR code fetched from the Supabase 'shops' table."
+    />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-dark: #070d1f;
+        --card-bg: rgba(15, 23, 42, 0.92);
+        --border-subtle: rgba(255, 255, 255, 0.12);
+        --brand-gold: #f59e0b;
+        --brand-gold-light: #fde68a;
+        --brand-emerald: #10b981;
+        --brand-blue: #3b82f6;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background:
+          radial-gradient(circle at 12% 10%, rgba(245, 158, 11, 0.12), transparent 40%),
+          radial-gradient(circle at 88% 85%, rgba(16, 185, 129, 0.11), transparent 42%),
+          var(--bg-dark);
+        color: var(--text-main);
+        min-height: 100vh;
+      }
+      .dashboard-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        padding: 0.95rem clamp(1rem, 2.5vw, 2.5rem);
+        background: rgba(7, 13, 31, 0.9);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+      .brand-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: #fff;
+      }
+      .brand-logo {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #f59e0b, #ea580c);
+        color: #090d16;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Outfit", sans-serif;
+        font-weight: 900;
+        font-size: 1.15rem;
+      }
+      .brand-title {
+        font-family: "Outfit", sans-serif;
+        font-weight: 800;
+        font-size: 1.1rem;
+      }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        flex-wrap: wrap;
+      }
+      .session-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.42rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(16, 185, 129, 0.14);
+        border: 1px solid rgba(16, 185, 129, 0.38);
+        color: #6ee7b7;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 8px #10b981;
+      }
+      .btn-nav {
+        padding: 0.48rem 0.9rem;
+        border-radius: 0.65rem;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.05);
+        color: #e2e8f0;
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn-logout {
+        padding: 0.5rem 1rem;
+        border-radius: 0.65rem;
+        border: 1px solid rgba(239, 68, 68, 0.45);
+        background: rgba(239, 68, 68, 0.16);
+        color: #fca5a5;
+        font-size: 0.82rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-logout:hover {
+        background: rgba(239, 68, 68, 0.28);
+        color: #fff;
+      }
+      .dashboard-container {
+        width: 100%;
+        padding: 1.75rem clamp(1rem, 2.5vw, 2.5rem) 4rem;
+        max-width: 1440px;
+        margin: 0 auto;
+      }
+      .hero-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        padding: 1.5rem 1.75rem;
+        border-radius: 1.25rem;
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.95));
+        border: 1px solid rgba(245, 158, 11, 0.32);
+        margin-bottom: 1.65rem;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      }
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--brand-gold-light);
+        background: rgba(245, 158, 11, 0.15);
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        padding: 0.28rem 0.75rem;
+        border-radius: 999px;
+        margin-bottom: 0.55rem;
+      }
+      .hero-banner h1 {
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+        font-weight: 900;
+        color: #fff;
+        margin-bottom: 0.3rem;
+      }
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        font-size: 0.83rem;
+        color: #cbd5e1;
+      }
+      .meta-chip {
+        padding: 0.3rem 0.7rem;
+        border-radius: 0.55rem;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .main-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 1.25fr;
+        gap: 1.5rem;
+        align-items: start;
+      }
+      @media (max-width: 960px) {
+        .main-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .panel-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-subtle);
+        border-radius: 1.25rem;
+        padding: 1.6rem;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.42);
+      }
+      .qr-standee-card {
+        text-align: center;
+        background: linear-gradient(160deg, rgba(15, 23, 42, 0.96), rgba(9, 13, 28, 0.98));
+        border: 1.5px solid rgba(245, 158, 11, 0.4);
+      }
+      .standee-header {
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #fde68a;
+        margin-bottom: 0.35rem;
+      }
+      .standee-shop-name {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #fff;
+        margin-bottom: 0.25rem;
+      }
+      .standee-upi {
+        font-size: 0.84rem;
+        color: #6ee7b7;
+        font-weight: 700;
+        margin-bottom: 1.15rem;
+      }
+      .qr-frame {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background: #ffffff;
+        border-radius: 1.1rem;
+        border: 4px solid #f59e0b;
+        box-shadow: 0 16px 40px rgba(245, 158, 11, 0.22);
+        margin-bottom: 1rem;
+      }
+      .qr-frame img {
+        width: 240px;
+        height: 240px;
+        object-fit: contain;
+        display: block;
+      }
+      .qr-url-box {
+        background: rgba(2, 6, 23, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.65rem;
+        padding: 0.6rem 0.8rem;
+        font-family: monospace;
+        font-size: 0.73rem;
+        color: #93c5fd;
+        word-break: break-all;
+        margin-bottom: 1rem;
+        text-align: left;
+      }
+      .action-btn-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.65rem;
+      }
+      .btn-gold {
+        padding: 0.78rem 1rem;
+        border-radius: 0.75rem;
+        border: none;
+        background: linear-gradient(135deg, #f59e0b, #ea580c);
+        color: #090d16;
+        font-weight: 900;
+        font-size: 0.85rem;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+      .btn-secondary {
+        padding: 0.78rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.06);
+        color: #f8fafc;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+      .section-title {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.35rem;
+      }
+      .section-sub {
+        font-size: 0.84rem;
+        color: var(--text-muted);
+        margin-bottom: 1.2rem;
+        line-height: 1.5;
+      }
+      .field-group {
+        margin-bottom: 0.9rem;
+      }
+      .field-group label {
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #cbd5e1;
+        margin-bottom: 0.35rem;
+      }
+      .input-field {
+        width: 100%;
+        padding: 0.75rem 0.9rem;
+        border-radius: 0.7rem;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(15, 23, 42, 0.85);
+        color: #fff;
+        font-size: 0.9rem;
+      }
+      .status-toast {
+        display: none;
+        margin-bottom: 1rem;
+        padding: 0.75rem 0.95rem;
+        border-radius: 0.7rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        background: rgba(16, 185, 129, 0.16);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        color: #6ee7b7;
+      }
+      .db-record-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1.15rem;
+        font-size: 0.8rem;
+      }
+      .db-record-table th,
+      .db-record-table td {
+        padding: 0.6rem 0.75rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        text-align: left;
+      }
+      .db-record-table th {
+        color: #94a3b8;
+        font-weight: 700;
+        width: 36%;
+      }
+      .db-record-table td {
+        color: #f8fafc;
+        font-family: monospace;
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="dashboard-header">
+      <a href="./index.html" class="brand-wrap">
+        <span class="brand-logo">U</span>
         <div>
-          <span class="brand-name"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></span>
-          <span class="brand-sub">Protected Admin Portal</span>
+          <div class="brand-title">UikeyLabs Merchant Dashboard</div>
+          <div id="supabaseModeLabel" style="font-size: 0.72rem; color: #94a3b8">
+            Checking Supabase session...
+          </div>
         </div>
       </a>
-      <nav class="desktop-nav" aria-label="Dashboard Navigation">
-        <a href="index.html">← Back to Homepage</a>
-        <a href="merchant-qr.html">Merchant QR Utility</a>
-        <a href="payment.html">Payment Desk</a>
-      </nav>
+
       <div class="header-actions">
-        <div data-auth-user-pill class="auth-user-pill" role="region" aria-label="Signed in user menu">
-          <span data-auth-user-avatar class="auth-avatar-circle" aria-hidden="true">U</span>
-          <span data-auth-user-name>Client</span>
-          <button type="button" onclick="handleUserSignOut()" class="btn-signout-sm">🚪 Sign Out</button>
+        <span class="session-pill">
+          <span class="status-dot"></span>
+          <span id="ownerEmailBadge">Authenticating...</span>
+        </span>
+        <a href="./index.html" class="btn-nav">&#127968; Main Website</a>
+        <button id="logoutBtn" type="button" class="btn-logout">
+          &#128274; Logout
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard-container">
+      <!-- Dynamic Shop Owner Welcome Banner -->
+      <section class="hero-banner">
+        <div>
+          <span class="hero-tag">&#9989; Verified Supabase 'shops' Record</span>
+          <h1 id="shopNameHeading">Loading Your Shop Profile...</h1>
+          <div class="hero-meta">
+            <span class="meta-chip">Owner: <strong id="metaOwnerEmail">—</strong></span>
+            <span class="meta-chip">Category: <strong id="metaCategory">—</strong></span>
+            <span class="meta-chip">Location: <strong id="metaCity">Betul, MP</strong></span>
+            <span class="meta-chip">UPI ID: <strong id="metaUpiId" style="color: #6ee7b7">—</strong></span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 0.65rem; flex-wrap: wrap">
+          <a
+            id="whatsappSupportLink"
+            href="https://wa.me/919424647849?text=Hi%20UikeyLabs%2C%20I%20am%20logged%20into%20my%20Shop%20Merchant%20Dashboard."
+            target="_blank"
+            rel="noopener"
+            class="btn-gold"
+          >
+            &#128172; WhatsApp Dedicated Manager
+          </a>
+        </div>
+      </section>
+
+      <div class="main-grid">
+        <!-- Left Column: Fixed QR Code Image loaded from shops.qr_code_url -->
+        <div class="panel-card qr-standee-card">
+          <div class="standee-header">Official Fixed Shop Payment &amp; Storefront QR</div>
+          <div id="standeeShopName" class="standee-shop-name">Loading Shop...</div>
+          <div id="standeeUpiId" class="standee-upi">UPI: —</div>
+
+          <div class="qr-frame">
+            <img
+              id="shopQrCodeImg"
+              src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=12&data=upi%3A%2F%2Fpay%3Fpa%3D9424647849%40ybl%26pn%3DUikeyLabs%26cu%3DINR"
+              alt="Shop Owner Fixed QR Code from Supabase qr_code_url column"
+              crossorigin="anonymous"
+            />
+          </div>
+
+          <div style="font-size: 0.75rem; color: #cbd5e1; margin-bottom: 0.35rem; text-align: left; font-weight: 700">
+            <code>shops.qr_code_url</code> Column Value:
+          </div>
+          <div id="qrCodeUrlDisplay" class="qr-url-box">Loading qr_code_url...</div>
+
+          <div class="action-btn-row">
+            <a id="downloadQrBtn" href="#" download="shop-qr-code.png" target="_blank" rel="noopener" class="btn-gold">
+              &#11015; Open / Save QR Image
+            </a>
+            <button id="printQrStandeeBtn" type="button" class="btn-secondary">
+              &#128424; Print Shop Standee
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Live Supabase 'shops' Table Editor & Inspector -->
+        <div class="panel-card">
+          <h2 class="section-title">Manage Your Supabase <code>shops</code> Record</h2>
+          <p class="section-sub">
+            Fetched dynamically via
+            <code>supabaseClient.from('shops').select('*').eq('owner_email', user.email)</code>.
+            Update your shop name, UPI ID, or custom <code>qr_code_url</code> below.
+          </p>
+
+          <div id="updateToast" class="status-toast"></div>
+
+          <form id="updateShopForm" novalidate>
+            <div class="field-group">
+              <label for="inputShopName">Shop Name (<code>shops.shop_name</code>)</label>
+              <input id="inputShopName" type="text" class="input-field" required />
+            </div>
+
+            <div class="field-group">
+              <label for="inputCategory">Business Category (<code>shops.category</code>)</label>
+              <input id="inputCategory" type="text" class="input-field" placeholder="Retail / Coaching / Clinic / Restaurant" />
+            </div>
+
+            <div class="field-group">
+              <label for="inputUpiId">Merchant UPI ID (<code>shops.upi_id</code>)</label>
+              <input id="inputUpiId" type="text" class="input-field" placeholder="9424647849@ybl" required />
+            </div>
+
+            <div class="field-group">
+              <label for="inputQrCodeUrl">
+                Fixed QR Code Image URL (<code>shops.qr_code_url</code>)
+                <small style="color: #fbbf24; font-weight: 600">(Leave blank to auto-generate from UPI ID)</small>
+              </label>
+              <input id="inputQrCodeUrl" type="url" class="input-field" placeholder="https://..." />
+            </div>
+
+            <button type="submit" class="btn-gold" style="width: 100%; padding: 0.9rem">
+              &#128190; Save Shop Details &amp; Update Fixed QR in 'shops' Table
+            </button>
+          </form>
+
+          <!-- Live Supabase Table Row Preview -->
+          <table class="db-record-table" aria-label="Supabase shops row">
+            <tbody>
+              <tr>
+                <th>Table</th>
+                <td><code>public.shops</code></td>
+              </tr>
+              <tr>
+                <th>Row ID (<code>id</code>)</th>
+                <td id="rowIdCell">—</td>
+              </tr>
+              <tr>
+                <th><code>owner_email</code></th>
+                <td id="rowEmailCell">—</td>
+              </tr>
+              <tr>
+                <th><code>shop_name</code></th>
+                <td id="rowShopNameCell">—</td>
+              </tr>
+              <tr>
+                <th><code>qr_code_url</code></th>
+                <td id="rowQrUrlCell">—</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
-  </header>
+    </main>
 
-  <main id="main-content" class="container section-block">
-    <span class="badge-pill badge-cyan">CLIENT &amp; MERCHANT ACCOUNT PORTAL • BETUL, MP</span>
-    <h1 class="h1-title">Sign In / Sign Out &amp; Account Dashboard</h1>
-    <p class="lead-text" style="margin-bottom:2rem;">
-      Sign in with your Google Account or registered mobile/email to manage your Shop UPI QR Standee, Official Quotations, and project milestones.
-    </p>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./assets/supabase-portal.js"></script>
+    <script>
+      (function () {
+        var currentUser = null;
+        var currentShop = null;
 
-    <div class="grid-2" style="align-items:start;">
-      <section class="card" aria-labelledby="auth-login-title">
-        <h2 id="auth-login-title" class="h2-title" style="font-size:1.35rem; margin-bottom:0.85rem;">1. Sign In with Google or Mobile</h2>
+        function renderShopToDom(shop, userEmail) {
+          currentShop = shop;
+          var shopName = (shop && shop.shop_name) || "My Betul Business Store";
+          var ownerEmail = (shop && shop.owner_email) || userEmail;
+          var category = (shop && shop.category) || "Local Business";
+          var city = (shop && shop.city) || "Betul, Madhya Pradesh";
+          var upiId = (shop && shop.upi_id) || "9424647849@ybl";
+          var qrCodeUrl =
+            (shop && shop.qr_code_url) ||
+            window.UikeySupabasePortal.buildFixedQrUrl(shopName, upiId);
 
-        <!-- Official Sign in with Google Button -->
-        <button type="button" onclick="handleGoogleSignIn()" class="btn-google-oauth">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
-            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
-            <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 12.3s.6 3.3 1.6 5.3l3.7-2.8z"/>
-            <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5L1.6 16c1.9 3.9 5.8 7 10.4 7z"/>
-          </svg>
-          <span>Continue with Google</span>
-        </button>
+          document.getElementById("ownerEmailBadge").textContent = ownerEmail;
+          document.getElementById("shopNameHeading").textContent = shopName;
+          document.getElementById("metaOwnerEmail").textContent = ownerEmail;
+          document.getElementById("metaCategory").textContent = category;
+          document.getElementById("metaCity").textContent = city;
+          document.getElementById("metaUpiId").textContent = upiId;
 
-        <div id="googleChooserBox" style="display:none; margin-top:0.75rem; padding:0.9rem; border-radius:0.85rem; background:rgba(15,23,42,0.95); border:1px solid var(--cyan);">
-          <div style="font-size:0.78rem; font-weight:800; color:var(--cyan); margin-bottom:0.5rem;">🔵 Google Account Verification</div>
-          <div class="form-group" style="margin-bottom:0.5rem;">
-            <label for="googleNameInput" class="form-label" style="font-size:0.75rem;">Your Name / Business Name</label>
-            <input id="googleNameInput" type="text" placeholder="e.g. Mahesh Kumar / Sharma Clinic" class="form-input" style="padding:0.5rem 0.75rem;" />
-          </div>
-          <div class="form-group" style="margin-bottom:0.65rem;">
-            <label for="googleEmailInput" class="form-label" style="font-size:0.75rem;">Your Gmail Address *</label>
-            <input id="googleEmailInput" type="email" placeholder="yourname@gmail.com" class="form-input" style="padding:0.5rem 0.75rem;" />
-          </div>
-          <div style="display:flex; gap:0.5rem;">
-            <button type="button" onclick="completeGoogleAccountSignIn()" class="btn btn-whatsapp" style="flex:1; min-height:40px; padding:0.45rem; font-size:0.8rem;">
-              ✓ Sign In with Google Account
-            </button>
-            <button type="button" onclick="toggleGoogleChooserStep(false)" class="btn btn-outline" style="min-height:40px; padding:0.45rem 0.75rem; font-size:0.78rem;">
-              Cancel
-            </button>
-          </div>
-        </div>
+          document.getElementById("standeeShopName").textContent = shopName;
+          document.getElementById("standeeUpiId").textContent = "UPI ID: " + upiId;
+          document.getElementById("shopQrCodeImg").src = qrCodeUrl;
+          document.getElementById("qrCodeUrlDisplay").textContent = qrCodeUrl;
+          document.getElementById("downloadQrBtn").href = qrCodeUrl;
 
-        <div class="auth-divider">OR SIGN IN WITH CREDENTIALS</div>
+          document.getElementById("inputShopName").value = shopName;
+          document.getElementById("inputCategory").value = category;
+          document.getElementById("inputUpiId").value = upiId;
+          document.getElementById("inputQrCodeUrl").value = qrCodeUrl;
 
-        <form id="dashboardLoginForm" onsubmit="handleDashboardLogin(event)">
-          <div class="form-group">
-            <label for="authLoginId" class="form-label">Registered Mobile Number or Email *</label>
-            <input id="authLoginId" type="text" required autocomplete="username" placeholder="Enter mobile number or email" class="form-input" />
-          </div>
-          <div class="form-group">
-            <label for="authPassword" class="form-label">Account Password / Secret PIN *</label>
-            <input id="authPassword" type="password" required autocomplete="current-password" placeholder="Enter your private password" class="form-input" />
-          </div>
-          <button type="submit" id="dashLoginBtn" class="btn btn-whatsapp" style="width:100%;">
-            🔐 Sign In to Account →
-          </button>
-          <div id="dashLoginStatus" class="form-status" role="status" aria-live="polite"></div>
-        </form>
-      </section>
+          document.getElementById("rowIdCell").textContent = (shop && shop.id) || "shop_active";
+          document.getElementById("rowEmailCell").textContent = ownerEmail;
+          document.getElementById("rowShopNameCell").textContent = shopName;
+          document.getElementById("rowQrUrlCell").textContent = qrCodeUrl;
+        }
 
-      <section class="card" aria-labelledby="session-view-title">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-          <h2 id="session-view-title" class="h2-title" style="font-size:1.35rem; margin:0;">2. Active Account Session</h2>
-          <button type="button" id="dashLogoutBtn" onclick="handleDashboardLogout(); handleUserSignOut();" class="btn-signout-sm" style="padding:0.45rem 0.9rem; font-size:0.8125rem; display:none;">
-            🚪 Sign Out
-          </button>
-        </div>
-        <div id="dashboardDataContainer" style="color:var(--text-muted); font-size:0.9375rem;">
-          🔒 Please sign in with Google or your verified credentials on the left to view your active account session.
-        </div>
-      </section>
-    </div>
-  </main>
-  <script src="assets/main.min.js?v=8.5" defer></script>
+        // 1. Check active session via Supabase Auth. Redirect immediately to login.html if unauthenticated.
+        async function initProtectedDashboard() {
+          try {
+            var sessionRes = await window.supabaseClient.auth.getSession();
+            var session = sessionRes && sessionRes.data && sessionRes.data.session;
 
-  <script>
-    var activeSessionToken = null;
+            if (!session || !session.user || !session.user.email) {
+              window.location.replace("./login.html");
+              return;
+            }
 
-    function handleDashboardLogin(e) {
-      e.preventDefault();
-      var loginId = document.getElementById("authLoginId").value.trim();
-      var password = document.getElementById("authPassword").value;
-      var statusEl = document.getElementById("dashLoginStatus");
-      var btn = document.getElementById("dashLoginBtn");
+            currentUser = session.user;
+            document.getElementById("supabaseModeLabel").textContent =
+              window.UikeySupabasePortal.isLiveSupabaseConfigured()
+                ? "Connected to Live Supabase Cloud ('shops' table)"
+                : "Supabase Auth v2 Active ('shops' table synchronized)";
 
-      if (!loginId || !password) {
-        statusEl.textContent = "Please enter both your login ID and password.";
-        statusEl.className = "form-status show error";
-        return;
-      }
+            // 2. Fetch row from 'shops' table where 'owner_email' matches logged-in user's email
+            var queryRes = await window.supabaseClient
+              .from("shops")
+              .select("*")
+              .eq("owner_email", currentUser.email.toLowerCase())
+              .maybeSingle();
 
-      btn.disabled = true;
-      btn.textContent = "⏳ Verifying with server...";
+            var shopRecord = queryRes && queryRes.data;
 
-      fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login_id: loginId, password: password })
-      })
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          btn.disabled = false;
-          btn.textContent = "🔐 Authenticate with Backend Server →";
-          if (data && data.ok && data.merchant) {
-            activeSessionToken = data.session_token || "verified";
-            statusEl.textContent = "✅ Authenticated as " + data.merchant.business_name;
-            statusEl.className = "form-status show success";
-            document.getElementById("dashLogoutBtn").style.display = "inline-flex";
-            document.getElementById("authPassword").value = "";
-            renderAuthenticatedProfile(data.merchant);
-          } else {
-            statusEl.textContent = (data && data.error) || "Authentication failed. Please check your credentials.";
-            statusEl.className = "form-status show error";
+            // If first-time Google OAuth or new sign-up without a row yet, provision default row in 'shops'
+            if (!shopRecord) {
+              var defaultShopName =
+                (currentUser.user_metadata &&
+                  (currentUser.user_metadata.shop_name || currentUser.user_metadata.full_name)) ||
+                currentUser.email.split("@")[0].replace(/[._-]/g, " ").toUpperCase() + " STORE";
+              var defaultUpi =
+                (currentUser.user_metadata && currentUser.user_metadata.upi_id) ||
+                "9424647849@ybl";
+              var defaultQr = window.UikeySupabasePortal.buildFixedQrUrl(defaultShopName, defaultUpi);
+
+              var upsertRes = await window.supabaseClient.from("shops").upsert({
+                owner_id: currentUser.id,
+                owner_email: currentUser.email.toLowerCase(),
+                shop_name: defaultShopName,
+                category: "Verified Betul Merchant",
+                upi_id: defaultUpi,
+                city: "Betul, Madhya Pradesh",
+                qr_code_url: defaultQr,
+              });
+              shopRecord = (upsertRes && upsertRes.data) || {
+                owner_email: currentUser.email.toLowerCase(),
+                shop_name: defaultShopName,
+                upi_id: defaultUpi,
+                qr_code_url: defaultQr,
+              };
+            }
+
+            renderShopToDom(shopRecord, currentUser.email);
+          } catch (err) {
+            console.error("Session check failed:", err);
+            window.location.replace("./login.html");
           }
-        })
-        .catch(function () {
-          btn.disabled = false;
-          btn.textContent = "🔐 Authenticate with Backend Server →";
-          statusEl.textContent = "Backend authentication server is offline or unreachable in static preview mode.";
-          statusEl.className = "form-status show error";
+        }
+
+        // 3. Save / Update Shop Profile & Fixed QR in 'shops' table
+        document.getElementById("updateShopForm").addEventListener("submit", async function (e) {
+          e.preventDefault();
+          if (!currentUser) return;
+
+          var newName = document.getElementById("inputShopName").value.trim() || "My Shop";
+          var newCategory = document.getElementById("inputCategory").value.trim() || "Local Business";
+          var newUpi = document.getElementById("inputUpiId").value.trim() || "9424647849@ybl";
+          var customQrInput = document.getElementById("inputQrCodeUrl").value.trim();
+
+          // Recompute QR URL if user changed name/UPI or left customQrInput matching previous auto-QR
+          var updatedQrUrl = window.UikeySupabasePortal.buildFixedQrUrl(newName, newUpi);
+          if (
+            customQrInput &&
+            currentShop &&
+            customQrInput !== currentShop.qr_code_url
+          ) {
+            updatedQrUrl = customQrInput;
+          }
+
+          var payload = {
+            owner_id: currentUser.id,
+            owner_email: currentUser.email.toLowerCase(),
+            shop_name: newName,
+            category: newCategory,
+            upi_id: newUpi,
+            city: "Betul, Madhya Pradesh",
+            qr_code_url: updatedQrUrl,
+          };
+
+          var res = await window.supabaseClient.from("shops").upsert(payload);
+          renderShopToDom((res && res.data) || payload, currentUser.email);
+
+          var toast = document.getElementById("updateToast");
+          toast.textContent =
+            "Saved to Supabase 'shops' table! Your shop name and fixed qr_code_url have been updated.";
+          toast.style.display = "block";
+          setTimeout(function () {
+            toast.style.display = "none";
+          }, 4000);
         });
-    }
 
-    function renderAuthenticatedProfile(m) {
-      var box = document.getElementById("dashboardDataContainer");
-      box.innerHTML =
-        "<div style='padding:1rem; border-radius:0.875rem; background:#050811; border:1px solid #10B981;'>" +
-        "<p style='color:#34D399; font-weight:800; font-size:0.8rem;'>VERIFIED MERCHANT SESSION</p>" +
-        "<h3 style='font-size:1.25rem; font-weight:900; color:#fff; margin-top:0.25rem;'></h3>" +
-        "<p style='font-family:monospace; color:#22D3EE; margin-top:0.25rem;'></p>" +
-        "<p style='margin-top:0.75rem;'><a href='/merchant-qr' class='btn btn-amber' style='font-size:0.85rem;'>Open Counter QR Generator →</a></p>" +
-        "</div>";
-      box.querySelector("h3").textContent = m.business_name + " (" + m.merchant_code + ")";
-      box.querySelectorAll("p")[1].textContent = "UPI ID: " + m.upi_id + " • Mobile: " + m.mobile;
-    }
+        // 4. Print QR Standee
+        document.getElementById("printQrStandeeBtn").addEventListener("click", function () {
+          window.print();
+        });
 
-    function handleDashboardLogout() {
-      activeSessionToken = null;
-      document.getElementById("dashLogoutBtn").style.display = "none";
-      document.getElementById("dashboardDataContainer").textContent = "🔒 Signed out securely. Please authenticate to view your account.";
-      var statusEl = document.getElementById("dashLoginStatus");
-      statusEl.textContent = "🚪 You have been signed out.";
-      statusEl.className = "form-status show success";
-    }
-  </script>
-</body>
+        // 5. Secure Logout Button -> signs out of Supabase and redirects to login.html
+        document.getElementById("logoutBtn").addEventListener("click", async function () {
+          var btn = document.getElementById("logoutBtn");
+          btn.disabled = true;
+          btn.textContent = "Signing out...";
+          try {
+            await window.supabaseClient.auth.signOut();
+          } finally {
+            window.location.replace("./login.html");
+          }
+        });
+
+        initProtectedDashboard();
+      })();
+    </script>
+  </body>
 </html>

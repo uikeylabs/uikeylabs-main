@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merchant Portal Sign In | UIKEY LABS (Betul, MP)</title>
+  <meta name="description" content="Secure Merchant Portal Login for Shop Owners with Email/Password Authentication, Google Social Login, and Supabase Auth." />
+  <link rel="canonical" href="https://uikeylabs.com/login" />
+  <link rel="icon" type="image/jpeg" href="uikeylabs-logo.jpg" />
+  <link rel="stylesheet" href="assets/styles.min.css?v=9.0" />
+  <!-- Official Supabase JS v2 SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/supabase-portal.js?v=9.0"></script>
+  <style>
+    .auth-portal-wrap {
+      min-height: calc(100vh - 70px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .auth-portal-card {
+      width: 100%;
+      max-width: 460px;
+      background: linear-gradient(160deg, #0B1328 0%, #070C1A 100%);
+      border: 1.5px solid rgba(34, 211, 238, 0.4);
+      border-radius: 1.25rem;
+      padding: 1.85rem 1.65rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+    }
+    .tab-switch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 1.1rem;
+      background: rgba(5, 8, 17, 0.75);
+      padding: 0.35rem;
+      border-radius: 0.8rem;
+      border: 1px solid var(--border);
+    }
+    .tab-switch-btn {
+      padding: 0.55rem;
+      border-radius: 0.6rem;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 800;
+      font-size: 0.82rem;
+      cursor: pointer;
+      min-height: 40px;
+    }
+    .tab-switch-btn.active {
+      background: rgba(34, 211, 238, 0.2);
+      color: #ffffff;
+      border: 1px solid var(--cyan);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-link">
+        <img src="uikeylabs-logo.jpg" alt="UIKEY LABS Logo" width="38" height="38" class="brand-logo" />
+        <div>
+          <span class="brand-name"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></span>
+          <span class="brand-sub">Merchant Auth Portal • Betul, MP</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-outline" style="padding:0.45rem 0.85rem; font-size:0.8rem;">← Back to Home</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="auth-portal-wrap">
+    <div class="auth-portal-card">
+      <div style="text-align:center; margin-bottom:1.25rem;">
+        <span class="badge-pill badge-cyan">SUPABASE AUTH v2 • SECURE MERCHANT PORTAL</span>
+        <h1 style="font-size:1.45rem; font-weight:900; color:#fff; margin:0.45rem 0 0.25rem;">Shop Owner Login</h1>
+        <p style="font-size:0.84rem; color:var(--text-muted);">
+          Sign in to access your Shop Dashboard and dynamic UPI QR Code.
+        </p>
+      </div>
+
+      <!-- 1. Continue with Google OAuth 2.0 Button -->
+      <button type="button" id="googleLoginBtn" onclick="loginWithGoogle()" class="btn-google-oauth">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+          <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
+          <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 12.3s.6 3.3 1.6 5.3l3.7-2.8z"/>
+          <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5L1.6 16c1.9 3.9 5.8 7 10.4 7z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
+      <div class="auth-divider">OR CONTINUE WITH EMAIL</div>
+
+      <!-- Mode Switcher: Sign In vs Register Shop -->
+      <div class="tab-switch-grid" role="tablist">
+        <button type="button" id="modeSignInBtn" onclick="setAuthFormMode('signin')" class="tab-switch-btn active">
+          🔐 Sign In
+        </button>
+        <button type="button" id="modeSignUpBtn" onclick="setAuthFormMode('signup')" class="tab-switch-btn">
+          🏪 Register New Shop
+        </button>
+      </div>
+
+      <div id="authAlertBox" class="form-status" role="alert" aria-live="polite" style="margin-bottom:0.85rem;"></div>
+
+      <!-- FORM A: EMAIL / PASSWORD SIGN IN -->
+      <form id="emailLoginForm" onsubmit="handleEmailLogin(event)" novalidate>
+        <div class="form-group">
+          <label for="loginEmail" class="form-label">Owner Email Address *</label>
+          <input id="loginEmail" type="email" required autocomplete="email" placeholder="owner@yourshop.com" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.28rem;">
+            <label for="loginPassword" class="form-label" style="margin-bottom:0;">Password *</label>
+            <a href="forgot-password.html" style="font-size:0.78rem; font-weight:800; color:var(--cyan); text-decoration:underline;">
+              Forgot Password?
+            </a>
+          </div>
+          <input id="loginPassword" type="password" required autocomplete="current-password" placeholder="Enter your password" class="form-input" />
+        </div>
+
+        <button type="submit" id="emailLoginSubmitBtn" class="btn btn-whatsapp" style="width:100%; margin-top:0.35rem;">
+          🔐 Sign In to Merchant Portal →
+        </button>
+      </form>
+
+      <!-- FORM B: REGISTER NEW SHOP OWNER (Seeds 'shops' table with 'owner_email' & 'qr_code_url') -->
+      <form id="shopSignUpForm" onsubmit="handleShopRegistration(event)" style="display:none;" novalidate>
+        <div class="form-group">
+          <label for="regShopName" class="form-label">1. Shop / Business Name *</label>
+          <input id="regShopName" type="text" required placeholder="e.g. Royal Spice Cafe Betul" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label for="regUpiId" class="form-label">2. Shop UPI ID (for QR Code generation) *</label>
+          <input id="regUpiId" type="text" required placeholder="e.g. 8770912734@ybl" value="8770912734@ybl" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label for="regEmail" class="form-label">3. Owner Email Address *</label>
+          <input id="regEmail" type="email" required autocomplete="email" placeholder="owner@yourshop.com" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label for="regPassword" class="form-label">4. Create Password (Min 6 characters) *</label>
+          <input id="regPassword" type="password" required autocomplete="new-password" placeholder="Minimum 6 characters" class="form-input" />
+        </div>
+
+        <button type="submit" id="shopRegSubmitBtn" class="btn btn-amber" style="width:100%; margin-top:0.35rem;">
+          🏪 Create Shop Account &amp; Generate QR →
+        </button>
+      </form>
+
+      <!-- Optional Live Supabase Project Connection Drawer -->
+      <details style="margin-top:1.25rem; padding-top:0.85rem; border-top:1px solid var(--border); font-size:0.74rem; color:var(--text-dim);">
+        <summary style="cursor:pointer; font-weight:700; color:var(--text-muted);">⚙️ Configure Live Supabase Project URL &amp; Public Anon Key</summary>
+        <div style="margin-top:0.6rem; display:flex; flex-direction:column; gap:0.45rem;">
+          <input id="cfgSupaUrl" type="url" placeholder="https://xyzcompany.supabase.co" class="form-input" style="padding:0.45rem 0.65rem; font-size:0.75rem;" />
+          <input id="cfgSupaKey" type="text" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="form-input" style="padding:0.45rem 0.65rem; font-size:0.75rem;" />
+          <button type="button" onclick="saveSupabaseConfigFromUi()" class="btn btn-secondary" style="padding:0.4rem; font-size:0.75rem; min-height:36px;">
+            Save Supabase Project Config
+          </button>
+        </div>
+      </details>
+    </div>
+  </main>
+
+  <script>
+    function showAlert(message, isError) {
+      var box = document.getElementById("authAlertBox");
+      if (!box) return;
+      box.textContent = message;
+      box.className = "form-status show " + (isError ? "error" : "success");
+    }
+
+    function setAuthFormMode(mode) {
+      var signInForm = document.getElementById("emailLoginForm");
+      var signUpForm = document.getElementById("shopSignUpForm");
+      var btnIn = document.getElementById("modeSignInBtn");
+      var btnUp = document.getElementById("modeSignUpBtn");
+      document.getElementById("authAlertBox").className = "form-status";
+
+      if (mode === "signup") {
+        signInForm.style.display = "none";
+        signUpForm.style.display = "block";
+        btnIn.classList.remove("active");
+        btnUp.classList.add("active");
+      } else {
+        signInForm.style.display = "block";
+        signUpForm.style.display = "none";
+        btnIn.classList.add("active");
+        btnUp.classList.remove("active");
+      }
+    }
+
+    /* 1. Check if session is already active; if so, redirect immediately to dashboard.html */
+    (async function checkExistingSession() {
+      var res = await supabaseClient.auth.getSession();
+      if (res && res.data && res.data.session && res.data.session.user) {
+        window.location.replace("dashboard.html");
+      }
+    })();
+
+    /* 2. Standard Email/Password Sign In via Supabase Auth */
+    async function handleEmailLogin(e) {
+      e.preventDefault();
+      var email = document.getElementById("loginEmail").value.trim();
+      var password = document.getElementById("loginPassword").value;
+      var btn = document.getElementById("emailLoginSubmitBtn");
+
+      if (!email || !password) {
+        showAlert("⚠️ Please enter both your email address and password.", true);
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "⏳ Authenticating with Supabase...";
+
+      var result = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      btn.disabled = false;
+      btn.textContent = "🔐 Sign In to Merchant Portal →";
+
+      if (result.error) {
+        showAlert("❌ " + result.error.message, true);
+        return;
+      }
+
+      showAlert("✅ Sign-in successful! Redirecting to your Shop Dashboard...", false);
+      setTimeout(function () {
+        window.location.replace("dashboard.html");
+      }, 450);
+    }
+
+    /* 3. Register New Shop Owner + Provision row in 'shops' table */
+    async function handleShopRegistration(e) {
+      e.preventDefault();
+      var shopName = document.getElementById("regShopName").value.trim();
+      var upiId = document.getElementById("regUpiId").value.trim();
+      var email = document.getElementById("regEmail").value.trim();
+      var password = document.getElementById("regPassword").value;
+      var btn = document.getElementById("shopRegSubmitBtn");
+
+      if (!shopName || !email || password.length < 6) {
+        showAlert("⚠️ Please fill in your Shop Name, valid Email, and minimum 6-character password.", true);
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "⏳ Creating Shop & Generating QR...";
+
+      var result = await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            shop_name: shopName,
+            upi_id: upiId
+          }
+        }
+      });
+
+      btn.disabled = false;
+      btn.textContent = "🏪 Create Shop Account & Generate QR →";
+
+      if (result.error) {
+        showAlert("❌ " + result.error.message, true);
+        return;
+      }
+
+      showAlert("✅ Shop registered & QR generated! Redirecting to dashboard.html...", false);
+      setTimeout(function () {
+        window.location.replace("dashboard.html");
+      }, 500);
+    }
+
+    /* 4. Google OAuth Login via Supabase Auth */
+    async function loginWithGoogle() {
+      var btn = document.getElementById("googleLoginBtn");
+      btn.disabled = true;
+      showAlert("🔵 Connecting to Google Social Login (OAuth 2.0)...", false);
+
+      var result = await supabaseClient.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: window.location.origin + "/dashboard.html"
+        }
+      });
+
+      btn.disabled = false;
+      if (result && result.error) {
+        showAlert("❌ " + result.error.message, true);
+      }
+    }
+
+    function saveSupabaseConfigFromUi() {
+      var u = document.getElementById("cfgSupaUrl").value;
+      var k = document.getElementById("cfgSupaKey").value;
+      var r = supabaseClient.saveProjectCredentials(u, k);
+      if (r.ok) {
+        showAlert("✅ Live Supabase Project credentials saved & activated!", false);
+      } else {
+        showAlert("⚠️ " + r.error, true);
+      }
+    }
+  </script>
+</body>
+</html>
