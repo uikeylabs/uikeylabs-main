@@ -770,3 +770,70 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
     display: none;
   }
 }
+
+/* 16. Tier Comparison Table & Checklist Grid (Responsive & Zero Overflow at 360px) */
+.table-scroll-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0.95rem;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  margin: 1.5rem 0;
+}
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  text-align: left;
+  min-width: 560px;
+}
+.comparison-table th,
+.comparison-table td {
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.75);
+}
+.comparison-table th {
+  background: #070C1A;
+  color: var(--text-main);
+  font-weight: 800;
+  font-size: 0.84rem;
+}
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+.comparison-table td:first-child {
+  font-weight: 700;
+  color: var(--text-main);
+}
+.checklist-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.65rem;
+  margin: 1rem 0 1.75rem;
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .checklist-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .checklist-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid var(--border);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+

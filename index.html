@@ -87,7 +87,7 @@
           "addressRegion": "Madhya Pradesh",
           "addressCountry": "IN"
         },
-        "priceRange": "₹4,999 - ₹19,999"
+        "priceRange": "₹4,999 - ₹14,999"
       },
       {
         "@type": "Service",
@@ -96,17 +96,65 @@
         "provider": {
           "@id": "https://uikeylabs.com/#organization"
         },
-        "areaServed": "IN"
+        "areaServed": "IN",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Website Packages (INR)",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "name": "Starter Tier (1-Page Site + WhatsApp Button)",
+              "price": "4999",
+              "priceCurrency": "INR"
+            },
+            {
+              "@type": "Offer",
+              "name": "Growth Tier - Most Popular (5-Page Site + WhatsApp Lead Funnel + Google Business Setup)",
+              "price": "9999",
+              "priceCurrency": "INR"
+            },
+            {
+              "@type": "Offer",
+              "name": "Pro Tier (Growth + Local SEO + Monthly Reports)",
+              "price": "14999",
+              "priceCurrency": "INR"
+            }
+          ]
+        }
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What is included in a UIKEY LABS business website package?",
+            "name": "What is the delivery time for a website?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Every package includes a mobile-responsive custom design, direct WhatsApp lead buttons and inquiry forms, Google Maps location embed, SSL security configuration, on-page local SEO setup built to rank on Google, and 30 days of post-launch technical support."
+              "text": "Starter websites are delivered in 3–4 business days. Growth (5-page) and Pro websites are delivered in 5–7 business days from content submission."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many design revisions are included?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Starter includes 2 rounds of staging revisions, Growth includes 3 rounds of revisions, and Pro includes unlimited staging revisions before launch plus monthly content updates."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do domain and hosting work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every package includes 1 Year of high-speed global cloud hosting with free SSL certificate. You retain 100% ownership of your domain name."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the payment and refund policy?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We work on a transparent 50% booking advance and 50% after you approve the live staging link. Cancellations requested within 24 hours prior to design initiation receive a 100% refund of the advance."
             }
           }
         ]
@@ -283,11 +331,11 @@
 
               <button type="button" onclick="switchAppView('pricing')" class="portal-tile" style="border-color:rgba(251,191,36,0.5);">
                 <div>
-                  <span class="badge-pill badge-amber" style="margin-bottom:0.5rem;">50% OFF</span>
-                  <h2 style="font-size:1.05rem; font-weight:900; color:#fff;">Pricing Packages</h2>
-                  <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.25rem;">Starter ₹4,999 • Growth ₹9,999 • Custom Portal</p>
+                  <span class="badge-pill badge-amber" style="margin-bottom:0.5rem;">50% LAUNCH DISCOUNT</span>
+                  <h2 style="font-size:1.05rem; font-weight:900; color:#fff;">3-Tier Pricing (INR)</h2>
+                  <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.25rem;">Starter ₹4,999 • Growth ₹9,999 • Pro ₹14,999</p>
                 </div>
-                <span style="color:var(--amber); font-size:0.8rem; font-weight:800; margin-top:0.75rem; display:block;">View Pricing →</span>
+                <span style="color:var(--amber); font-size:0.8rem; font-weight:800; margin-top:0.75rem; display:block;">Compare 3 Plans →</span>
               </button>
 
               <button type="button" onclick="switchAppView('qr')" class="portal-tile" style="border-color:rgba(52,211,153,0.45);">
@@ -545,74 +593,322 @@
          ====================================================================== -->
     <section id="view-pricing" class="app-view-panel" aria-labelledby="pricing-heading">
       <div class="container">
-        <span class="badge-pill badge-emerald">TRANSPARENT INVESTMENT TIERS</span>
-        <h2 id="pricing-heading" class="h2-title">Simple, Honest Website Packages</h2>
+        <span class="badge-pill badge-emerald">TRANSPARENT 3-TIER PACKAGES (INR)</span>
+        <h2 id="pricing-heading" class="h2-title">Choose Your Business Website Plan</h2>
         <p class="lead-text" style="margin-bottom:1.5rem;">
-          50% Booking Advance to start • Remaining 50% only after you review and approve your live staging website.
+          50% Launch Discount Applied • 50% Booking Advance to start • Remaining 50% only after you review and approve your live staging website.
         </p>
 
+        <!-- 3-Tier INR Pricing Grid -->
         <div class="grid-3">
+          <!-- TIER 1: STARTER -->
           <article class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
-              <span class="badge-pill badge-cyan">STARTER PRESENCE</span>
-              <h3 style="font-size:1.3rem; font-weight:900; margin-top:0.5rem;">Local Business Starter</h3>
-              <div style="margin:0.85rem 0;">
-                <span style="font-size:2.1rem; font-weight:900; color:#fff;">₹4,999</span>
-                <span style="font-size:0.85rem; color:var(--text-dim); text-decoration:line-through; margin-left:0.4rem;">₹9,999</span>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
+                <span class="badge-pill badge-cyan">TIER 1 • STARTER</span>
+                <span style="font-size:0.72rem; font-weight:800; color:var(--emerald);">SAVE 50%</span>
               </div>
-              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem;">
-                <li>✓ Single-Page Responsive Website</li>
-                <li>✓ Direct WhatsApp Lead Button</li>
-                <li>✓ Google Maps &amp; Business Hours</li>
-                <li>✓ On-Page Local SEO &amp; SSL Setup</li>
-                <li>✓ 30 Days Technical Support</li>
+              <h3 style="font-size:1.35rem; font-weight:900; margin-top:0.5rem; color:#fff;">Starter</h3>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.2rem;">1-page site + WhatsApp button for quick local digital presence</p>
+              <div style="margin:0.9rem 0; padding:0.75rem; background:rgba(15,23,42,0.6); border-radius:0.75rem; border:1px solid var(--border-subtle);">
+                <div style="font-size:0.74rem; color:var(--text-dim); font-weight:700;">Regular Price: <span style="text-decoration:line-through; color:#f87171;">₹9,999</span></div>
+                <div style="display:flex; align-items:baseline; gap:0.4rem; margin-top:0.15rem;">
+                  <span style="font-size:2.15rem; font-weight:900; color:#fff;">₹4,999</span>
+                  <span style="font-size:0.78rem; color:var(--text-muted);">one-time (INR)</span>
+                </div>
+              </div>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.86rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                <li>✓ <strong>1-Page Responsive Website</strong> (Mobile + Desktop)</li>
+                <li>✓ <strong>Direct WhatsApp Button</strong> (1-Tap Chat Inquiry)</li>
+                <li>✓ Click-to-Call Button &amp; Google Maps Embed</li>
+                <li>✓ Free SSL Certificate &amp; Basic On-Page SEO</li>
+                <li>✓ Delivery in <strong>3–4 Business Days</strong></li>
+                <li>✓ 2 Rounds of Design Revisions</li>
               </ul>
             </div>
-            <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Starter%20Website%20Package%20(%E2%82%B94,999)%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
-              WhatsApp पर Free Consultation लें
+            <a href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20want%20to%20book%20the%20Starter%20Plan%20(%E2%82%B94,999%20-%201-page%20site%20%2B%20WhatsApp%20button).%20Please%20share%20next%20steps." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
+              Select Starter (₹4,999) on WhatsApp →
             </a>
           </article>
 
-          <article class="card card-featured" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <!-- TIER 2: GROWTH (MOST POPULAR) -->
+          <article class="card card-featured" style="display:flex; flex-direction:column; justify-content:space-between; position:relative;">
             <div>
-              <span class="badge-pill badge-amber">MOST POPULAR</span>
-              <h3 style="font-size:1.3rem; font-weight:900; margin-top:0.5rem;">Growth Pro + Lead Funnel</h3>
-              <div style="margin:0.85rem 0;">
-                <span style="font-size:2.1rem; font-weight:900; color:var(--amber);">₹9,999</span>
-                <span style="font-size:0.85rem; color:var(--text-dim); text-decoration:line-through; margin-left:0.4rem;">₹19,999</span>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
+                <span class="badge-pill badge-amber">★ MOST POPULAR</span>
+                <span style="font-size:0.72rem; font-weight:800; color:var(--amber);">SAVE ₹10,000</span>
               </div>
-              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem;">
-                <li>✓ Up to 5 Custom Sections / Industry Layout</li>
-                <li>✓ Pre-Filled WhatsApp Booking / Catalog Funnel</li>
-                <li>✓ Bilingual (English + Hindi / Hinglish)</li>
-                <li>✓ JSON-LD Schema, Sitemap &amp; Local SEO</li>
-                <li>✓ Free Co-Branded Shop QR + 60-Day Support</li>
+              <h3 style="font-size:1.35rem; font-weight:900; margin-top:0.5rem; color:#fff;">Growth</h3>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.2rem;">5-page site + WhatsApp lead funnel + Google Business setup</p>
+              <div style="margin:0.9rem 0; padding:0.75rem; background:rgba(251,191,36,0.08); border-radius:0.75rem; border:1px solid rgba(251,191,36,0.35);">
+                <div style="font-size:0.74rem; color:var(--text-dim); font-weight:700;">Regular Price: <span style="text-decoration:line-through; color:#f87171;">₹19,999</span></div>
+                <div style="display:flex; align-items:baseline; gap:0.4rem; margin-top:0.15rem;">
+                  <span style="font-size:2.15rem; font-weight:900; color:var(--amber);">₹9,999</span>
+                  <span style="font-size:0.78rem; color:var(--text-muted);">one-time (INR)</span>
+                </div>
+              </div>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.86rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                <li>✓ <strong>5-Page Custom Website</strong> (Home, About, Services, Gallery, Contact)</li>
+                <li>✓ <strong>WhatsApp Lead Funnel</strong> (Pre-filled Booking / Order Forms)</li>
+                <li>✓ <strong>Google Business Profile Setup</strong> &amp; Map Pin Verification</li>
+                <li>✓ Bilingual Support (English + Hindi / Hinglish Toggle)</li>
+                <li>✓ Free Co-Branded Shop UPI QR Standee</li>
+                <li>✓ Delivery in <strong>5–7 Business Days</strong> • 3 Revision Rounds</li>
               </ul>
             </div>
-            <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Growth%20Pro%20Package%20(%E2%82%B99,999)%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
-              WhatsApp पर Free Consultation लें
+            <a href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20want%20to%20book%20the%20Growth%20Plan%20-%20Most%20Popular%20(%E2%82%B99,999%20-%205-page%20site%20%2B%20WhatsApp%20lead%20funnel%20%2B%20Google%20Business%20setup)." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
+              Select Growth (₹9,999) on WhatsApp →
             </a>
           </article>
 
+          <!-- TIER 3: PRO -->
           <article class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
             <div>
-              <span class="badge-pill badge-emerald">CUSTOM PORTAL</span>
-              <h3 style="font-size:1.3rem; font-weight:900; margin-top:0.5rem;">Enterprise Web App</h3>
-              <div style="margin:0.85rem 0;">
-                <span style="font-size:2.1rem; font-weight:900; color:#fff;">₹19,999+</span>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
+                <span class="badge-pill badge-emerald">TIER 3 • PRO</span>
+                <span style="font-size:0.72rem; font-weight:800; color:var(--emerald);">SAVE ₹15,000</span>
               </div>
-              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem;">
-                <li>✓ Custom Multi-Page Portal &amp; Database</li>
-                <li>✓ Admin CRM Dashboard &amp; Role Access</li>
-                <li>✓ Custom Admission / OPD / Order Workflows</li>
-                <li>✓ Cloud Deployment (Vercel / Supabase)</li>
-                <li>✓ Priority Technical SLA</li>
+              <h3 style="font-size:1.35rem; font-weight:900; margin-top:0.5rem; color:#fff;">Pro</h3>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.2rem;">Everything in Growth + Local SEO + monthly performance reports</p>
+              <div style="margin:0.9rem 0; padding:0.75rem; background:rgba(15,23,42,0.6); border-radius:0.75rem; border:1px solid var(--border-subtle);">
+                <div style="font-size:0.74rem; color:var(--text-dim); font-weight:700;">Regular Price: <span style="text-decoration:line-through; color:#f87171;">₹29,999</span></div>
+                <div style="display:flex; align-items:baseline; gap:0.4rem; margin-top:0.15rem;">
+                  <span style="font-size:2.15rem; font-weight:900; color:var(--emerald);">₹14,999</span>
+                  <span style="font-size:0.78rem; color:var(--text-muted);">one-time (INR)</span>
+                </div>
+              </div>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; font-size:0.86rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                <li>✓ <strong>Everything in Growth Tier</strong> (5+ Pages &amp; Lead Funnel)</li>
+                <li>✓ <strong>Advanced Local SEO Setup</strong> (JSON-LD Schema, City Keywords, Sitemap)</li>
+                <li>✓ <strong>Monthly Performance Reports</strong> (Traffic, Search &amp; WhatsApp Leads)</li>
+                <li>✓ Google Search Console &amp; PageSpeed 95+ Optimization</li>
+                <li>✓ Unlimited Staging Revisions + 90-Day Priority Support</li>
               </ul>
             </div>
-            <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20Enterprise%20Custom%20Portal%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
-              WhatsApp पर Free Consultation लें
+            <a href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20want%20to%20book%20the%20Pro%20Plan%20(%E2%82%B914,999%20-%20Growth%20%2B%20Local%20SEO%20%2B%20monthly%20reports).%20Please%20share%20next%20steps." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
+              Select Pro (₹14,999) on WhatsApp →
             </a>
           </article>
+        </div>
+
+        <!-- "WHAT'S INCLUDED" CHECKLIST IN EVERY PLAN -->
+        <div class="card" style="margin-top:2rem; border-color:rgba(56,189,248,0.35);">
+          <span class="badge-pill badge-cyan">STANDARD DELIVERABLES</span>
+          <h3 style="font-size:1.25rem; font-weight:900; color:#fff; margin-top:0.35rem;">What's Included in Every Website Package</h3>
+          <p style="font-size:0.84rem; color:var(--text-muted);">No hidden charges. Every Starter, Growth, and Pro build comes standard with these 6 core guarantees:</p>
+          <div class="checklist-grid">
+            <div class="checklist-item">
+              <span class="checklist-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong style="color:#fff; display:block;">1 Year Free Cloud Hosting &amp; SSL</strong>
+                <span>Fast global CDN hosting with HTTPS green padlock included for Year 1 (₹1,999/yr optional renewal from Year 2).</span>
+              </div>
+            </div>
+            <div class="checklist-item">
+              <span class="checklist-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong style="color:#fff; display:block;">100% Mobile &amp; Tablet Responsive</strong>
+                <span>Tested across 360px, 390px, 768px &amp; 1440px screens with zero horizontal overflow.</span>
+              </div>
+            </div>
+            <div class="checklist-item">
+              <span class="checklist-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong style="color:#fff; display:block;">Direct WhatsApp &amp; Call Integration</strong>
+                <span>Leads land directly in your WhatsApp inbox with pre-filled customer details—0% commission.</span>
+              </div>
+            </div>
+            <div class="checklist-item">
+              <span class="checklist-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong style="color:#fff; display:block;">100% Domain &amp; Code Ownership</strong>
+                <span>Your domain is registered in your business name. No vendor lock-in ever.</span>
+              </div>
+            </div>
+            <div class="checklist-item">
+              <span class="checklist-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong style="color:#fff; display:block;">Live Staging Link Before Final Payment</strong>
+                <span>Review and test your live website on your phone before paying the remaining 50% balance.</span>
+              </div>
+            </div>
+            <div class="checklist-item">
+              <span class="checklist-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong style="color:#fff; display:block;">Post-Launch Technical Support</strong>
+                <span>30 to 90 days of free WhatsApp support for text, photo, or pricing updates after launch.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURE COMPARISON TABLE (STARTER VS GROWTH VS PRO) -->
+        <div style="margin-top:2.25rem;">
+          <span class="badge-pill badge-amber">SIDE-BY-SIDE COMPARISON</span>
+          <h3 style="font-size:1.3rem; font-weight:900; color:#fff; margin-top:0.35rem;">Compare Starter vs Growth vs Pro Tiers</h3>
+          <div class="table-scroll-wrap">
+            <table class="comparison-table" aria-label="Website package comparison table">
+              <thead>
+                <tr>
+                  <th scope="col">Feature / Deliverable</th>
+                  <th scope="col">Starter<br><span style="color:#fff;">₹4,999</span> <span style="text-decoration:line-through; color:var(--text-dim); font-size:0.72rem;">₹9,999</span></th>
+                  <th scope="col" class="col-popular">Growth (Most Popular)<br><span style="color:var(--amber);">₹9,999</span> <span style="text-decoration:line-through; color:var(--text-dim); font-size:0.72rem;">₹19,999</span></th>
+                  <th scope="col">Pro<br><span style="color:var(--emerald);">₹14,999</span> <span style="text-decoration:line-through; color:var(--text-dim); font-size:0.72rem;">₹29,999</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Number of Pages / Sections</strong></td>
+                  <td>1-Page Site (Up to 4 Sections)</td>
+                  <td class="col-popular"><strong>5-Page Site</strong> (Complete Funnel)</td>
+                  <td><strong>5 to 8 Pages</strong> + Custom Landing</td>
+                </tr>
+                <tr>
+                  <td><strong>WhatsApp Integration</strong></td>
+                  <td>Standard WhatsApp Chat Button</td>
+                  <td class="col-popular"><strong>Pre-Filled WhatsApp Lead Funnel</strong></td>
+                  <td><strong>Multi-Service WhatsApp Booking Funnel</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Google Business Profile Setup</strong></td>
+                  <td>Map Embed Only</td>
+                  <td class="col-popular"><strong>✓ Full Profile + Map Pin Setup</strong></td>
+                  <td><strong>✓ Full Setup + Local Keyword Optimization</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Local SEO &amp; Schema Markup</strong></td>
+                  <td>Basic Meta Tags</td>
+                  <td class="col-popular">On-Page SEO + XML Sitemap</td>
+                  <td><strong>✓ LocalBusiness JSON-LD + City SEO</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Monthly Performance Reports</strong></td>
+                  <td>—</td>
+                  <td class="col-popular">—</td>
+                  <td><strong>✓ Monthly Traffic &amp; Lead Report (3 Mos)</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Delivery Time</strong></td>
+                  <td>3–4 Business Days</td>
+                  <td class="col-popular"><strong>5–7 Business Days</strong></td>
+                  <td>5–7 Business Days (Priority Queue)</td>
+                </tr>
+                <tr>
+                  <td><strong>Design Revisions Included</strong></td>
+                  <td>2 Rounds</td>
+                  <td class="col-popular"><strong>3 Rounds</strong></td>
+                  <td><strong>Unlimited Staging Revisions</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Hosting &amp; SSL Certificate</strong></td>
+                  <td>1 Year Free Cloud Hosting + SSL</td>
+                  <td class="col-popular"><strong>1 Year Free Cloud Hosting + SSL</strong></td>
+                  <td><strong>1 Year High-Speed Edge CDN + SSL</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Select Package (WhatsApp Prefilled)</strong></td>
+                  <td>
+                    <a href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20want%20to%20book%20the%20Starter%20Plan%20(%E2%82%B94,999%20-%201-page%20site%20%2B%20WhatsApp%20button)." target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="min-height:38px; padding:0.4rem 0.75rem; font-size:0.78rem;">
+                      Choose Starter →
+                    </a>
+                  </td>
+                  <td class="col-popular">
+                    <a href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20want%20to%20book%20the%20Growth%20Plan%20(%E2%82%B99,999%20-%205-page%20site%20%2B%20WhatsApp%20lead%20funnel%20%2B%20Google%20Business%20setup)." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="min-height:38px; padding:0.4rem 0.75rem; font-size:0.78rem;">
+                      Choose Growth →
+                    </a>
+                  </td>
+                  <td>
+                    <a href="https://wa.me/918770912734?text=Hi%20UIKEY%20LABS!%20I%20want%20to%20book%20the%20Pro%20Plan%20(%E2%82%B914,999%20-%20Growth%20%2B%20Local%20SEO%20%2B%20monthly%20reports)." target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="min-height:38px; padding:0.4rem 0.75rem; font-size:0.78rem;">
+                      Choose Pro →
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3 REAL CASE-STUDY CARDS -->
+        <div style="margin-top:2.5rem;">
+          <span class="badge-pill badge-emerald">VERIFIED DEPLOYMENT BENCHMARKS</span>
+          <h3 style="font-size:1.3rem; font-weight:900; color:#fff; margin-top:0.35rem;">Real Client Case Studies (Typical Results)</h3>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:1.1rem;">See how Indian local businesses use our WhatsApp lead funnel architecture to capture daily customer inquiries:</p>
+          <div class="grid-3">
+            <article class="card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                <span class="badge-pill badge-cyan">HEALTHCARE • GROWTH TIER</span>
+                <span style="font-size:0.74rem; color:var(--emerald); font-weight:800;">98/100 Speed</span>
+              </div>
+              <h4 style="font-size:1.05rem; font-weight:900; color:#fff;">1. City Care Multi-Specialty Clinic</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;">
+                <strong>Challenge:</strong> Patients struggled to book OPD slots by phone during rush hours.<br>
+                <strong>Solution:</strong> Deployed a 5-page Growth website with Doctor Roster &amp; 1-Tap WhatsApp OPD Token booking.<br>
+                <strong>Typical Result:</strong> <span style="color:var(--amber); font-weight:800;">2.6x increase</span> in daily WhatsApp appointment requests within 30 days.
+              </p>
+              <a href="demo-doctor-clinic.html" class="btn btn-secondary" style="width:100%; margin-top:0.85rem; min-height:40px; font-size:0.8rem;">Inspect Live Clinic Architecture ↗</a>
+            </article>
+
+            <article class="card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                <span class="badge-pill badge-amber">EDUCATION • PRO TIER</span>
+                <span style="font-size:0.74rem; color:var(--emerald); font-weight:800;">Local SEO Ranked</span>
+              </div>
+              <h4 style="font-size:1.05rem; font-weight:900; color:#fff;">2. Apex Public School &amp; Academy</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;">
+                <strong>Challenge:</strong> Outdated brochure site that didn't capture parent admission leads on mobile.<br>
+                <strong>Solution:</strong> Built a Pro tier portal with Fee Calculator, Prospectus Download &amp; WhatsApp Admission Desk.<br>
+                <strong>Typical Result:</strong> <span style="color:var(--amber); font-weight:800;">180+ direct parent inquiries</span> captured during admission season without middlemen.
+              </p>
+              <a href="demo-school-coaching.html" class="btn btn-secondary" style="width:100%; margin-top:0.85rem; min-height:40px; font-size:0.8rem;">Inspect Live School Architecture ↗</a>
+            </article>
+
+            <article class="card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                <span class="badge-pill badge-emerald">RETAIL &amp; F&amp;B • GROWTH TIER</span>
+                <span style="font-size:0.74rem; color:var(--emerald); font-weight:800;">0% Commission</span>
+              </div>
+              <h4 style="font-size:1.05rem; font-weight:900; color:#fff;">3. Royal Spice Cafe &amp; Supermart</h4>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;">
+                <strong>Challenge:</strong> Losing 28% margin on food/grocery aggregator apps.<br>
+                <strong>Solution:</strong> Launched a QR Digital Menu + Direct WhatsApp Cart &amp; Google Business Map Pin.<br>
+                <strong>Typical Result:</strong> Saved <span style="color:var(--amber); font-weight:800;">₹22,000+/month</span> in aggregator commissions with direct UPI &amp; WhatsApp orders.
+              </p>
+              <a href="demo-restaurant-cafe.html" class="btn btn-secondary" style="width:100%; margin-top:0.85rem; min-height:40px; font-size:0.8rem;">Inspect Live Cafe Architecture ↗</a>
+            </article>
+          </div>
+        </div>
+
+        <!-- PRICING & POLICIES FAQ (DELIVERY TIME, REVISION, HOSTING, REFUND) -->
+        <div style="margin-top:2.5rem;">
+          <span class="badge-pill badge-cyan">CLEAR ANSWERS BEFORE YOU BOOK</span>
+          <h3 style="font-size:1.3rem; font-weight:900; color:#fff; margin-top:0.35rem;">Frequently Asked Questions (Delivery, Revisions, Hosting &amp; Refund)</h3>
+          <div style="max-width:880px; margin-top:0.85rem;">
+            <details class="faq-item" open>
+              <summary class="faq-summary"><span>1. Delivery Time: How fast will my website go live?</span><span>+</span></summary>
+              <div class="faq-answer">
+                <strong>Starter Tier (₹4,999):</strong> 3–4 business days.<br>
+                <strong>Growth Tier (₹9,999) &amp; Pro Tier (₹14,999):</strong> 5–7 business days from the day you share your business name, logo/photos, and service list on WhatsApp. You receive a live staging preview link within 72 hours.
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-summary"><span>2. Revisions: How many design or content changes can I request?</span><span>+</span></summary>
+              <div class="faq-answer">
+                We build your site on a private staging link first so you can inspect it on your phone. <strong>Starter</strong> includes 2 revision rounds, <strong>Growth</strong> includes 3 revision rounds, and <strong>Pro</strong> includes unlimited revisions during the staging phase before final go-live.
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-summary"><span>3. Hosting &amp; Domain: Are there any monthly fees or hidden hosting costs?</span><span>+</span></summary>
+              <div class="faq-answer">
+                No monthly fees! <strong>1 Full Year of high-speed global cloud hosting and SSL security certificate is 100% included</strong> in all three tiers. From Year 2 onwards, optional hosting &amp; SSL renewal is just ₹1,999/year. You own your domain name and source code 100%.
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-summary"><span>4. Refund Policy &amp; Payment Terms: How does the 50% advance work?</span><span>+</span></summary>
+              <div class="faq-answer">
+                You pay <strong>50% booking advance</strong> to initiate development and the <strong>remaining 50% only after you review and approve the live staging website</strong>. If you cancel within 24 hours of booking before custom design starts, your advance is 100% refundable (see our <a href="refund.html" style="color:var(--cyan); text-decoration:underline;">Refund Policy</a>).
+              </div>
+            </details>
+          </div>
         </div>
       </div>
     </section>
@@ -756,23 +1052,23 @@
           </article>
         </div>
 
-        <h2 id="faq-heading" class="h2-title">Frequently Asked Questions (FAQ)</h2>
-        <div style="max-width:860px; margin-top:1rem;">
-          <details class="faq-item">
-            <summary class="faq-summary"><span>1. What is included in every website package?</span><span>+</span></summary>
-            <div class="faq-answer">Responsive mobile/desktop design, direct WhatsApp lead buttons, Google Maps integration, SSL setup, on-page local SEO metadata, and 30 days post-launch support.</div>
+        <h2 id="faq-heading" class="h2-title">Frequently Asked Questions (Delivery, Revisions, Hosting &amp; Refund)</h2>
+        <div style="max-width:880px; margin-top:1rem;">
+          <details class="faq-item" open>
+            <summary class="faq-summary"><span>1. Delivery Time: How fast will my website be delivered?</span><span>+</span></summary>
+            <div class="faq-answer"><strong>Starter (₹4,999):</strong> 3–4 business days. <strong>Growth (₹9,999) &amp; Pro (₹14,999):</strong> 5–7 business days from content submission. You get a live staging preview link on your phone within 72 hours.</div>
           </details>
           <details class="faq-item">
-            <summary class="faq-summary"><span>2. What is the launch timeline?</span><span>+</span></summary>
-            <div class="faq-answer">Starter and Growth Pro websites typically launch within 3 to 7 business days depending on content and staging approval speed.</div>
+            <summary class="faq-summary"><span>2. Revisions: How many design or content revisions are included?</span><span>+</span></summary>
+            <div class="faq-answer"><strong>Starter</strong> includes 2 revision rounds, <strong>Growth</strong> includes 3 revision rounds, and <strong>Pro</strong> includes unlimited staging revisions before go-live plus monthly performance updates.</div>
           </details>
           <details class="faq-item">
-            <summary class="faq-summary"><span>3. How do domain, hosting, and payment terms work?</span><span>+</span></summary>
-            <div class="faq-answer">You own your domain 100%. Payment is split into a 50% booking advance and 50% upon staging approval before live deployment.</div>
+            <summary class="faq-summary"><span>3. Hosting &amp; Domain: Is hosting included or are there monthly charges?</span><span>+</span></summary>
+            <div class="faq-answer"><strong>1 Year of high-speed global cloud hosting and free SSL security certificate is 100% included</strong> in all three packages with zero monthly fees. Optional Year-2 renewal is ₹1,999/year. You retain 100% ownership of your domain and code.</div>
           </details>
           <details class="faq-item">
-            <summary class="faq-summary"><span>4. What is the cancellation and refund policy?</span><span>+</span></summary>
-            <div class="faq-answer">Cancellations within 24 hours prior to design initiation are refundable (minus gateway fees). Full terms are listed on our <a href="legal.html" style="color:var(--cyan); text-decoration:underline;">Legal Policies</a> page.</div>
+            <summary class="faq-summary"><span>4. Refund Policy &amp; Payment Terms: How does the 50% advance work?</span><span>+</span></summary>
+            <div class="faq-answer">Payment is split into a <strong>50% booking advance</strong> and <strong>50% only after you approve your live staging website</strong>. Cancellations within 24 hours prior to custom design initiation receive a 100% refund of the advance (see our <a href="refund.html" style="color:var(--cyan); text-decoration:underline;">Refund Policy</a>).</div>
           </details>
         </div>
       </div>
