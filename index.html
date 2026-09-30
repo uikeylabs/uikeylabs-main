@@ -1491,35 +1491,52 @@
           </div>
         </div>
 
-        <!-- TAB 2: REAL CREATE ACCOUNT / SIGN UP (PBKDF2-HMAC-SHA256 Password Hashing) -->
+        <!-- TAB 2: REGISTER NEW SHOP (Owner Name, Mobile No., Shop Name, Shop Address, UPI ID, Fixed Amount) -->
         <div id="realSignUpFormWrap" style="display:none;">
           <form onsubmit="handleRealAccountSignUp(event)" novalidate>
-            <div class="form-group">
-              <label for="signupFullName" class="form-label">1. Full Name or Business Name *</label>
-              <input id="signupFullName" type="text" required autocomplete="name" placeholder="e.g. Mahesh Kumar / City Care Clinic" class="form-input" />
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.55rem;">
+              <div class="form-group">
+                <label for="signupOwnerName" class="form-label">1. Owner Full Name *</label>
+                <input id="signupOwnerName" type="text" required placeholder="Mahesh Kumar Uikey" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="signupMobileNumber" class="form-label">2. 10-Digit Mobile No. *</label>
+                <input id="signupMobileNumber" type="tel" maxlength="10" required placeholder="9424647849" class="form-input" />
+              </div>
             </div>
             <div class="form-group">
-              <label for="signupIdentifier" class="form-label">2. Email Address or 10-Digit Mobile *</label>
-              <input id="signupIdentifier" type="text" required autocomplete="username" placeholder="yourname@gmail.com or 9876543210" class="form-input" />
+              <label for="signupFullName" class="form-label">3. Shop / Business Name *</label>
+              <input id="signupFullName" type="text" required placeholder="e.g. Royal Spice Cafe Betul" class="form-input" />
             </div>
             <div class="form-group">
-              <label for="signupPassword" class="form-label">3. Create Password (Min 6 Characters) *</label>
-              <input id="signupPassword" type="password" required autocomplete="new-password" placeholder="Create a strong password" class="form-input" />
+              <label for="signupShopAddress" class="form-label">4. Complete Shop Address *</label>
+              <input id="signupShopAddress" type="text" required placeholder="Ganj Main Road, Near Bus Stand, Betul, MP" value="Ganj Main Road, Betul, MP" class="form-input" />
+            </div>
+            <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:0.55rem;">
+              <div class="form-group">
+                <label for="signupUpiId" class="form-label">5. Shop UPI ID *</label>
+                <input id="signupUpiId" type="text" required placeholder="9424647849@ybl" value="9424647849@ybl" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="signupFixedAmount" class="form-label">6. Fixed Amount (₹)</label>
+                <input id="signupFixedAmount" type="number" min="0" step="1" placeholder="500 or 0" value="500" class="form-input" />
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.55rem;">
+              <div class="form-group">
+                <label for="signupIdentifier" class="form-label">7. Owner Email *</label>
+                <input id="signupIdentifier" type="email" required autocomplete="username" placeholder="yourshop@gmail.com" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label for="signupPassword" class="form-label">8. Password (6+ chars) *</label>
+                <input id="signupPassword" type="password" required autocomplete="new-password" placeholder="Min 6 chars" class="form-input" />
+              </div>
             </div>
             <button type="submit" class="btn btn-amber" style="width:100%;">
-              ✨ Create Encrypted Account &amp; Sign In →
+              🏪 Register Shop &amp; Generate Branded Fixed-Amount QR →
             </button>
           </form>
         </div>
-
-        <!-- Optional: Custom Google Cloud OAuth Client ID Binding -->
-        <details style="margin-top:0.85rem; font-size:0.74rem; color:var(--text-dim);">
-          <summary style="cursor:pointer; font-weight:700; color:var(--text-muted);">⚙️ Developer: Connect Custom Google Cloud OAuth Client ID</summary>
-          <div style="margin-top:0.5rem; display:flex; gap:0.4rem;">
-            <input id="customGoogleClientIdInput" type="text" placeholder="xxxx.apps.googleusercontent.com" class="form-input" style="padding:0.4rem 0.65rem; font-size:0.75rem;" />
-            <button type="button" onclick="saveCustomGoogleClientId()" class="btn btn-secondary" style="padding:0.4rem 0.75rem; font-size:0.74rem; min-height:36px;">Save</button>
-          </div>
-        </details>
       </div>
 
       <!-- VIEW B: WHEN SIGNED IN (Verified Identity + JWT Badge + Direct Sign Out Button) -->
@@ -1557,5 +1574,66 @@
       <div id="modalAuthStatus" class="form-status" role="status" aria-live="polite"></div>
     </div>
   </div>
+  <script>
+    window.handleGoogleSignIn = async function () {
+      if (typeof closeAuthModal === "function") closeAuthModal();
+      await window.supabaseClient.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: "./dashboard.html" }
+      });
+    };
+
+    window.handleRealAccountSignIn = async function (e) {
+      e.preventDefault();
+      var email = (document.getElementById("signinIdentifier").value || "").trim().toLowerCase();
+      var password = document.getElementById("signinPassword").value || "";
+      var statusEl = document.getElementById("modalAuthStatus");
+      var res = await window.supabaseClient.auth.signInWithPassword({ email: email, password: password });
+      if (res.error) {
+        if (statusEl) {
+          statusEl.textContent = "❌ " + res.error.message;
+          statusEl.className = "form-status show error";
+        }
+        return;
+      }
+      window.location.href = "./dashboard.html";
+    };
+
+    window.handleRealAccountSignUp = async function (e) {
+      e.preventDefault();
+      var ownerName = (document.getElementById("signupOwnerName").value || "").trim();
+      var mobileNumber = (document.getElementById("signupMobileNumber").value || "").trim();
+      var shopName = (document.getElementById("signupFullName").value || "").trim();
+      var shopAddress = (document.getElementById("signupShopAddress").value || "").trim();
+      var upiId = (document.getElementById("signupUpiId").value || "9424647849@ybl").trim();
+      var fixedAmount = parseFloat(document.getElementById("signupFixedAmount").value) || 0;
+      var email = (document.getElementById("signupIdentifier").value || "").trim().toLowerCase();
+      var password = document.getElementById("signupPassword").value || "";
+      var statusEl = document.getElementById("modalAuthStatus");
+
+      var res = await window.supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            owner_name: ownerName,
+            mobile_number: mobileNumber,
+            shop_name: shopName,
+            shop_address: shopAddress,
+            upi_id: upiId,
+            fixed_amount: fixedAmount
+          }
+        }
+      });
+      if (res.error) {
+        if (statusEl) {
+          statusEl.textContent = "❌ " + res.error.message;
+          statusEl.className = "form-status show error";
+        }
+        return;
+      }
+      window.location.href = "./dashboard.html";
+    };
+  </script>
 </body>
 </html>

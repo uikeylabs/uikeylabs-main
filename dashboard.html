@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shop Owner Dashboard | UikeyLabs Merchant Portal</title>
+    <title>Shop Owner Dashboard &amp; Branded Fixed-Amount QR | UIKEY LABS</title>
     <meta
       name="description"
-      content="Protected UikeyLabs Merchant Dashboard — view your dynamic shop profile and fixed UPI QR code fetched from the Supabase 'shops' table."
+      content="Protected UikeyLabs Merchant Dashboard — generate Fixed-Amount UPI QR codes with UikeyLabs Logo branding, Owner Name, Mobile Number, and Shop Address stored in Supabase."
     />
-    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <link rel="icon" type="image/jpeg" href="./uikeylabs-logo.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,12 +18,12 @@
     <style>
       :root {
         --bg-dark: #070d1f;
-        --card-bg: rgba(15, 23, 42, 0.92);
-        --border-subtle: rgba(255, 255, 255, 0.12);
+        --card-bg: rgba(15, 23, 42, 0.94);
+        --border-subtle: rgba(255, 255, 255, 0.14);
         --brand-gold: #f59e0b;
         --brand-gold-light: #fde68a;
         --brand-emerald: #10b981;
-        --brand-blue: #3b82f6;
+        --brand-cyan: #22d3ee;
         --text-main: #f8fafc;
         --text-muted: #94a3b8;
       }
@@ -35,8 +35,8 @@
       body {
         font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
         background:
-          radial-gradient(circle at 12% 10%, rgba(245, 158, 11, 0.12), transparent 40%),
-          radial-gradient(circle at 88% 85%, rgba(16, 185, 129, 0.11), transparent 42%),
+          radial-gradient(circle at 12% 10%, rgba(245, 158, 11, 0.14), transparent 40%),
+          radial-gradient(circle at 88% 85%, rgba(16, 185, 129, 0.12), transparent 42%),
           var(--bg-dark);
         color: var(--text-main);
         min-height: 100vh;
@@ -50,8 +50,8 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 0.85rem;
-        padding: 0.95rem clamp(1rem, 2.5vw, 2.5rem);
-        background: rgba(7, 13, 31, 0.9);
+        padding: 0.9rem clamp(1rem, 2.5vw, 2.5rem);
+        background: rgba(7, 13, 31, 0.92);
         backdrop-filter: blur(14px);
         border-bottom: 1px solid var(--border-subtle);
       }
@@ -62,23 +62,17 @@
         text-decoration: none;
         color: #fff;
       }
-      .brand-logo {
-        width: 38px;
-        height: 38px;
+      .brand-wrap img {
+        width: 40px;
+        height: 40px;
         border-radius: 10px;
-        background: linear-gradient(135deg, #f59e0b, #ea580c);
-        color: #090d16;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-family: "Outfit", sans-serif;
-        font-weight: 900;
-        font-size: 1.15rem;
+        border: 2px solid var(--brand-gold);
+        object-fit: cover;
       }
       .brand-title {
         font-family: "Outfit", sans-serif;
-        font-weight: 800;
-        font-size: 1.1rem;
+        font-weight: 900;
+        font-size: 1.12rem;
       }
       .header-actions {
         display: flex;
@@ -92,8 +86,8 @@
         gap: 0.45rem;
         padding: 0.42rem 0.85rem;
         border-radius: 999px;
-        background: rgba(16, 185, 129, 0.14);
-        border: 1px solid rgba(16, 185, 129, 0.38);
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.4);
         color: #6ee7b7;
         font-size: 0.78rem;
         font-weight: 700;
@@ -108,8 +102,8 @@
       .btn-nav {
         padding: 0.48rem 0.9rem;
         border-radius: 0.65rem;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.06);
         color: #e2e8f0;
         text-decoration: none;
         font-size: 0.82rem;
@@ -119,22 +113,17 @@
       .btn-logout {
         padding: 0.5rem 1rem;
         border-radius: 0.65rem;
-        border: 1px solid rgba(239, 68, 68, 0.45);
-        background: rgba(239, 68, 68, 0.16);
+        border: 1px solid rgba(239, 68, 68, 0.5);
+        background: rgba(239, 68, 68, 0.18);
         color: #fca5a5;
         font-size: 0.82rem;
         font-weight: 800;
         cursor: pointer;
-        transition: all 0.2s;
-      }
-      .btn-logout:hover {
-        background: rgba(239, 68, 68, 0.28);
-        color: #fff;
       }
       .dashboard-container {
         width: 100%;
-        padding: 1.75rem clamp(1rem, 2.5vw, 2.5rem) 4rem;
-        max-width: 1440px;
+        padding: 1.5rem clamp(1rem, 2.5vw, 2.5rem) 4rem;
+        max-width: 1480px;
         margin: 0 auto;
       }
       .hero-banner {
@@ -143,12 +132,12 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 1.25rem;
-        padding: 1.5rem 1.75rem;
+        padding: 1.35rem 1.65rem;
         border-radius: 1.25rem;
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.95));
-        border: 1px solid rgba(245, 158, 11, 0.32);
-        margin-bottom: 1.65rem;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.94), rgba(15, 23, 42, 0.96));
+        border: 1.5px solid rgba(245, 158, 11, 0.38);
+        margin-bottom: 1.5rem;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.42);
       }
       .hero-tag {
         display: inline-flex;
@@ -159,39 +148,39 @@
         text-transform: uppercase;
         letter-spacing: 0.06em;
         color: var(--brand-gold-light);
-        background: rgba(245, 158, 11, 0.15);
-        border: 1px solid rgba(245, 158, 11, 0.35);
+        background: rgba(245, 158, 11, 0.16);
+        border: 1px solid rgba(245, 158, 11, 0.4);
         padding: 0.28rem 0.75rem;
         border-radius: 999px;
-        margin-bottom: 0.55rem;
+        margin-bottom: 0.45rem;
       }
       .hero-banner h1 {
         font-family: "Outfit", sans-serif;
-        font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+        font-size: clamp(1.4rem, 2.5vw, 2rem);
         font-weight: 900;
         color: #fff;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.4rem;
       }
       .hero-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.65rem;
-        font-size: 0.83rem;
+        gap: 0.55rem;
+        font-size: 0.82rem;
         color: #cbd5e1;
       }
       .meta-chip {
-        padding: 0.3rem 0.7rem;
+        padding: 0.32rem 0.72rem;
         border-radius: 0.55rem;
         background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.12);
       }
       .main-grid {
         display: grid;
-        grid-template-columns: 1.05fr 1.25fr;
+        grid-template-columns: 1.08fr 1.22fr;
         gap: 1.5rem;
         align-items: start;
       }
-      @media (max-width: 960px) {
+      @media (max-width: 980px) {
         .main-grid {
           grid-template-columns: 1fr;
         }
@@ -200,71 +189,215 @@
         background: var(--card-bg);
         border: 1px solid var(--border-subtle);
         border-radius: 1.25rem;
-        padding: 1.6rem;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.42);
+        padding: 1.5rem;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.44);
       }
-      .qr-standee-card {
+
+      /* ======================================================================
+       * UIKEY LABS BRANDED QR STANDEE CARD WITH CENTER LOGO & FIXED AMOUNT
+       * ====================================================================== */
+      .uikey-branded-standee {
+        background: linear-gradient(165deg, #0b132b 0%, #050914 100%);
+        border: 2.5px solid #f59e0b;
+        border-radius: 1.35rem;
+        padding: 1.35rem 1.25rem;
         text-align: center;
-        background: linear-gradient(160deg, rgba(15, 23, 42, 0.96), rgba(9, 13, 28, 0.98));
-        border: 1.5px solid rgba(245, 158, 11, 0.4);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+        position: relative;
+        overflow: hidden;
       }
-      .standee-header {
-        font-size: 0.74rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+      .standee-brand-ribbon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        padding: 0.55rem 0.9rem;
+        border-radius: 0.85rem;
+        background: linear-gradient(90deg, rgba(245, 158, 11, 0.2), rgba(34, 211, 238, 0.15));
+        border: 1px solid rgba(245, 158, 11, 0.45);
+        margin-bottom: 0.95rem;
+      }
+      .standee-brand-ribbon img {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        border: 1.5px solid #f59e0b;
+        object-fit: cover;
+      }
+      .standee-brand-ribbon-text {
+        text-align: left;
+      }
+      .standee-brand-ribbon-title {
+        font-family: "Outfit", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 900;
+        letter-spacing: 0.05em;
+        color: #ffffff;
+      }
+      .standee-brand-ribbon-sub {
+        font-size: 0.68rem;
+        font-weight: 700;
         color: #fde68a;
-        margin-bottom: 0.35rem;
       }
       .standee-shop-name {
         font-family: "Outfit", sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.48rem;
         font-weight: 900;
-        color: #fff;
+        color: #ffffff;
+        line-height: 1.2;
+        margin-bottom: 0.28rem;
+      }
+      .standee-shop-address {
+        font-size: 0.8rem;
+        color: #cbd5e1;
+        font-weight: 600;
         margin-bottom: 0.25rem;
       }
-      .standee-upi {
-        font-size: 0.84rem;
-        color: #6ee7b7;
+      .standee-owner-contact {
+        font-size: 0.78rem;
+        color: #93c5fd;
         font-weight: 700;
-        margin-bottom: 1.15rem;
+        margin-bottom: 0.85rem;
       }
-      .qr-frame {
+
+      /* QR Matrix Wrapper with Centered UikeyLabs Logo Overlay */
+      .qr-matrix-box {
+        position: relative;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 1rem;
+        padding: 0.95rem;
         background: #ffffff;
-        border-radius: 1.1rem;
+        border-radius: 1.15rem;
         border: 4px solid #f59e0b;
-        box-shadow: 0 16px 40px rgba(245, 158, 11, 0.22);
-        margin-bottom: 1rem;
+        box-shadow: 0 16px 40px rgba(245, 158, 11, 0.28);
+        margin-bottom: 0.9rem;
       }
-      .qr-frame img {
-        width: 240px;
-        height: 240px;
+      .qr-matrix-box img.qr-code-main {
+        width: 250px;
+        height: 250px;
         object-fit: contain;
         display: block;
       }
-      .qr-url-box {
-        background: rgba(2, 6, 23, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 0.65rem;
-        padding: 0.6rem 0.8rem;
-        font-family: monospace;
-        font-size: 0.73rem;
-        color: #93c5fd;
-        word-break: break-all;
-        margin-bottom: 1rem;
-        text-align: left;
+      /* Centered UikeyLabs Logo Badge inside the QR Code */
+      .qr-center-logo-badge {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        background: #ffffff;
+        padding: 3px;
+        border: 2.5px solid #f59e0b;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.38);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
       }
-      .action-btn-row {
+      .qr-center-logo-badge img {
+        width: 36px;
+        height: 36px;
+        border-radius: 7px;
+        object-fit: cover;
+      }
+      .qr-center-logo-badge span {
+        font-size: 0.44rem;
+        font-weight: 900;
+        color: #090d16;
+        letter-spacing: 0.04em;
+        line-height: 1;
+        margin-top: 1px;
+      }
+
+      /* Fixed Amount Highlight Banner inside Standee */
+      .fixed-amount-display-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        width: 100%;
+        max-width: 320px;
+        padding: 0.68rem 1rem;
+        border-radius: 0.8rem;
+        font-weight: 900;
+        font-size: 1rem;
+        margin-bottom: 0.65rem;
+      }
+      .fixed-amount-display-pill.locked {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: #042f2e;
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+      }
+      .fixed-amount-display-pill.open {
+        background: rgba(245, 158, 11, 0.16);
+        border: 1px solid rgba(245, 158, 11, 0.45);
+        color: #fde68a;
+      }
+      .standee-upi-line {
+        font-size: 0.82rem;
+        font-weight: 800;
+        color: #6ee7b7;
+        margin-bottom: 0.5rem;
+      }
+      .standee-footer-strip {
+        margin-top: 0.65rem;
+        padding-top: 0.6rem;
+        border-top: 1px dashed rgba(255, 255, 255, 0.15);
+        font-size: 0.72rem;
+        font-weight: 800;
+        color: #fde68a;
+        letter-spacing: 0.03em;
+      }
+
+      /* Fixed Amount Generator Card */
+      .amount-calculator-box {
+        background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(15, 23, 42, 0.92));
+        border: 1.5px solid rgba(16, 185, 129, 0.45);
+        border-radius: 1.1rem;
+        padding: 1.15rem;
+        margin-bottom: 1.25rem;
+      }
+      .preset-chips-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin: 0.65rem 0 0.85rem;
+      }
+      .preset-chip {
+        padding: 0.4rem 0.72rem;
+        border-radius: 0.55rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(15, 23, 42, 0.85);
+        color: #f8fafc;
+        font-size: 0.78rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .preset-chip:hover,
+      .preset-chip.active {
+        background: #f59e0b;
+        color: #090d16;
+        border-color: #f59e0b;
+      }
+
+      .action-btn-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr;
         gap: 0.65rem;
+        margin-top: 1rem;
+      }
+      @media (max-width: 520px) {
+        .action-btn-grid {
+          grid-template-columns: 1fr;
+        }
       }
       .btn-gold {
-        padding: 0.78rem 1rem;
+        padding: 0.8rem 1rem;
         border-radius: 0.75rem;
         border: none;
         background: linear-gradient(135deg, #f59e0b, #ea580c);
@@ -278,47 +411,59 @@
         justify-content: center;
         gap: 0.4rem;
       }
-      .btn-secondary {
-        padding: 0.78rem 1rem;
+      .btn-emerald {
+        padding: 0.8rem 1rem;
         border-radius: 0.75rem;
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        border: none;
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: #042f2e;
+        font-weight: 900;
+        font-size: 0.85rem;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+      .btn-secondary {
+        padding: 0.8rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         background: rgba(255, 255, 255, 0.06);
         color: #f8fafc;
         font-weight: 700;
         font-size: 0.85rem;
         cursor: pointer;
       }
-      .section-title {
-        font-family: "Outfit", sans-serif;
-        font-size: 1.2rem;
-        font-weight: 800;
-        color: #fff;
-        margin-bottom: 0.35rem;
-      }
-      .section-sub {
-        font-size: 0.84rem;
-        color: var(--text-muted);
-        margin-bottom: 1.2rem;
-        line-height: 1.5;
-      }
       .field-group {
-        margin-bottom: 0.9rem;
+        margin-bottom: 0.85rem;
       }
       .field-group label {
         display: block;
         font-size: 0.78rem;
         font-weight: 700;
         color: #cbd5e1;
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.32rem;
       }
       .input-field {
         width: 100%;
-        padding: 0.75rem 0.9rem;
+        padding: 0.72rem 0.9rem;
         border-radius: 0.7rem;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(15, 23, 42, 0.9);
         color: #fff;
         font-size: 0.9rem;
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+      @media (max-width: 560px) {
+        .two-col {
+          grid-template-columns: 1fr;
+        }
       }
       .status-toast {
         display: none;
@@ -326,27 +471,27 @@
         padding: 0.75rem 0.95rem;
         border-radius: 0.7rem;
         font-size: 0.82rem;
-        font-weight: 600;
-        background: rgba(16, 185, 129, 0.16);
-        border: 1px solid rgba(16, 185, 129, 0.4);
+        font-weight: 700;
+        background: rgba(16, 185, 129, 0.18);
+        border: 1px solid rgba(16, 185, 129, 0.45);
         color: #6ee7b7;
       }
       .db-record-table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 1.15rem;
-        font-size: 0.8rem;
+        font-size: 0.78rem;
       }
       .db-record-table th,
       .db-record-table td {
-        padding: 0.6rem 0.75rem;
+        padding: 0.55rem 0.7rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         text-align: left;
       }
       .db-record-table th {
         color: #94a3b8;
         font-weight: 700;
-        width: 36%;
+        width: 34%;
       }
       .db-record-table td {
         color: #f8fafc;
@@ -358,11 +503,14 @@
   <body>
     <header class="dashboard-header">
       <a href="./index.html" class="brand-wrap">
-        <span class="brand-logo">U</span>
+        <img src="./uikeylabs-logo.jpg" alt="UikeyLabs Logo" />
         <div>
-          <div class="brand-title">UikeyLabs Merchant Dashboard</div>
-          <div id="supabaseModeLabel" style="font-size: 0.72rem; color: #94a3b8">
-            Checking Supabase session...
+          <div class="brand-title">
+            <span style="color: var(--brand-cyan)">UIKEY</span>
+            <span style="color: var(--brand-gold)">LABS</span> Merchant Portal
+          </div>
+          <div id="supabaseModeLabel" style="font-size: 0.72rem; color: #fde68a">
+            Connected to Supabase (oaflqjkflwhrkalsfjqw)
           </div>
         </div>
       </a>
@@ -380,124 +528,340 @@
     </header>
 
     <main class="dashboard-container">
-      <!-- Dynamic Shop Owner Welcome Banner -->
+      <!-- Dynamic Shop Owner Summary Banner -->
       <section class="hero-banner">
         <div>
-          <span class="hero-tag">&#9989; Verified Supabase 'shops' Record</span>
+          <span class="hero-tag">&#9989; Verified Supabase 'shops' Profile &amp; Fixed-Amount QR</span>
           <h1 id="shopNameHeading">Loading Your Shop Profile...</h1>
           <div class="hero-meta">
-            <span class="meta-chip">Owner: <strong id="metaOwnerEmail">—</strong></span>
-            <span class="meta-chip">Category: <strong id="metaCategory">—</strong></span>
-            <span class="meta-chip">Location: <strong id="metaCity">Betul, MP</strong></span>
+            <span class="meta-chip">Owner: <strong id="metaOwnerName">—</strong></span>
+            <span class="meta-chip">Mobile: <strong id="metaMobileNumber" style="color: #fde68a">—</strong></span>
+            <span class="meta-chip">Address: <strong id="metaShopAddress">—</strong></span>
             <span class="meta-chip">UPI ID: <strong id="metaUpiId" style="color: #6ee7b7">—</strong></span>
+            <span class="meta-chip">Fixed Amount: <strong id="metaFixedAmount" style="color: #22d3ee">—</strong></span>
           </div>
         </div>
         <div style="display: flex; gap: 0.65rem; flex-wrap: wrap">
-          <a
-            id="whatsappSupportLink"
-            href="https://wa.me/919424647849?text=Hi%20UikeyLabs%2C%20I%20am%20logged%20into%20my%20Shop%20Merchant%20Dashboard."
-            target="_blank"
-            rel="noopener"
-            class="btn-gold"
-          >
-            &#128172; WhatsApp Dedicated Manager
-          </a>
+          <button type="button" onclick="shareFixedQrOnWhatsApp()" class="btn-emerald">
+            &#128242; Send Fixed-Amount Payment Link to Client on WhatsApp
+          </button>
         </div>
       </section>
 
       <div class="main-grid">
-        <!-- Left Column: Fixed QR Code Image loaded from shops.qr_code_url -->
-        <div class="panel-card qr-standee-card">
-          <div class="standee-header">Official Fixed Shop Payment &amp; Storefront QR</div>
-          <div id="standeeShopName" class="standee-shop-name">Loading Shop...</div>
-          <div id="standeeUpiId" class="standee-upi">UPI: —</div>
+        <!-- LEFT COLUMN: Fixed Amount Terminal + UikeyLabs Branded QR Standee with Center Logo -->
+        <div class="panel-card">
+          <!-- 1. Instant Fixed Amount Input Box (Solves receiving exact Fixed Amount from clients!) -->
+          <div class="amount-calculator-box">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+                margin-bottom: 0.45rem;
+              "
+            >
+              <span style="font-size: 0.88rem; font-weight: 900; color: #6ee7b7">
+                &#128176; Enter Fixed Amount to Receive from Client (₹)
+              </span>
+              <span
+                style="
+                  font-size: 0.7rem;
+                  font-weight: 800;
+                  padding: 0.2rem 0.55rem;
+                  border-radius: 999px;
+                  background: rgba(245, 158, 11, 0.2);
+                  color: #fde68a;
+                "
+              >
+                Auto-Locks on GPay / PhonePe
+              </span>
+            </div>
+            <p style="font-size: 0.76rem; color: #cbd5e1; margin-bottom: 0.65rem">
+              Type the exact ₹ amount below (or click a preset). When your client scans this QR code, the exact ₹ amount is automatically filled &amp; locked!
+            </p>
 
-          <div class="qr-frame">
-            <img
-              id="shopQrCodeImg"
-              src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=12&data=upi%3A%2F%2Fpay%3Fpa%3D9424647849%40ybl%26pn%3DUikeyLabs%26cu%3DINR"
-              alt="Shop Owner Fixed QR Code from Supabase qr_code_url column"
-              crossorigin="anonymous"
-            />
+            <div class="two-col">
+              <div>
+                <label
+                  for="liveFixedAmountInput"
+                  style="display: block; font-size: 0.74rem; font-weight: 800; color: #fde68a; margin-bottom: 0.25rem"
+                  >Fixed Amount (₹) (0 = Open Amount)</label
+                >
+                <input
+                  id="liveFixedAmountInput"
+                  type="number"
+                  min="0"
+                  step="1"
+                  placeholder="Enter ₹ Amount (e.g. 500)"
+                  class="input-field"
+                  style="font-size: 1.08rem; font-weight: 900; border-color: #f59e0b; color: #fde68a"
+                />
+              </div>
+              <div>
+                <label
+                  for="livePaymentNoteInput"
+                  style="display: block; font-size: 0.74rem; font-weight: 800; color: #cbd5e1; margin-bottom: 0.25rem"
+                  >Bill No. / Payment Remark</label
+                >
+                <input
+                  id="livePaymentNoteInput"
+                  type="text"
+                  placeholder="e.g. Bill #102 / Order Payment"
+                  class="input-field"
+                />
+              </div>
+            </div>
+
+            <!-- Quick Preset Amount Buttons -->
+            <div class="preset-chips-row">
+              <button type="button" class="preset-chip" onclick="setQuickQrAmount(0)">
+                Open (₹ Any)
+              </button>
+              <button type="button" class="preset-chip" onclick="setQuickQrAmount(100)">
+                ₹100
+              </button>
+              <button type="button" class="preset-chip" onclick="setQuickQrAmount(250)">
+                ₹250
+              </button>
+              <button type="button" class="preset-chip" onclick="setQuickQrAmount(500)">
+                ₹500
+              </button>
+              <button type="button" class="preset-chip" onclick="setQuickQrAmount(1000)">
+                ₹1,000
+              </button>
+              <button type="button" class="preset-chip" onclick="setQuickQrAmount(2500)">
+                ₹2,500
+              </button>
+              <button type="button" class="preset-chip" onclick="setQuickQrAmount(5000)">
+                ₹5,000
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onclick="applyAndSaveFixedAmount()"
+              class="btn-emerald"
+              style="width: 100%"
+            >
+              &#9889; Lock Fixed Amount in QR &amp; Save to Database
+            </button>
           </div>
 
-          <div style="font-size: 0.75rem; color: #cbd5e1; margin-bottom: 0.35rem; text-align: left; font-weight: 700">
-            <code>shops.qr_code_url</code> Column Value:
-          </div>
-          <div id="qrCodeUrlDisplay" class="qr-url-box">Loading qr_code_url...</div>
+          <!-- 2. UikeyLabs Branded Standee Card with Logo Centered Inside QR -->
+          <div id="uikeyStandeeCard" class="uikey-branded-standee">
+            <div class="standee-brand-ribbon">
+              <img src="./uikeylabs-logo.jpg" alt="UikeyLabs Official Logo" crossorigin="anonymous" />
+              <div class="standee-brand-ribbon-text">
+                <div class="standee-brand-ribbon-title">UIKEY LABS • VERIFIED MERCHANT QR</div>
+                <div class="standee-brand-ribbon-sub">
+                  Betul's #1 Web, SEO &amp; Digital Partner • uikeylabs.in
+                </div>
+              </div>
+            </div>
 
-          <div class="action-btn-row">
-            <a id="downloadQrBtn" href="#" download="shop-qr-code.png" target="_blank" rel="noopener" class="btn-gold">
-              &#11015; Open / Save QR Image
-            </a>
-            <button id="printQrStandeeBtn" type="button" class="btn-secondary">
-              &#128424; Print Shop Standee
+            <div id="standeeShopName" class="standee-shop-name">Loading Shop...</div>
+            <div id="standeeShopAddress" class="standee-shop-address">
+              📍 Betul, Madhya Pradesh
+            </div>
+            <div id="standeeOwnerContact" class="standee-owner-contact">
+              👤 Owner: — • 📞 —
+            </div>
+
+            <!-- QR Code Frame with UikeyLabs Logo Embedded in Center -->
+            <div class="qr-matrix-box">
+              <img
+                id="shopQrCodeImg"
+                class="qr-code-main"
+                src="https://api.qrserver.com/v1/create-qr-code/?size=420x420&ecc=H&margin=10&data=upi%3A%2F%2Fpay%3Fpa%3D9424647849%40ybl%26pn%3DUikeyLabs%26am%3D500.00%26cu%3DINR"
+                alt="UikeyLabs Branded Shop QR Code"
+                crossorigin="anonymous"
+              />
+              <div class="qr-center-logo-badge" title="UikeyLabs Official Branded QR">
+                <img src="./uikeylabs-logo.jpg" alt="UikeyLabs Center Logo" crossorigin="anonymous" />
+                <span>UIKEY LABS</span>
+              </div>
+            </div>
+
+            <div>
+              <div id="standeeAmountPill" class="fixed-amount-display-pill locked">
+                &#128274; SCAN TO PAY FIXED AMOUNT: ₹500.00
+              </div>
+            </div>
+
+            <div id="standeeUpiId" class="standee-upi-line">UPI ID: 9424647849@ybl</div>
+            <div style="font-size: 0.73rem; color: #94a3b8; font-weight: 700">
+              Accepted on Google Pay • PhonePe • Paytm • BHIM • All UPI Apps
+            </div>
+
+            <div class="standee-footer-strip">
+              &#9889; Powered by UIKEY LABS (Betul, MP) • Support: +91 94246 47849
+            </div>
+          </div>
+
+          <div class="action-btn-grid">
+            <button
+              type="button"
+              onclick="downloadBrandedUikeyQrPng()"
+              class="btn-gold"
+            >
+              &#11015; Download UikeyLabs Branded QR (HD PNG)
+            </button>
+            <button type="button" onclick="window.print()" class="btn-secondary">
+              &#128424; Print Branded Shop Standee
             </button>
           </div>
         </div>
 
-        <!-- Right Column: Live Supabase 'shops' Table Editor & Inspector -->
+        <!-- RIGHT COLUMN: Complete Shop Owner Database Profile Editor (Name, Mobile, Address, UPI, Fixed Amount) -->
         <div class="panel-card">
-          <h2 class="section-title">Manage Your Supabase <code>shops</code> Record</h2>
-          <p class="section-sub">
-            Fetched dynamically via
-            <code>supabaseClient.from('shops').select('*').eq('owner_email', user.email)</code>.
-            Update your shop name, UPI ID, or custom <code>qr_code_url</code> below.
+          <h2
+            style="
+              font-family: 'Outfit', sans-serif;
+              font-size: 1.25rem;
+              font-weight: 800;
+              color: #fff;
+              margin-bottom: 0.3rem;
+            "
+          >
+            Shop Owner Profile &amp; Database Record (<code>public.shops</code>)
+          </h2>
+          <p style="font-size: 0.83rem; color: var(--text-muted); margin-bottom: 1.1rem">
+            Edit your <strong>Owner Name</strong>, <strong>Mobile Number</strong>,
+            <strong>Shop Name</strong>, <strong>Complete Shop Address</strong>,
+            <strong>UPI ID</strong>, and <strong>Fixed Amount (₹)</strong>. All fields sync directly to Supabase <code>public.shops</code> and appear on your UikeyLabs Branded QR.
           </p>
 
           <div id="updateToast" class="status-toast"></div>
 
           <form id="updateShopForm" novalidate>
+            <div class="two-col">
+              <div class="field-group">
+                <label for="inputOwnerName">1. Owner Full Name (<code>owner_name</code>) *</label>
+                <input
+                  id="inputOwnerName"
+                  type="text"
+                  class="input-field"
+                  placeholder="Mahesh Kumar Uikey"
+                  required
+                />
+              </div>
+              <div class="field-group">
+                <label for="inputMobileNumber"
+                  >2. 10-Digit Mobile No. (<code>mobile_number</code>) *</label
+                >
+                <input
+                  id="inputMobileNumber"
+                  type="tel"
+                  maxlength="10"
+                  class="input-field"
+                  placeholder="9424647849"
+                  required
+                />
+              </div>
+            </div>
+
             <div class="field-group">
-              <label for="inputShopName">Shop Name (<code>shops.shop_name</code>)</label>
+              <label for="inputShopName">3. Shop / Business Name (<code>shop_name</code>) *</label>
               <input id="inputShopName" type="text" class="input-field" required />
             </div>
 
             <div class="field-group">
-              <label for="inputCategory">Business Category (<code>shops.category</code>)</label>
-              <input id="inputCategory" type="text" class="input-field" placeholder="Retail / Coaching / Clinic / Restaurant" />
+              <label for="inputShopAddress"
+                >4. Complete Shop Address (<code>shop_address</code>) *</label
+              >
+              <input
+                id="inputShopAddress"
+                type="text"
+                class="input-field"
+                placeholder="Ganj Main Road, Near Bus Stand, Betul, MP 460001"
+                required
+              />
             </div>
 
-            <div class="field-group">
-              <label for="inputUpiId">Merchant UPI ID (<code>shops.upi_id</code>)</label>
-              <input id="inputUpiId" type="text" class="input-field" placeholder="9424647849@ybl" required />
+            <div class="two-col">
+              <div class="field-group">
+                <label for="inputCategory">5. Business Category (<code>category</code>)</label>
+                <input
+                  id="inputCategory"
+                  type="text"
+                  class="input-field"
+                  placeholder="Retail / Coaching / Clinic / Restaurant"
+                />
+              </div>
+              <div class="field-group">
+                <label for="inputUpiId">6. Merchant UPI ID (<code>upi_id</code>) *</label>
+                <input
+                  id="inputUpiId"
+                  type="text"
+                  class="input-field"
+                  placeholder="9424647849@ybl"
+                  required
+                />
+              </div>
             </div>
 
-            <div class="field-group">
-              <label for="inputQrCodeUrl">
-                Fixed QR Code Image URL (<code>shops.qr_code_url</code>)
-                <small style="color: #fbbf24; font-weight: 600">(Leave blank to auto-generate from UPI ID)</small>
-              </label>
-              <input id="inputQrCodeUrl" type="url" class="input-field" placeholder="https://..." />
+            <div class="two-col">
+              <div class="field-group">
+                <label for="inputFixedAmount"
+                  >7. Fixed Amount to Receive (<code>fixed_amount</code> in ₹)</label
+                >
+                <input
+                  id="inputFixedAmount"
+                  type="number"
+                  min="0"
+                  step="1"
+                  class="input-field"
+                  placeholder="0 for Open Amount, or e.g. 500"
+                />
+              </div>
+              <div class="field-group">
+                <label for="inputPaymentNote">8. Payment Note / Bill Remark</label>
+                <input
+                  id="inputPaymentNote"
+                  type="text"
+                  class="input-field"
+                  placeholder="e.g. Shop Bill Payment"
+                />
+              </div>
             </div>
 
             <button type="submit" class="btn-gold" style="width: 100%; padding: 0.9rem">
-              &#128190; Save Shop Details &amp; Update Fixed QR in 'shops' Table
+              &#128190; Save All Details (Name, Mobile, Address &amp; Fixed Amount) to Database
             </button>
           </form>
 
-          <!-- Live Supabase Table Row Preview -->
+          <!-- Live Database Row Preview Table -->
           <table class="db-record-table" aria-label="Supabase shops row">
             <tbody>
               <tr>
-                <th>Table</th>
-                <td><code>public.shops</code></td>
-              </tr>
-              <tr>
-                <th>Row ID (<code>id</code>)</th>
-                <td id="rowIdCell">—</td>
-              </tr>
-              <tr>
-                <th><code>owner_email</code></th>
+                <th>Owner Email (<code>owner_email</code>)</th>
                 <td id="rowEmailCell">—</td>
               </tr>
               <tr>
-                <th><code>shop_name</code></th>
+                <th>Owner Name (<code>owner_name</code>)</th>
+                <td id="rowOwnerNameCell">—</td>
+              </tr>
+              <tr>
+                <th>Mobile No. (<code>mobile_number</code>)</th>
+                <td id="rowMobileCell">—</td>
+              </tr>
+              <tr>
+                <th>Shop Name (<code>shop_name</code>)</th>
                 <td id="rowShopNameCell">—</td>
               </tr>
               <tr>
-                <th><code>qr_code_url</code></th>
-                <td id="rowQrUrlCell">—</td>
+                <th>Shop Address (<code>shop_address</code>)</th>
+                <td id="rowAddressCell">—</td>
+              </tr>
+              <tr>
+                <th>Fixed Amount (<code>fixed_amount</code>)</th>
+                <td id="rowFixedAmountCell">—</td>
+              </tr>
+              <tr>
+                <th>UPI Intent URI</th>
+                <td id="rowUpiUriCell">—</td>
               </tr>
             </tbody>
           </table>
@@ -506,135 +870,405 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./assets/supabase-portal.js"></script>
+    <script src="./assets/supabase-portal.js?v=10.0"></script>
     <script>
-      (function () {
-        var currentUser = null;
-        var currentShop = null;
+      var currentUser = null;
+      var currentShop = null;
 
-        function renderShopToDom(shop, userEmail) {
-          currentShop = shop;
-          var shopName = (shop && shop.shop_name) || "My Betul Business Store";
-          var ownerEmail = (shop && shop.owner_email) || userEmail;
-          var category = (shop && shop.category) || "Local Business";
-          var city = (shop && shop.city) || "Betul, Madhya Pradesh";
-          var upiId = (shop && shop.upi_id) || "9424647849@ybl";
-          var qrCodeUrl =
-            (shop && shop.qr_code_url) ||
-            window.UikeySupabasePortal.buildFixedQrUrl(shopName, upiId);
+      function renderShopToDom(shop, userEmail) {
+        currentShop = shop || {};
+        var ownerEmail = currentShop.owner_email || userEmail;
+        var ownerName = currentShop.owner_name || "Mahesh Kumar Uikey";
+        var mobileNumber = currentShop.mobile_number || "9424647849";
+        var shopName = currentShop.shop_name || "UikeyLabs Verified Shop (Betul MP)";
+        var shopAddress =
+          currentShop.shop_address || currentShop.city || "Ganj Main Road, Betul, MP";
+        var category = currentShop.category || "Retail & Local Business";
+        var upiId = currentShop.upi_id || "9424647849@ybl";
+        var fixedAmount = parseFloat(currentShop.fixed_amount) || 0;
+        var paymentNote = currentShop.payment_note || "";
 
-          document.getElementById("ownerEmailBadge").textContent = ownerEmail;
-          document.getElementById("shopNameHeading").textContent = shopName;
-          document.getElementById("metaOwnerEmail").textContent = ownerEmail;
-          document.getElementById("metaCategory").textContent = category;
-          document.getElementById("metaCity").textContent = city;
-          document.getElementById("metaUpiId").textContent = upiId;
+        var qrCodeUrl = window.UikeySupabasePortal.buildFixedQrUrl(
+          shopName,
+          upiId,
+          fixedAmount,
+          paymentNote
+        );
+        var upiUri = window.UikeySupabasePortal.buildUpiIntentUri(
+          shopName,
+          upiId,
+          fixedAmount,
+          paymentNote
+        );
+        currentShop.qr_code_url = qrCodeUrl;
 
-          document.getElementById("standeeShopName").textContent = shopName;
-          document.getElementById("standeeUpiId").textContent = "UPI ID: " + upiId;
-          document.getElementById("shopQrCodeImg").src = qrCodeUrl;
-          document.getElementById("qrCodeUrlDisplay").textContent = qrCodeUrl;
-          document.getElementById("downloadQrBtn").href = qrCodeUrl;
+        /* Header & Hero Banner */
+        document.getElementById("ownerEmailBadge").textContent = ownerEmail;
+        document.getElementById("shopNameHeading").textContent = shopName;
+        document.getElementById("metaOwnerName").textContent = ownerName;
+        document.getElementById("metaMobileNumber").textContent = "+91 " + mobileNumber;
+        document.getElementById("metaShopAddress").textContent = shopAddress;
+        document.getElementById("metaUpiId").textContent = upiId;
+        document.getElementById("metaFixedAmount").textContent =
+          fixedAmount > 0 ? "₹" + fixedAmount.toFixed(2) + " (Locked)" : "Open Amount (₹ Any)";
 
-          document.getElementById("inputShopName").value = shopName;
-          document.getElementById("inputCategory").value = category;
-          document.getElementById("inputUpiId").value = upiId;
-          document.getElementById("inputQrCodeUrl").value = qrCodeUrl;
+        /* Standee Card */
+        document.getElementById("standeeShopName").textContent = shopName;
+        document.getElementById("standeeShopAddress").textContent = "📍 " + shopAddress;
+        document.getElementById("standeeOwnerContact").textContent =
+          "👤 Owner: " + ownerName + " • 📞 +91 " + mobileNumber;
+        document.getElementById("shopQrCodeImg").src = qrCodeUrl;
+        document.getElementById("standeeUpiId").textContent = "UPI ID: " + upiId;
 
-          document.getElementById("rowIdCell").textContent = (shop && shop.id) || "shop_active";
-          document.getElementById("rowEmailCell").textContent = ownerEmail;
-          document.getElementById("rowShopNameCell").textContent = shopName;
-          document.getElementById("rowQrUrlCell").textContent = qrCodeUrl;
+        var pill = document.getElementById("standeeAmountPill");
+        if (fixedAmount > 0) {
+          pill.className = "fixed-amount-display-pill locked";
+          pill.innerHTML =
+            "&#128274; SCAN TO PAY FIXED AMOUNT: ₹" +
+            fixedAmount.toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            });
+        } else {
+          pill.className = "fixed-amount-display-pill open";
+          pill.innerHTML = "&#128242; SCAN &amp; PAY ANY AMOUNT VIA UPI";
         }
 
-        // 1. Check active session via Supabase Auth. Redirect immediately to login.html if unauthenticated.
-        async function initProtectedDashboard() {
-          try {
-            var sessionRes = await window.supabaseClient.auth.getSession();
-            var session = sessionRes && sessionRes.data && sessionRes.data.session;
+        /* Live Fixed Amount Calculator Inputs */
+        document.getElementById("liveFixedAmountInput").value = fixedAmount;
+        document.getElementById("livePaymentNoteInput").value = paymentNote;
 
-            if (!session || !session.user || !session.user.email) {
-              window.location.replace("./login.html");
-              return;
-            }
+        /* Profile Form Inputs */
+        document.getElementById("inputOwnerName").value = ownerName;
+        document.getElementById("inputMobileNumber").value = mobileNumber;
+        document.getElementById("inputShopName").value = shopName;
+        document.getElementById("inputShopAddress").value = shopAddress;
+        document.getElementById("inputCategory").value = category;
+        document.getElementById("inputUpiId").value = upiId;
+        document.getElementById("inputFixedAmount").value = fixedAmount;
+        document.getElementById("inputPaymentNote").value = paymentNote;
 
-            currentUser = session.user;
-            document.getElementById("supabaseModeLabel").textContent =
-              window.UikeySupabasePortal.isLiveSupabaseConfigured()
-                ? "Connected to Live Supabase Cloud ('shops' table)"
-                : "Supabase Auth v2 Active ('shops' table synchronized)";
+        /* Database Table Inspector */
+        document.getElementById("rowEmailCell").textContent = ownerEmail;
+        document.getElementById("rowOwnerNameCell").textContent = ownerName;
+        document.getElementById("rowMobileCell").textContent = mobileNumber;
+        document.getElementById("rowShopNameCell").textContent = shopName;
+        document.getElementById("rowAddressCell").textContent = shopAddress;
+        document.getElementById("rowFixedAmountCell").textContent =
+          fixedAmount > 0 ? "₹" + fixedAmount.toFixed(2) : "₹0 (Open Amount)";
+        document.getElementById("rowUpiUriCell").textContent = upiUri;
+      }
 
-            // 2. Fetch row from 'shops' table where 'owner_email' matches logged-in user's email
-            var queryRes = await window.supabaseClient
-              .from("shops")
-              .select("*")
-              .eq("owner_email", currentUser.email.toLowerCase())
-              .maybeSingle();
+      /* Instant Preset Chip Handler */
+      window.setQuickQrAmount = function (amt) {
+        document.getElementById("liveFixedAmountInput").value = amt;
+        document.getElementById("inputFixedAmount").value = amt;
+        window.applyAndSaveFixedAmount();
+      };
 
-            var shopRecord = queryRes && queryRes.data;
-
-            // If first-time Google OAuth or new sign-up without a row yet, provision default row in 'shops'
-            if (!shopRecord) {
-              var defaultShopName =
-                (currentUser.user_metadata &&
-                  (currentUser.user_metadata.shop_name || currentUser.user_metadata.full_name)) ||
-                currentUser.email.split("@")[0].replace(/[._-]/g, " ").toUpperCase() + " STORE";
-              var defaultUpi =
-                (currentUser.user_metadata && currentUser.user_metadata.upi_id) ||
-                "9424647849@ybl";
-              var defaultQr = window.UikeySupabasePortal.buildFixedQrUrl(defaultShopName, defaultUpi);
-
-              var upsertRes = await window.supabaseClient.from("shops").upsert({
-                owner_id: currentUser.id,
-                owner_email: currentUser.email.toLowerCase(),
-                shop_name: defaultShopName,
-                category: "Verified Betul Merchant",
-                upi_id: defaultUpi,
-                city: "Betul, Madhya Pradesh",
-                qr_code_url: defaultQr,
-              });
-              shopRecord = (upsertRes && upsertRes.data) || {
-                owner_email: currentUser.email.toLowerCase(),
-                shop_name: defaultShopName,
-                upi_id: defaultUpi,
-                qr_code_url: defaultQr,
-              };
-            }
-
-            renderShopToDom(shopRecord, currentUser.email);
-          } catch (err) {
-            console.error("Session check failed:", err);
-            window.location.replace("./login.html");
+      /* Live Update on Typing Fixed Amount */
+      document
+        .getElementById("liveFixedAmountInput")
+        .addEventListener("input", function (e) {
+          var val = parseFloat(e.target.value) || 0;
+          document.getElementById("inputFixedAmount").value = val;
+          if (currentShop) {
+            currentShop.fixed_amount = val;
+            currentShop.payment_note =
+              document.getElementById("livePaymentNoteInput").value.trim();
+            renderShopToDom(currentShop, currentUser ? currentUser.email : "");
           }
-        }
+        });
 
-        // 3. Save / Update Shop Profile & Fixed QR in 'shops' table
-        document.getElementById("updateShopForm").addEventListener("submit", async function (e) {
+      /* Lock Fixed Amount in QR & Persist to Supabase 'shops' table */
+      window.applyAndSaveFixedAmount = async function () {
+        if (!currentUser || !currentShop) return;
+        var fixedAmt =
+          parseFloat(document.getElementById("liveFixedAmountInput").value) || 0;
+        var note = document.getElementById("livePaymentNoteInput").value.trim();
+        document.getElementById("inputFixedAmount").value = fixedAmt;
+        document.getElementById("inputPaymentNote").value = note;
+
+        currentShop.fixed_amount = fixedAmt;
+        currentShop.payment_note = note;
+        currentShop.qr_code_url = window.UikeySupabasePortal.buildFixedQrUrl(
+          currentShop.shop_name,
+          currentShop.upi_id,
+          fixedAmt,
+          note
+        );
+
+        var res = await window.supabaseClient.from("shops").upsert(currentShop);
+        renderShopToDom((res && res.data) || currentShop, currentUser.email);
+
+        var toast = document.getElementById("updateToast");
+        toast.textContent =
+          fixedAmt > 0
+            ? "✅ Fixed Amount ₹" +
+              fixedAmt.toFixed(2) +
+              " locked in your UikeyLabs QR Code & saved to Supabase database!"
+            : "✅ QR Code set to Open Amount (client can pay any amount) & saved to database!";
+        toast.style.display = "block";
+        setTimeout(function () {
+          toast.style.display = "none";
+        }, 4000);
+      };
+
+      /* Share Fixed-Amount UPI Payment Link & Details on WhatsApp */
+      window.shareFixedQrOnWhatsApp = function () {
+        if (!currentShop) return;
+        var amt = parseFloat(currentShop.fixed_amount) || 0;
+        var upiUri = window.UikeySupabasePortal.buildUpiIntentUri(
+          currentShop.shop_name,
+          currentShop.upi_id,
+          amt,
+          currentShop.payment_note
+        );
+        var msg =
+          "🏪 *" +
+          currentShop.shop_name +
+          "*\n" +
+          "📍 Address: " +
+          (currentShop.shop_address || "Betul, MP") +
+          "\n" +
+          "👤 Owner: " +
+          (currentShop.owner_name || "") +
+          " (+91 " +
+          (currentShop.mobile_number || "") +
+          ")\n\n" +
+          (amt > 0
+            ? "💰 *Fixed Amount to Pay: ₹" + amt.toFixed(2) + "*\n"
+            : "📲 *Pay via UPI:*\n") +
+          "💳 UPI ID: *" +
+          currentShop.upi_id +
+          "*\n" +
+          "🔗 Tap to Pay on GPay/PhonePe: " +
+          upiUri +
+          "\n\n⚡ _Verified by UikeyLabs (Betul, MP)_";
+        window.open(
+          "https://wa.me/?text=" + encodeURIComponent(msg),
+          "_blank",
+          "noopener"
+        );
+      };
+
+      /* Download High-Resolution UikeyLabs Branded QR Standee Card (PNG with Center Logo + Fixed Amount) */
+      window.downloadBrandedUikeyQrPng = function () {
+        if (!currentShop) return;
+        var canvas = document.createElement("canvas");
+        canvas.width = 800;
+        canvas.height = 1120;
+        var ctx = canvas.getContext("2d");
+
+        /* Background */
+        var grad = ctx.createLinearGradient(0, 0, 0, 1120);
+        grad.addColorStop(0, "#0b132b");
+        grad.addColorStop(1, "#050914");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 800, 1120);
+
+        /* Gold Outer Border */
+        ctx.strokeStyle = "#f59e0b";
+        ctx.lineWidth = 10;
+        ctx.strokeRect(18, 18, 764, 1084);
+
+        /* Top UikeyLabs Header Banner */
+        ctx.fillStyle = "rgba(245, 158, 11, 0.18)";
+        ctx.fillRect(45, 45, 710, 95);
+        ctx.fillStyle = "#fde68a";
+        ctx.font = "900 26px Inter, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("⚡ UIKEY LABS • VERIFIED MERCHANT QR", 400, 86);
+        ctx.fillStyle = "#93c5fd";
+        ctx.font = "700 18px Inter, sans-serif";
+        ctx.fillText("Betul's #1 Web, SEO & Digital Growth Partner • uikeylabs.in", 400, 118);
+
+        /* Shop Name, Address, Owner & Mobile */
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "900 36px Inter, sans-serif";
+        ctx.fillText(currentShop.shop_name || "Verified Shop", 400, 195);
+
+        ctx.fillStyle = "#cbd5e1";
+        ctx.font = "700 20px Inter, sans-serif";
+        ctx.fillText("📍 " + (currentShop.shop_address || "Betul, Madhya Pradesh"), 400, 232);
+
+        ctx.fillStyle = "#6ee7b7";
+        ctx.font = "700 20px Inter, sans-serif";
+        ctx.fillText(
+          "👤 " +
+            (currentShop.owner_name || "") +
+            "   •   📞 +91 " +
+            (currentShop.mobile_number || ""),
+          400,
+          268
+        );
+
+        /* White QR Box */
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(160, 300, 480, 480);
+        ctx.strokeStyle = "#f59e0b";
+        ctx.lineWidth = 8;
+        ctx.strokeRect(160, 300, 480, 480);
+
+        var qrImg = new Image();
+        qrImg.crossOrigin = "anonymous";
+        qrImg.onload = function () {
+          ctx.drawImage(qrImg, 180, 320, 440, 440);
+
+          /* Draw UikeyLabs Center Logo Badge inside QR */
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(352, 492, 96, 96);
+          ctx.strokeStyle = "#f59e0b";
+          ctx.lineWidth = 4;
+          ctx.strokeRect(352, 492, 96, 96);
+
+          var logoImg = new Image();
+          logoImg.crossOrigin = "anonymous";
+          logoImg.onload = function () {
+            ctx.drawImage(logoImg, 366, 498, 68, 64);
+            ctx.fillStyle = "#090d16";
+            ctx.font = "900 11px Inter, sans-serif";
+            ctx.fillText("UIKEY LABS", 400, 580);
+            finishCanvasDownload(canvas);
+          };
+          logoImg.onerror = function () {
+            ctx.fillStyle = "#f59e0b";
+            ctx.fillRect(364, 502, 72, 58);
+            ctx.fillStyle = "#090d16";
+            ctx.font = "900 32px Inter, sans-serif";
+            ctx.fillText("U", 400, 542);
+            ctx.font = "900 11px Inter, sans-serif";
+            ctx.fillText("UIKEY LABS", 400, 580);
+            finishCanvasDownload(canvas);
+          };
+          logoImg.src = "./uikeylabs-logo.jpg";
+        };
+        qrImg.src = currentShop.qr_code_url;
+
+        function finishCanvasDownload(cnv) {
+          var amt = parseFloat(currentShop.fixed_amount) || 0;
+          /* Amount Pill */
+          ctx.fillStyle = amt > 0 ? "#10b981" : "#f59e0b";
+          ctx.fillRect(140, 815, 520, 68);
+          ctx.fillStyle = "#042f2e";
+          ctx.font = "900 26px Inter, sans-serif";
+          ctx.fillText(
+            amt > 0
+              ? "SCAN TO PAY FIXED AMOUNT: ₹" + amt.toFixed(2)
+              : "SCAN & PAY ANY AMOUNT VIA UPI",
+            400,
+            858
+          );
+
+          /* UPI ID & Footer */
+          ctx.fillStyle = "#fde68a";
+          ctx.font = "800 22px Inter, sans-serif";
+          ctx.fillText("UPI ID: " + (currentShop.upi_id || "9424647849@ybl"), 400, 930);
+
+          ctx.fillStyle = "#94a3b8";
+          ctx.font = "700 18px Inter, sans-serif";
+          ctx.fillText("Google Pay  •  PhonePe  •  Paytm  •  BHIM UPI", 400, 975);
+
+          ctx.fillStyle = "#f59e0b";
+          ctx.font = "800 19px Inter, sans-serif";
+          ctx.fillText(
+            "⚡ Powered by UIKEY LABS Digital Agency (Betul, MP) • +91 94246 47849",
+            400,
+            1045
+          );
+
+          var link = document.createElement("a");
+          link.download =
+            (currentShop.shop_name || "shop").toLowerCase().replace(/[^a-z0-9]+/g, "-") +
+            "-uikeylabs-qr.png";
+          link.href = cnv.toDataURL("image/png");
+          link.click();
+        }
+      };
+
+      /* 1. Verify Active Session & Load Shop Row from Supabase 'shops' Table */
+      async function initProtectedDashboard() {
+        try {
+          var sessionRes = await window.supabaseClient.auth.getSession();
+          var session = sessionRes && sessionRes.data && sessionRes.data.session;
+
+          if (!session || !session.user || !session.user.email) {
+            window.location.replace("./login.html");
+            return;
+          }
+
+          currentUser = session.user;
+          var meta = currentUser.user_metadata || {};
+
+          var queryRes = await window.supabaseClient
+            .from("shops")
+            .select("*")
+            .eq("owner_email", currentUser.email.toLowerCase())
+            .maybeSingle();
+
+          var shopRecord = (queryRes && queryRes.data) || null;
+
+          if (!shopRecord) {
+            shopRecord = {
+              owner_id: currentUser.id,
+              owner_email: currentUser.email.toLowerCase(),
+              owner_name: meta.owner_name || meta.full_name || "Mahesh Kumar Uikey",
+              mobile_number: meta.mobile_number || "9424647849",
+              shop_name:
+                meta.shop_name ||
+                currentUser.email.split("@")[0].toUpperCase() + " STORE",
+              shop_address: meta.shop_address || "Ganj Main Road, Betul, MP",
+              category: meta.category || "Retail & Local Business",
+              upi_id: meta.upi_id || "9424647849@ybl",
+              fixed_amount: parseFloat(meta.fixed_amount) || 500,
+              payment_note: meta.payment_note || "",
+            };
+            await window.supabaseClient.from("shops").upsert(shopRecord);
+          }
+
+          renderShopToDom(shopRecord, currentUser.email);
+        } catch (err) {
+          console.error("Dashboard session check error:", err);
+          window.location.replace("./login.html");
+        }
+      }
+
+      /* 2. Save All Profile Fields (Name, Mobile, Shop Name, Address, UPI, Fixed Amount) to Database */
+      document
+        .getElementById("updateShopForm")
+        .addEventListener("submit", async function (e) {
           e.preventDefault();
           if (!currentUser) return;
 
-          var newName = document.getElementById("inputShopName").value.trim() || "My Shop";
-          var newCategory = document.getElementById("inputCategory").value.trim() || "Local Business";
-          var newUpi = document.getElementById("inputUpiId").value.trim() || "9424647849@ybl";
-          var customQrInput = document.getElementById("inputQrCodeUrl").value.trim();
+          var ownerName = document.getElementById("inputOwnerName").value.trim();
+          var mobileNumber = document.getElementById("inputMobileNumber").value.trim();
+          var shopName = document.getElementById("inputShopName").value.trim();
+          var shopAddress = document.getElementById("inputShopAddress").value.trim();
+          var category = document.getElementById("inputCategory").value.trim();
+          var upiId = document.getElementById("inputUpiId").value.trim();
+          var fixedAmount =
+            parseFloat(document.getElementById("inputFixedAmount").value) || 0;
+          var paymentNote = document.getElementById("inputPaymentNote").value.trim();
 
-          // Recompute QR URL if user changed name/UPI or left customQrInput matching previous auto-QR
-          var updatedQrUrl = window.UikeySupabasePortal.buildFixedQrUrl(newName, newUpi);
-          if (
-            customQrInput &&
-            currentShop &&
-            customQrInput !== currentShop.qr_code_url
-          ) {
-            updatedQrUrl = customQrInput;
-          }
+          var updatedQrUrl = window.UikeySupabasePortal.buildFixedQrUrl(
+            shopName,
+            upiId,
+            fixedAmount,
+            paymentNote
+          );
 
           var payload = {
             owner_id: currentUser.id,
             owner_email: currentUser.email.toLowerCase(),
-            shop_name: newName,
-            category: newCategory,
-            upi_id: newUpi,
-            city: "Betul, Madhya Pradesh",
+            owner_name: ownerName,
+            mobile_number: mobileNumber,
+            shop_name: shopName,
+            shop_address: shopAddress,
+            category: category,
+            upi_id: upiId,
+            fixed_amount: fixedAmount,
+            payment_note: paymentNote,
+            city: shopAddress,
             qr_code_url: updatedQrUrl,
           };
 
@@ -643,32 +1277,26 @@
 
           var toast = document.getElementById("updateToast");
           toast.textContent =
-            "Saved to Supabase 'shops' table! Your shop name and fixed qr_code_url have been updated.";
+            "✅ Saved Owner Name, Mobile No., Shop Address & Fixed-Amount Branded QR to Supabase 'shops' database!";
           toast.style.display = "block";
           setTimeout(function () {
             toast.style.display = "none";
-          }, 4000);
+          }, 4500);
         });
 
-        // 4. Print QR Standee
-        document.getElementById("printQrStandeeBtn").addEventListener("click", function () {
-          window.print();
-        });
+      /* 3. Secure Logout */
+      document.getElementById("logoutBtn").addEventListener("click", async function () {
+        var btn = document.getElementById("logoutBtn");
+        btn.disabled = true;
+        btn.textContent = "Signing out...";
+        try {
+          await window.supabaseClient.auth.signOut();
+        } finally {
+          window.location.replace("./login.html");
+        }
+      });
 
-        // 5. Secure Logout Button -> signs out of Supabase and redirects to login.html
-        document.getElementById("logoutBtn").addEventListener("click", async function () {
-          var btn = document.getElementById("logoutBtn");
-          btn.disabled = true;
-          btn.textContent = "Signing out...";
-          try {
-            await window.supabaseClient.auth.signOut();
-          } finally {
-            window.location.replace("./login.html");
-          }
-        });
-
-        initProtectedDashboard();
-      })();
+      initProtectedDashboard();
     </script>
   </body>
 </html>
