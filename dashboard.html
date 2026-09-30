@@ -26,30 +26,71 @@
         <a href="merchant-qr.html">Merchant QR Utility</a>
         <a href="payment.html">Payment Desk</a>
       </nav>
+      <div class="header-actions">
+        <div data-auth-user-pill class="auth-user-pill" role="region" aria-label="Signed in user menu">
+          <span data-auth-user-avatar class="auth-avatar-circle" aria-hidden="true">U</span>
+          <span data-auth-user-name>Client</span>
+          <button type="button" onclick="handleUserSignOut()" class="btn-signout-sm">🚪 Sign Out</button>
+        </div>
+      </div>
     </div>
   </header>
 
   <main id="main-content" class="container section-block">
-    <span class="badge-pill badge-cyan">SERVER-AUTHENTICATED PORTAL</span>
-    <h1 class="h1-title">Protected Merchant &amp; Lead CRM Dashboard</h1>
+    <span class="badge-pill badge-cyan">CLIENT &amp; MERCHANT ACCOUNT PORTAL • BETUL, MP</span>
+    <h1 class="h1-title">Sign In / Sign Out &amp; Account Dashboard</h1>
     <p class="lead-text" style="margin-bottom:2rem;">
-      For security compliance, merchant records, database tables, and API configurations require server-side authentication. No credentials, PINs, or Supabase keys are stored in browser localStorage.
+      Sign in with your Google Account or registered mobile/email to manage your Shop UPI QR Standee, Official Quotations, and project milestones.
     </p>
 
     <div class="grid-2" style="align-items:start;">
       <section class="card" aria-labelledby="auth-login-title">
-        <h2 id="auth-login-title" class="h2-title" style="font-size:1.35rem;">Merchant / Admin Sign In</h2>
+        <h2 id="auth-login-title" class="h2-title" style="font-size:1.35rem; margin-bottom:0.85rem;">1. Sign In with Google or Mobile</h2>
+
+        <!-- Official Sign in with Google Button -->
+        <button type="button" onclick="handleGoogleSignIn()" class="btn-google-oauth">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
+            <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 12.3s.6 3.3 1.6 5.3l3.7-2.8z"/>
+            <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5L1.6 16c1.9 3.9 5.8 7 10.4 7z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <div id="googleChooserBox" style="display:none; margin-top:0.75rem; padding:0.9rem; border-radius:0.85rem; background:rgba(15,23,42,0.95); border:1px solid var(--cyan);">
+          <div style="font-size:0.78rem; font-weight:800; color:var(--cyan); margin-bottom:0.5rem;">🔵 Google Account Verification</div>
+          <div class="form-group" style="margin-bottom:0.5rem;">
+            <label for="googleNameInput" class="form-label" style="font-size:0.75rem;">Your Name / Business Name</label>
+            <input id="googleNameInput" type="text" placeholder="e.g. Mahesh Kumar / Sharma Clinic" class="form-input" style="padding:0.5rem 0.75rem;" />
+          </div>
+          <div class="form-group" style="margin-bottom:0.65rem;">
+            <label for="googleEmailInput" class="form-label" style="font-size:0.75rem;">Your Gmail Address *</label>
+            <input id="googleEmailInput" type="email" placeholder="yourname@gmail.com" class="form-input" style="padding:0.5rem 0.75rem;" />
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <button type="button" onclick="completeGoogleAccountSignIn()" class="btn btn-whatsapp" style="flex:1; min-height:40px; padding:0.45rem; font-size:0.8rem;">
+              ✓ Sign In with Google Account
+            </button>
+            <button type="button" onclick="toggleGoogleChooserStep(false)" class="btn btn-outline" style="min-height:40px; padding:0.45rem 0.75rem; font-size:0.78rem;">
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-divider">OR SIGN IN WITH CREDENTIALS</div>
+
         <form id="dashboardLoginForm" onsubmit="handleDashboardLogin(event)">
           <div class="form-group">
-            <label for="authLoginId" class="form-label">Registered Mobile Number or Merchant ID *</label>
-            <input id="authLoginId" type="text" required autocomplete="username" placeholder="Enter registered mobile number" class="form-input" />
+            <label for="authLoginId" class="form-label">Registered Mobile Number or Email *</label>
+            <input id="authLoginId" type="text" required autocomplete="username" placeholder="Enter mobile number or email" class="form-input" />
           </div>
           <div class="form-group">
             <label for="authPassword" class="form-label">Account Password / Secret PIN *</label>
             <input id="authPassword" type="password" required autocomplete="current-password" placeholder="Enter your private password" class="form-input" />
           </div>
           <button type="submit" id="dashLoginBtn" class="btn btn-whatsapp" style="width:100%;">
-            🔐 Authenticate with Backend Server →
+            🔐 Sign In to Account →
           </button>
           <div id="dashLoginStatus" class="form-status" role="status" aria-live="polite"></div>
         </form>
@@ -57,17 +98,18 @@
 
       <section class="card" aria-labelledby="session-view-title">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-          <h2 id="session-view-title" class="h2-title" style="font-size:1.35rem; margin:0;">Active Account Session</h2>
-          <button type="button" id="dashLogoutBtn" onclick="handleDashboardLogout()" class="btn btn-outline" style="padding:0.4rem 0.85rem; font-size:0.8125rem; display:none;">
+          <h2 id="session-view-title" class="h2-title" style="font-size:1.35rem; margin:0;">2. Active Account Session</h2>
+          <button type="button" id="dashLogoutBtn" onclick="handleDashboardLogout(); handleUserSignOut();" class="btn-signout-sm" style="padding:0.45rem 0.9rem; font-size:0.8125rem; display:none;">
             🚪 Sign Out
           </button>
         </div>
         <div id="dashboardDataContainer" style="color:var(--text-muted); font-size:0.9375rem;">
-          🔒 Please sign in with your verified credentials on the left to view your merchant QR profile and recorded counter bills.
+          🔒 Please sign in with Google or your verified credentials on the left to view your active account session.
         </div>
       </section>
     </div>
   </main>
+  <script src="assets/main.min.js?v=8.5" defer></script>
 
   <script>
     var activeSessionToken = null;

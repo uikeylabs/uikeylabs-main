@@ -206,6 +206,23 @@
           <span class="lang-label-desktop">हिंदी</span>
         </button>
 
+        <!-- Sign In Button (Visible on >=768px when signed out; on 360px mobile it is inside the Hamburger menu so 0px overflow!) -->
+        <button type="button" data-auth-signin-btn onclick="openAuthModal()" class="auth-header-btn" aria-label="Sign In or Sign in with Google">
+          <span aria-hidden="true">👤</span>
+          <span>Sign In</span>
+        </button>
+
+        <!-- Active Signed-In User Pill + Direct Sign Out Button (Visible when signed in) -->
+        <div data-auth-user-pill class="auth-user-pill" role="region" aria-label="Signed in user menu">
+          <span data-auth-user-avatar class="auth-avatar-circle" aria-hidden="true">U</span>
+          <button type="button" onclick="openAuthModal()" style="background:none; border:none; color:#ECFDF5; font-weight:800; font-size:0.76rem; cursor:pointer; min-height:auto; padding:0;">
+            <span data-auth-user-name>Client</span>
+          </button>
+          <button type="button" onclick="handleUserSignOut()" class="btn-signout-sm" title="Sign Out of your account">
+            🚪 Sign Out
+          </button>
+        </div>
+
         <!-- Desktop-Only Primary CTA ("Get Started" moved to Mobile Menu & Below Hero on Mobile) -->
         <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp desktop-only" style="padding:0.55rem 0.95rem; font-size:0.82rem;">
           WhatsApp पर Free Consultation लें
@@ -244,9 +261,21 @@
       </div>
     </div>
 
-    <!-- Mobile Hamburger Menu Drawer (Includes Primary "Get Started / Free Consultation" CTA) -->
+    <!-- Mobile Hamburger Menu Drawer (Includes Sign In / Sign in with Google / Sign Out & Primary CTA) -->
     <nav id="mobile-menu" class="mobile-menu-panel" aria-label="Mobile Navigation">
       <ul class="mobile-nav-list">
+        <li id="mobileMenuSignInItem">
+          <button type="button" onclick="openAuthModal()" style="background:linear-gradient(135deg,#0F172A,#1E293B); border:1px solid var(--cyan); color:#fff; font-weight:900;">
+            <span>👤 Sign In / Sign in with Google</span>
+            <span class="badge-pill badge-cyan">Login</span>
+          </button>
+        </li>
+        <li id="mobileMenuSignOutItem" style="display:none;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; padding:0.6rem 0.75rem; border-radius:0.75rem; background:rgba(16,185,129,0.14); border:1px solid var(--emerald);">
+            <span style="font-size:0.82rem; font-weight:800; color:#A7F3D0;">✅ <span data-auth-user-name>Client</span> (<span data-auth-user-email>Verified</span>)</span>
+            <button type="button" onclick="handleUserSignOut()" class="btn-signout-sm" style="width:auto;">🚪 Sign Out</button>
+          </div>
+        </li>
         <li>
           <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" style="background:linear-gradient(135deg,#22C55E,#10B981);color:#050811;font-weight:900;">
             <span>💬 Get Started — WhatsApp पर Free Consultation लें</span>
@@ -259,6 +288,7 @@
         <li><button type="button" onclick="switchAppView('qr')"><span>🏪 Free Shop UPI QR Standee Maker</span><span class="badge-pill badge-emerald">Instant QR</span></button></li>
         <li><button type="button" onclick="switchAppView('faq')"><span>❓ 3-Step Process &amp; FAQs</span><span>Open</span></button></li>
         <li><button type="button" onclick="switchAppView('contact')"><span>📞 Request Free Consultation</span><span>Open</span></button></li>
+        <li><a href="dashboard.html"><span>🔐 Merchant &amp; Client Account Portal</span><span>→</span></a></li>
         <li><a href="quote.html"><span>📄 Official Quotation PDF Generator</span><span>→</span></a></li>
         <li><a href="payment.html"><span>💳 Project Booking &amp; UPI Payment Desk</span><span>→</span></a></li>
         <li><a href="privacy.html"><span>🔒 Privacy Policy</span><span>→</span></a></li>
@@ -1392,6 +1422,110 @@
       <span aria-hidden="true">💬</span>
       <span>WhatsApp पर Free Consultation लें</span>
     </a>
+  </div>
+
+  <!-- ========================================================================
+       SIGN IN / SIGN OUT / SIGN IN WITH GOOGLE MODAL (#uikeyAuthModal)
+       ======================================================================== -->
+  <div id="uikeyAuthModal" class="auth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="authModalTitle" aria-hidden="true" onclick="if(event.target===this) closeAuthModal()">
+    <div class="auth-modal-box">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:0.85rem;">
+        <div>
+          <span class="badge-pill badge-cyan">CLIENT &amp; MERCHANT ACCOUNT</span>
+          <h2 id="authModalTitle" style="font-size:1.25rem; font-weight:900; color:#fff; margin-top:0.25rem;">Sign In to UIKEY LABS</h2>
+        </div>
+        <button type="button" onclick="closeAuthModal()" aria-label="Close Sign In Modal" style="width:40px; height:40px; border-radius:0.65rem; background:rgba(15,23,42,0.9); border:1px solid var(--border); color:#fff; font-weight:900; cursor:pointer;">✕</button>
+      </div>
+
+      <!-- VIEW A: WHEN SIGNED OUT (Sign in with Google + Email/Mobile Sign In) -->
+      <div id="authModalSignedOutView">
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.9rem;">
+          Sign in with your Google Account or mobile number to save your Shop UPI QR Standee, download Official Quotations, and manage your project milestones.
+        </p>
+
+        <!-- Official Sign in with Google Button -->
+        <button type="button" onclick="handleGoogleSignIn()" class="btn-google-oauth">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
+            <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 12.3s.6 3.3 1.6 5.3l3.7-2.8z"/>
+            <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5L1.6 16c1.9 3.9 5.8 7 10.4 7z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <!-- Interactive Google Account Picker / Confirmation Box -->
+        <div id="googleChooserBox" style="display:none; margin-top:0.75rem; padding:0.9rem; border-radius:0.85rem; background:rgba(15,23,42,0.95); border:1px solid var(--cyan);">
+          <div style="font-size:0.78rem; font-weight:800; color:var(--cyan); margin-bottom:0.5rem;">🔵 Google Account Verification</div>
+          <div class="form-group" style="margin-bottom:0.5rem;">
+            <label for="googleNameInput" class="form-label" style="font-size:0.75rem;">Your Name / Business Name</label>
+            <input id="googleNameInput" type="text" placeholder="e.g. Mahesh Kumar / Sharma Clinic" class="form-input" style="padding:0.5rem 0.75rem;" />
+          </div>
+          <div class="form-group" style="margin-bottom:0.65rem;">
+            <label for="googleEmailInput" class="form-label" style="font-size:0.75rem;">Your Gmail Address *</label>
+            <input id="googleEmailInput" type="email" placeholder="yourname@gmail.com" class="form-input" style="padding:0.5rem 0.75rem;" />
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <button type="button" onclick="completeGoogleAccountSignIn()" class="btn btn-whatsapp" style="flex:1; min-height:40px; padding:0.45rem; font-size:0.8rem;">
+              ✓ Sign In with Google Account
+            </button>
+            <button type="button" onclick="toggleGoogleChooserStep(false)" class="btn btn-outline" style="min-height:40px; padding:0.45rem 0.75rem; font-size:0.78rem;">
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-divider">OR SIGN IN WITH MOBILE / EMAIL</div>
+
+        <form onsubmit="handleEmailMobileSignIn(event)" novalidate>
+          <div class="form-group">
+            <label for="modalAuthName" class="form-label">Business / Your Name</label>
+            <input id="modalAuthName" type="text" placeholder="e.g. Apex Academy Betul" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="modalAuthIdentifier" class="form-label">10-Digit Mobile Number or Email *</label>
+            <input id="modalAuthIdentifier" type="text" required placeholder="9876543210 or email@domain.com" class="form-input" />
+          </div>
+          <button type="submit" class="btn btn-whatsapp" style="width:100%;">
+            🔐 Sign In to Account →
+          </button>
+        </form>
+      </div>
+
+      <!-- VIEW B: WHEN SIGNED IN (Profile Details + Quick Tools + Direct Sign Out Button) -->
+      <div id="authModalSignedInView" style="display:none;">
+        <div style="padding:1rem; border-radius:0.85rem; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.45); margin-bottom:1rem;">
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <span data-auth-user-avatar class="auth-avatar-circle" style="width:42px; height:42px; font-size:1.1rem;">U</span>
+            <div>
+              <strong data-auth-user-name style="color:#fff; font-size:1rem; display:block;">Verified Client</strong>
+              <span data-auth-user-email style="color:#6EE7B7; font-size:0.78rem;">client@gmail.com • Google Verified</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.55rem; margin-bottom:1rem;">
+          <button type="button" onclick="closeAuthModal(); switchAppView('qr');" class="btn btn-secondary" style="font-size:0.78rem; padding:0.55rem;">
+            🏪 My Shop QR
+          </button>
+          <a href="quote.html" class="btn btn-secondary" style="font-size:0.78rem; padding:0.55rem;">
+            📄 Official Quote
+          </a>
+          <a href="dashboard.html" class="btn btn-secondary" style="font-size:0.78rem; padding:0.55rem;">
+            📊 CRM Dashboard
+          </a>
+          <a href="payment.html" class="btn btn-secondary" style="font-size:0.78rem; padding:0.55rem;">
+            💳 Payment Desk
+          </a>
+        </div>
+
+        <button type="button" onclick="handleUserSignOut()" class="btn" style="width:100%; background:rgba(244,63,94,0.2); border:1px solid var(--rose); color:#FECDD3;">
+          🚪 Sign Out of Account
+        </button>
+      </div>
+
+      <div id="modalAuthStatus" class="form-status" role="status" aria-live="polite"></div>
+    </div>
   </div>
 </body>
 </html>
