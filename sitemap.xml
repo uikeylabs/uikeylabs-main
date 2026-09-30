@@ -31,6 +31,24 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://uikeylabs.com/privacy</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://uikeylabs.com/terms</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://uikeylabs.com/refund</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://uikeylabs.com/demos/doctor.html</loc>
     <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>

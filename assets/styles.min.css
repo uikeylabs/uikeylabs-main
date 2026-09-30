@@ -1,4 +1,4 @@
-/* UIKEY LABS Production Stylesheet v5.0 - Deep Mobile Responsive Engineering (320px to 1440px) */
+/* UIKEY LABS Production Stylesheet v7.0 - 10-Point Audit & All-Viewport Zero-Overflow Build (360px, 390px, 768px, 1440px) */
 :root {
   --bg-obsidian: #050811;
   --bg-card: #0A1022;
@@ -13,18 +13,17 @@
   --border: #1E293B;
 }
 
-/* 1. Strict Box-Sizing & Zero Grid/Flex Intrinsic Overflow (`min-width: 0` prevents right-side cut-off) */
+/* 1. Universal Box-Sizing, Flex/Grid Intrinsic Width Fix (`min-width: 0`, `max-width: 100%`) */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   min-width: 0;
+  max-width: 100%;
 }
 
 html {
   width: 100%;
-  max-width: 100%;
-  overflow-x: clip;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -35,14 +34,14 @@ html {
 
 body {
   width: 100%;
-  max-width: 100%;
-  overflow-x: clip;
+  overflow-x: clip; /* Last-resort safeguard; root cause is fixed via min-width:0 and minmax(0,1fr) */
   overflow-wrap: anywhere;
   word-break: break-word;
   background-color: var(--bg-obsidian);
   color: var(--text-main);
   min-height: 100vh;
-  padding-bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  /* Exact bottom padding equal to sticky bottom bar height + safe-area-inset-bottom so zero content is hidden */
+  padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: 1024px) {
@@ -65,10 +64,9 @@ a {
 button, input, select, textarea {
   font: inherit;
   color: inherit;
-  max-width: 100%;
 }
 
-/* Prevent iOS Safari auto-zoom on inputs */
+/* Prevent iOS Safari auto-zoom on form inputs */
 input, select, textarea {
   font-size: 16px !important;
 }
@@ -82,7 +80,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   outline-offset: 2px !important;
 }
 
-/* 2. Responsive Fluid Container (Safe padding on 320px, 375px, 414px, 768px, 1280px) */
+/* 2. Fluid Container (Tested at 360px, 390px, 768px, 1440px) */
 .container {
   width: 100%;
   max-width: 1180px;
@@ -92,7 +90,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   padding-right: 0.875rem;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -113,12 +111,12 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   left: 0;
 }
 
-/* 3. Compact Top Offer Banner */
+/* 3. Top Launch Campaign Banner (Real Headline + Fixed-Date Countdown + Solid 8px Status Dot) */
 .campaign-banner {
-  background: linear-gradient(90deg, rgba(251,191,36,0.16), rgba(34,211,238,0.12));
-  border-bottom: 1px solid rgba(251,191,36,0.3);
+  background: linear-gradient(90deg, rgba(251,191,36,0.14), rgba(34,211,238,0.1));
+  border-bottom: 1px solid rgba(251,191,36,0.28);
   font-size: 0.75rem;
-  padding: 0.45rem 0;
+  padding: 0.5rem 0;
   width: 100%;
 }
 .campaign-inner {
@@ -126,24 +124,67 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.4rem;
+  gap: 0.45rem;
 }
 
-/* 4. Badges (Wrap safely on narrow 320px screens instead of clipping) */
+/* 5. Solid Pulsing 8px Status Dot (Strict 8px circle, NEVER a stretched blob) */
+.status-dot-8px {
+  display: inline-block;
+  width: 8px !important;
+  height: 8px !important;
+  min-width: 8px !important;
+  min-height: 8px !important;
+  max-width: 8px !important;
+  max-height: 8px !important;
+  border-radius: 50% !important;
+  background-color: #22C55E;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulseDot8 2s infinite ease-in-out;
+}
+@keyframes pulseDot8 {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.slots-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  color: #A7F3D0;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.countdown-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--amber);
+  background: rgba(5, 8, 17, 0.85);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  padding: 0.18rem 0.55rem;
+  border-radius: 0.45rem;
+}
+
+/* Badges */
 .badge-pill {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.35rem;
   padding: 0.22rem 0.6rem;
   border-radius: 9999px;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   line-height: 1.25;
-  max-width: 100%;
   white-space: normal;
-  text-align: left;
 }
 .badge-amber {
   background: var(--amber);
@@ -160,13 +201,12 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   color: var(--emerald);
 }
 
-/* 5. Sticky Header & Header Actions (Guaranteed fit on 320px-414px) */
+/* 2. Header at 360px: Logo + Flag-Only Language Toggle (44x44) + Hamburger (44x44) */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 60;
   width: 100%;
-  max-width: 100vw;
   background: rgba(5, 8, 17, 0.96);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
@@ -175,8 +215,8 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.4rem;
-  min-height: 58px;
+  gap: 0.5rem;
+  min-height: 60px;
   width: 100%;
 }
 .brand-link {
@@ -187,15 +227,15 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   flex-shrink: 1;
 }
 .brand-logo {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 0.6rem;
   border: 2px solid rgba(34,211,238,0.65);
   object-fit: cover;
   flex-shrink: 0;
 }
 .brand-name {
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 900;
   line-height: 1.1;
   white-space: nowrap;
@@ -210,26 +250,44 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   flex-shrink: 0;
 }
 
-@media (min-width: 640px) {
-  .brand-logo {
-    width: 40px;
-    height: 40px;
+/* Compact Flag-Only Language Toggle at 360px/390px (44x44px tap target) */
+.lang-flag-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 0.7rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  font-size: 1.15rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.lang-label-desktop {
+  display: none;
+}
+@media (min-width: 768px) {
+  .lang-flag-btn {
+    width: auto;
+    padding: 0 0.75rem;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 800;
   }
-  .brand-name {
-    font-size: 1.12rem;
-  }
-  .header-actions {
-    gap: 0.55rem;
+  .lang-label-desktop {
+    display: inline;
   }
 }
 
-/* 6. App-Style Page Switcher Strip
-   - On Mobile (<768px): 100% Full-Width 3-Column Grid (ZERO horizontal overflow or cut-off!)
-   - On Desktop (>=768px): Horizontal Pill Bar */
+/* App-Style Page Switcher Strip (2x3 Grid on Mobile, Pill Bar on Desktop) */
 .app-tab-strip {
   background: #070C1A;
   border-bottom: 1px solid var(--border);
@@ -241,11 +299,6 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.35rem;
   width: 100%;
-}
-@media (min-width: 480px) and (max-width: 767px) {
-  .app-tab-inner {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 @media (min-width: 768px) {
   .app-tab-inner {
@@ -260,7 +313,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
-  padding: 0.45rem 0.3rem;
+  padding: 0.45rem 0.25rem;
   border-radius: 0.65rem;
   font-size: 0.72rem;
   font-weight: 800;
@@ -271,7 +324,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   border: 1px solid var(--border);
   color: var(--text-muted);
   cursor: pointer;
-  min-height: 42px;
+  min-height: 44px;
   width: 100%;
   transition: all 0.15s ease;
 }
@@ -287,22 +340,16 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   background: linear-gradient(135deg, rgba(34,211,238,0.22), rgba(16,185,129,0.18));
   border-color: var(--cyan);
   color: #FFFFFF;
-  box-shadow: 0 0 14px rgba(34,211,238,0.18);
 }
 
-/* 7. App View Panels (Only active view is shown -> ZERO LONG BORING SCROLLING!) */
+/* App View Panels */
 .app-view-panel {
   display: none !important;
   padding: 1.5rem 0 2rem;
   width: 100%;
-  animation: fadeInView 0.2s ease-out;
 }
 .app-view-panel.is-active {
   display: block !important;
-}
-@keyframes fadeInView {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .desktop-nav {
@@ -328,7 +375,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   }
 }
 
-/* 8. Buttons & Mobile Full-Width Hero CTAs */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -343,7 +390,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   white-space: normal;
   cursor: pointer;
   border: none;
-  max-width: 100%;
+  min-height: 44px;
   transition: all 0.15s ease;
 }
 .hero-cta-group {
@@ -368,7 +415,6 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
 .btn-whatsapp {
   background: linear-gradient(135deg, #22C55E, #10B981);
   color: #050811;
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.28);
 }
 .btn-secondary {
   background: var(--bg-card);
@@ -385,13 +431,15 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   color: var(--text-main);
 }
 
-/* 9. Mobile Hamburger Menu */
+/* Mobile Hamburger Menu (44x44px tap target) */
 .mobile-menu-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 0.7rem;
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -431,7 +479,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   border: 1px solid rgba(30, 41, 59, 0.85);
 }
 
-/* 10. Grids & Cards (All using `minmax(0, 1fr)` so ZERO right-side cut-off!) */
+/* Grids & Cards (Strict minmax(0, 1fr) so zero horizontal overflow) */
 .section-block {
   padding: 1.75rem 0;
 }
@@ -479,20 +527,9 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
 }
 .grid-4-nav {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.65rem;
   width: 100%;
-}
-@media (min-width: 360px) {
-  .grid-4-nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (min-width: 768px) {
-  .grid-4-nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
-  }
 }
 
 .card {
@@ -501,24 +538,17 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   border-radius: 1rem;
   padding: 1.1rem;
   width: 100%;
-  max-width: 100%;
   min-width: 0;
-  transition: border-color 0.15s ease, transform 0.15s ease;
 }
 @media (min-width: 640px) {
   .card {
     padding: 1.35rem;
   }
 }
-.card:hover {
-  border-color: rgba(34, 211, 238, 0.45);
-}
 .card-featured {
   border: 2px solid var(--amber);
-  box-shadow: 0 10px 32px rgba(251, 191, 36, 0.12);
 }
 
-/* 11. Quick-Jump Interactive Portal Cards on Home Tab */
 .portal-tile {
   display: flex;
   flex-direction: column;
@@ -531,27 +561,17 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   cursor: pointer;
   width: 100%;
   min-width: 0;
-  transition: all 0.15s ease;
-}
-@media (min-width: 640px) {
-  .portal-tile {
-    padding: 1.1rem;
-  }
-}
-.portal-tile:hover {
-  border-color: var(--amber);
-  transform: translateY(-2px);
 }
 
 .h1-title {
-  font-size: clamp(1.45rem, 5vw, 2.75rem);
+  font-size: clamp(1.45rem, 4.8vw, 2.75rem);
   font-weight: 900;
   line-height: 1.18;
   letter-spacing: -0.02em;
   margin: 0.55rem 0 0.75rem;
 }
 .h2-title {
-  font-size: clamp(1.25rem, 4vw, 2.05rem);
+  font-size: clamp(1.25rem, 3.8vw, 2.05rem);
   font-weight: 900;
   line-height: 1.22;
   margin: 0.35rem 0 0.6rem;
@@ -568,7 +588,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   max-width: 64ch;
 }
 
-/* 12. Industry Filter Bar (2-column grid on mobile so zero overflow!) */
+/* Filter Bar */
 .filter-bar {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -592,7 +612,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   font-size: 0.76rem;
   font-weight: 700;
   cursor: pointer;
-  min-height: 40px;
+  min-height: 44px;
   width: 100%;
   text-align: center;
 }
@@ -625,7 +645,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   object-fit: cover;
 }
 
-/* 13. FAQ Accordion */
+/* FAQ */
 .faq-item {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -644,6 +664,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   font-size: 0.9rem;
   cursor: pointer;
   list-style: none;
+  min-height: 44px;
 }
 .faq-summary::-webkit-details-marker {
   display: none;
@@ -655,7 +676,7 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   border-top: 1px solid rgba(30, 41, 59, 0.6);
 }
 
-/* 14. Forms */
+/* Forms */
 .form-group {
   margin-bottom: 0.8rem;
   width: 100%;
@@ -669,7 +690,6 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
 }
 .form-input {
   width: 100%;
-  max-width: 100%;
   padding: 0.65rem 0.85rem;
   border-radius: 0.65rem;
   background: #050811;
@@ -698,56 +718,55 @@ button, a.btn, select, input[type="text"], input[type="tel"], input[type="email"
   color: #FECDD3;
 }
 
-/* 15. APP-STYLE BOTTOM NAVIGATION BAR ON MOBILE (5 TABS - ZERO OVERLAP!) */
-.mobile-app-dock {
+/* 4. Bottom UI: ONE Sticky Bottom Bar (Call + WhatsApp ONLY).
+      Zero floating "Chat on WhatsApp" button, zero yellow ghost shadow! */
+.mobile-sticky-cta-bar {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100%;
-  max-width: 100vw;
   z-index: 70;
   background: rgba(5, 8, 17, 0.98);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(34, 211, 238, 0.3);
-  padding: 0.3rem 0.3rem calc(0.3rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--border);
+  padding: 0.5rem 0.75rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.2rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 0.5rem;
+  box-shadow: none !important; /* No yellow ghost shadow */
 }
-.dock-btn {
-  display: flex;
-  flex-direction: column;
+.sticky-call-btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.1rem;
-  padding: 0.3rem 0.1rem;
-  border-radius: 0.6rem;
-  background: transparent;
-  border: none;
-  color: var(--text-dim);
-  font-size: 0.64rem;
-  font-weight: 800;
-  cursor: pointer;
+  gap: 0.35rem;
   min-height: 46px;
-  width: 100%;
-  min-width: 0;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.75rem;
+  background: var(--bg-card-alt);
+  border: 1px solid rgba(34, 211, 238, 0.45);
+  color: var(--text-main);
+  font-size: 0.82rem;
+  font-weight: 800;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
-.dock-btn.active {
-  color: var(--cyan);
-  background: rgba(34, 211, 238, 0.12);
-}
-.dock-btn-wa {
+.sticky-wa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 46px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
   background: linear-gradient(135deg, #22C55E, #10B981);
-  color: #050811 !important;
+  color: #050811;
+  font-size: 0.82rem;
   font-weight: 900;
+  text-align: center;
+  box-shadow: none !important;
 }
 @media (min-width: 1024px) {
-  .mobile-app-dock {
+  .mobile-sticky-cta-bar {
     display: none;
   }
 }

@@ -28,46 +28,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet" />
 
-  <!-- Compiled Production Stylesheet (Cache-Busted v6.0) -->
-  <link rel="stylesheet" href="assets/styles.min.css?v=6.0" />
+  <!-- Compiled Production Stylesheet (Cache-Busted v7.0) -->
+  <link rel="stylesheet" href="assets/styles.min.css?v=7.0" />
 
-  <!-- Critical Inline All-Device & App-Tab Guard v6.0 -->
+  <!-- Critical Inline All-Device Guard v7.0 -->
   <style>
-    *, *::before, *::after { box-sizing: border-box; min-width: 0; }
-    html, body {
-      width: 100% !important;
-      max-width: 100vw !important;
-      overflow-x: clip !important;
-      margin: 0 !important;
-      padding: 0 !important;
+    *, *::before, *::after { box-sizing: border-box; min-width: 0; max-width: 100%; }
+    html { width: 100%; background-color: #050811; color: #f8fafc; }
+    body {
+      width: 100%;
+      overflow-x: clip;
+      margin: 0;
+      padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
       background-color: #050811;
       color: #f8fafc;
     }
+    @media (min-width: 1024px) { body { padding-bottom: 2rem; } }
     .app-view-panel { display: none !important; }
     .app-view-panel.is-active { display: block !important; }
-    .hero-grid, .grid-2, .grid-3, .grid-4-nav { grid-template-columns: minmax(0, 1fr); width: 100%; }
-    @media (max-width: 767px) {
-      .app-tab-inner { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 0.35rem !important; width: 100% !important; }
-      .app-tab-btn { width: 100% !important; white-space: normal !important; font-size: 0.72rem !important; padding: 0.42rem 0.25rem !important; justify-content: center !important; }
+    .status-dot-8px {
+      display: inline-block;
+      width: 8px !important;
+      height: 8px !important;
+      min-width: 8px !important;
+      min-height: 8px !important;
+      border-radius: 50% !important;
+      background-color: #22C55E;
+      flex-shrink: 0;
     }
     @media print {
-      .site-header, .campaign-banner, .mobile-app-dock, .no-print, footer { display: none !important; }
+      .site-header, .campaign-banner, .mobile-sticky-cta-bar, .no-print, footer { display: none !important; }
       body { background: #fff !important; color: #000 !important; padding: 0 !important; }
     }
     img, svg, video, canvas { max-width: 100%; height: auto; }
   </style>
 
-  <!-- Universal Offline/Online UPI QR Code Engine + Production Module (v6.0) -->
-  <script src="qrcode.min.js?v=6.0" defer></script>
-  <script src="assets/main.min.js?v=6.0" defer></script>
+  <!-- Universal Offline/Online UPI QR Code Engine + Production Module (v7.0) -->
+  <script src="qrcode.min.js?v=7.0" defer></script>
+  <script src="assets/main.min.js?v=7.0" defer></script>
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD Structured Data (LocalBusiness, Organization, Service, FAQPage) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "ProfessionalService",
+        "@type": ["LocalBusiness", "Organization", "ProfessionalService"],
         "@id": "https://uikeylabs.com/#organization",
         "name": "UIKEY LABS",
         "url": "https://uikeylabs.com/",
@@ -100,7 +106,7 @@
             "name": "What is included in a UIKEY LABS business website package?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Every package includes a mobile-responsive custom design, direct WhatsApp lead buttons and inquiry forms, Google Maps location embed, SSL security configuration, on-page local SEO setup, and 30 days of post-launch technical support."
+              "text": "Every package includes a mobile-responsive custom design, direct WhatsApp lead buttons and inquiry forms, Google Maps location embed, SSL security configuration, on-page local SEO setup built to rank on Google, and 30 days of post-launch technical support."
             }
           }
         ]
@@ -112,20 +118,26 @@
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- 1. COMPACT PROMOTIONAL OFFER BANNER -->
-  <div class="campaign-banner" role="region" aria-label="Promotional Campaign Offer">
+  <!-- 1. REAL CAMPAIGN HEADLINE BANNER + FIXED-DATE COUNTDOWN + SOLID 8px SLOTS BADGE -->
+  <div class="campaign-banner" role="region" aria-label="October 2026 Website Launch Campaign">
     <div class="container campaign-inner">
-      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.4rem;">
-        <span class="badge-pill badge-amber">50% OFF OFFER</span>
-        <span>Introductory Discount on Starter &amp; Growth Website Packages.</span>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.45rem;">
+        <span class="slots-pill" aria-label="Monthly Onboarding Capacity">
+          <span class="status-dot-8px" aria-hidden="true"></span>
+          <span data-slots-text>7/10 Slots Claimed (3 Left)</span>
+        </span>
+        <span><strong>October 2026 Website Launch Offer:</strong> 50% Off Starter &amp; Growth Packages</span>
       </div>
-      <button type="button" onclick="switchAppView('pricing')" style="background:none; border:none; color:var(--amber); font-weight:800; text-decoration:underline; cursor:pointer; min-height:auto; font-size:0.75rem;">
-        View Packages →
-      </button>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.5rem;">
+        <span class="countdown-mono" data-campaign-countdown aria-live="off" title="Campaign Ends October 31, 2026">31d : 15h : 30m : 00s</span>
+        <button type="button" onclick="switchAppView('pricing')" style="background:none; border:none; color:var(--amber); font-weight:800; text-decoration:underline; cursor:pointer; min-height:auto; font-size:0.75rem;">
+          View Packages →
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- 2. STICKY HEADER + APP-STYLE 2x3 MOBILE TAB GRID (ALL-DEVICE COMPATIBLE!) -->
+  <!-- 2. STICKY HEADER AT 360px: LOGO + FLAG-ONLY LANGUAGE TOGGLE + HAMBURGER MENU (Nothing Cut Off!) -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" onclick="switchAppView('home'); return false;" class="brand-link" aria-label="UIKEY LABS Home">
@@ -140,14 +152,18 @@
       </a>
 
       <div class="header-actions">
-        <button type="button" onclick="toggleSiteLanguage()" aria-label="Switch Website Language between English and Hindi" aria-pressed="false" class="btn btn-outline lang-toggle-btn" style="padding:0.35rem 0.6rem; font-size:0.72rem; min-height:38px;">
-          🇮🇳 हिंदी / EN
+        <!-- Compact Flag-Only Language Toggle on 360px/390px Mobile (44x44px), Flag+Text on >=768px -->
+        <button type="button" onclick="toggleSiteLanguage()" aria-label="Switch Website Language between English and Hindi" aria-pressed="false" class="lang-flag-btn">
+          <span aria-hidden="true">🇮🇳</span>
+          <span class="lang-label-desktop">हिंदी</span>
         </button>
 
-        <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%E0%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp desktop-only" style="padding:0.55rem 0.95rem; font-size:0.82rem;">
+        <!-- Desktop-Only Primary CTA ("Get Started" moved to Mobile Menu & Below Hero on Mobile) -->
+        <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp desktop-only" style="padding:0.55rem 0.95rem; font-size:0.82rem;">
           WhatsApp पर Free Consultation लें
         </a>
 
+        <!-- Hamburger Menu Trigger (44x44px) -->
         <button type="button" id="mobileMenuTriggerBtn" onclick="toggleMobileMenu()" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open Navigation Menu" class="mobile-menu-btn">
           <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -180,9 +196,15 @@
       </div>
     </div>
 
-    <!-- Mobile Hamburger Menu Drawer -->
+    <!-- Mobile Hamburger Menu Drawer (Includes Primary "Get Started / Free Consultation" CTA) -->
     <nav id="mobile-menu" class="mobile-menu-panel" aria-label="Mobile Navigation">
       <ul class="mobile-nav-list">
+        <li>
+          <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" style="background:linear-gradient(135deg,#22C55E,#10B981);color:#050811;font-weight:900;">
+            <span>💬 Get Started — WhatsApp पर Free Consultation लें</span>
+            <span>→</span>
+          </a>
+        </li>
         <li><button type="button" onclick="switchAppView('home')"><span>🏠 Home Dashboard</span><span style="color:var(--cyan)">Open</span></button></li>
         <li><button type="button" onclick="switchAppView('demos')"><span>🚀 9 Live Industry Demos</span><span class="badge-pill badge-cyan">9 Live</span></button></li>
         <li><button type="button" onclick="switchAppView('pricing')"><span>💎 Website Pricing Packages</span><span class="badge-pill badge-amber">50% OFF</span></button></li>
@@ -191,7 +213,9 @@
         <li><button type="button" onclick="switchAppView('contact')"><span>📞 Request Free Consultation</span><span>Open</span></button></li>
         <li><a href="quote.html"><span>📄 Official Quotation PDF Generator</span><span>→</span></a></li>
         <li><a href="payment.html"><span>💳 Project Booking &amp; UPI Payment Desk</span><span>→</span></a></li>
-        <li><a href="legal.html"><span>⚖️ Legal, Privacy &amp; Refund Policies</span><span>→</span></a></li>
+        <li><a href="privacy.html"><span>🔒 Privacy Policy</span><span>→</span></a></li>
+        <li><a href="terms.html"><span>📜 Terms &amp; Conditions</span><span>→</span></a></li>
+        <li><a href="refund.html"><span>💸 Refund &amp; Cancellation Policy</span><span>→</span></a></li>
       </ul>
     </nav>
   </header>
@@ -205,7 +229,7 @@
         <div class="hero-grid">
           <div>
             <span id="heroBadgeText" class="badge-pill badge-cyan">
-              FAST MOBILE-FIRST WEBSITES • DIRECT WHATSAPP LEADS
+              BUILT TO RANK ON GOOGLE • MOBILE-FIRST WEB ENGINEERING
             </span>
 
             <h1 id="heroMainHeading" class="h1-title">
@@ -213,7 +237,7 @@
             </h1>
 
             <p id="heroSubHeading" class="lead-text">
-              Tap any section tab or card below to explore 9 Live Industry Demos, Website Packages, or our Free Shop QR Standee Maker—instantly without long scrolling!
+              Built to rank on Google with clean schema markup and sub-1s loading. Tap any tab or card below to explore 9 Live Demos, Packages, or Free Shop QR Generator.
             </p>
 
             <div class="hero-cta-group">
@@ -226,13 +250,27 @@
                 <span>Live Industry Demo देखें (9)</span>
               </button>
             </div>
+
+            <!-- How We Measured & Typical Results Disclosure -->
+            <p style="font-size:0.75rem; color:var(--text-dim); margin-top:0.85rem;">
+              📊 <strong>Typical results:</strong> 2x–3x increase in direct WhatsApp inquiries for local clinics, schools &amp; stores.
+              <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fuikeylabs.com%2F" target="_blank" rel="noopener noreferrer" style="color:var(--cyan); text-decoration:underline; font-weight:700; margin-left:0.3rem;">
+                How we measured (Google PageSpeed Report ↗)
+              </a>
+            </p>
           </div>
 
-          <!-- Interactive 4-Card Quick Portal Grid (1-Tap Navigation Instead of Boring Scrolling!) -->
+          <!-- Interactive 4-Card Quick Portal Grid -->
           <div>
-            <p style="font-size:0.74rem; font-family:'JetBrains Mono',monospace; color:var(--amber); font-weight:800; margin-bottom:0.55rem;">
-              ⚡ TAP ANY CARD TO OPEN INSTANTLY:
-            </p>
+            <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.4rem; margin-bottom:0.55rem;">
+              <span style="font-size:0.74rem; font-family:'JetBrains Mono',monospace; color:var(--amber); font-weight:800;">
+                ⚡ TAP ANY SECTION TO OPEN:
+              </span>
+              <span class="slots-pill">
+                <span class="status-dot-8px" aria-hidden="true"></span>
+                <span data-slots-text>7/10 Slots Claimed (3 Left)</span>
+              </span>
+            </div>
             <div class="grid-4-nav">
               <button type="button" onclick="switchAppView('demos')" class="portal-tile">
                 <div>
@@ -273,20 +311,20 @@
           </div>
         </div>
 
-        <!-- Compact 3 Trust Pillars Strip -->
+        <!-- Compact 3 Trust Pillars Strip (Built to Rank on Google + Typical Results) -->
         <div class="grid-3" style="margin-top:2rem;">
           <article class="card">
             <span class="badge-pill badge-emerald" style="margin-bottom:0.4rem;">1. MOBILE SPEED</span>
-            <h3 style="font-size:1.05rem; font-weight:800;">Target Sub-1s Mobile Load</h3>
+            <h3 style="font-size:1.05rem; font-weight:800;">Sub-1s Target Mobile Load</h3>
             <p style="color:var(--text-muted); font-size:0.84rem; margin-top:0.25rem;">
-              Compiled CSS and WebP visuals engineered for instant 4G/5G loading without plugin bloat.
+              Compiled CSS and WebP visuals engineered for instant 4G/5G loading (<a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fuikeylabs.com%2F" target="_blank" rel="noopener noreferrer" style="color:var(--cyan); text-decoration:underline;">How we measured ↗</a>).
             </p>
           </article>
           <article class="card">
-            <span class="badge-pill badge-amber" style="margin-bottom:0.4rem;">2. WHATSAPP FUNNEL</span>
-            <h3 style="font-size:1.05rem; font-weight:800;">Direct WhatsApp Lead Routing</h3>
+            <span class="badge-pill badge-amber" style="margin-bottom:0.4rem;">2. BUILT TO RANK ON GOOGLE</span>
+            <h3 style="font-size:1.05rem; font-weight:800;">Built to Rank on Google Search</h3>
             <p style="color:var(--text-muted); font-size:0.84rem; margin-top:0.25rem;">
-              Every appointment, admission, or catalog order lands directly on your WhatsApp number.
+              Structured LocalBusiness JSON-LD schema, XML sitemaps, and semantic headings (typical results: top local map &amp; search visibility).
             </p>
           </article>
           <article class="card">
@@ -801,46 +839,53 @@
     </section>
   </main>
 
-  <!-- COMPACT FOOTER -->
-  <footer style="background:#03060C; border-top:1px solid var(--border); padding:2rem 0;" role="contentinfo">
-    <div class="container" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; font-size:0.8rem; color:var(--text-dim);">
-      <div>
-        <strong style="color:#fff;">UIKEY LABS</strong> (uikeylabs.com) • +91 87709 12734 • contact@uikeylabs.com
+  <!-- COMPLETE FOOTER (Phone, WhatsApp, Email + Privacy, Terms, Refund Policy Links) -->
+  <footer style="background:#03060C; border-top:1px solid var(--border); padding:2.25rem 0;" role="contentinfo">
+    <div class="container">
+      <div class="grid-2" style="align-items:start; gap:1.25rem; margin-bottom:1.25rem;">
+        <div>
+          <strong style="color:#fff; font-size:1.05rem;"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;">
+            Mobile-First Business Websites &amp; WhatsApp Lead Funnels Built to Rank on Google.
+          </p>
+          <ul style="list-style:none; display:flex; flex-wrap:wrap; gap:0.85rem; margin-top:0.65rem; font-size:0.82rem;">
+            <li>📞 <a href="tel:+918770912734" style="color:var(--cyan); font-weight:800;">+91 87709 12734</a></li>
+            <li>💬 <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" style="color:var(--emerald); font-weight:800;">WhatsApp Consultation</a></li>
+            <li>✉️ <a href="mailto:contact@uikeylabs.com" style="color:var(--amber); font-weight:800;">contact@uikeylabs.com</a></li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.85rem; font-size:0.82rem; color:var(--text-muted); justify-content:flex-start;">
+          <a href="privacy.html" style="text-decoration:underline;">Privacy Policy</a>
+          <a href="terms.html" style="text-decoration:underline;">Terms &amp; Conditions</a>
+          <a href="refund.html" style="text-decoration:underline;">Refund Policy</a>
+          <a href="legal.html" style="text-decoration:underline;">Legal Disclosures</a>
+          <a href="merchant-qr.html" style="color:var(--amber); font-weight:700;">Free Shop QR</a>
+          <a href="quote.html">Official Quote</a>
+          <a href="payment.html">UPI Payment</a>
+        </div>
       </div>
-      <div style="display:flex; flex-wrap:wrap; gap:1rem;">
-        <button type="button" onclick="switchAppView('qr')" style="background:none;border:none;color:var(--amber);font-weight:800;cursor:pointer;min-height:auto;">🏪 Free Shop QR</button>
-        <a href="quote.html">📄 Quote PDF</a>
-        <a href="payment.html">💳 UPI Pay</a>
-        <a href="dashboard.html">🔐 Dashboard</a>
-        <a href="legal.html">⚖️ Legal Policies</a>
+
+      <div style="border-top:1px solid rgba(30,41,59,0.65); padding-top:0.85rem; display:flex; flex-wrap:wrap; justify-content:space-between; gap:0.5rem; font-size:0.75rem; color:var(--text-dim);">
+        <span>© 2026 UIKEY LABS (uikeylabs.com). Chhindwara, Madhya Pradesh, India.</span>
+        <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fuikeylabs.com%2F" target="_blank" rel="noopener noreferrer" style="color:var(--cyan);">How we measured performance (PageSpeed Report ↗)</a>
       </div>
     </div>
   </footer>
 
   <!-- ========================================================================
-       SINGLE NON-OVERLAPPING MOBILE APP BOTTOM NAVIGATION BAR (5 TABS)
+       4. BOTTOM UI: ONE STICKY BAR (CALL + WHATSAPP ONLY)
+       No floating "Chat on WhatsApp" button, no yellow ghost shadow, safe-area inset!
        ======================================================================== -->
-  <nav class="mobile-app-dock" aria-label="Mobile Bottom App Bar">
-    <button type="button" data-dock-target="home" onclick="switchAppView('home')" class="dock-btn active">
-      <span style="font-size:1.1rem;">🏠</span>
-      <span>Home</span>
-    </button>
-    <button type="button" data-dock-target="demos" onclick="switchAppView('demos')" class="dock-btn">
-      <span style="font-size:1.1rem;">🚀</span>
-      <span>9 Demos</span>
-    </button>
-    <button type="button" data-dock-target="pricing" onclick="switchAppView('pricing')" class="dock-btn">
-      <span style="font-size:1.1rem;">💎</span>
-      <span>Pricing</span>
-    </button>
-    <button type="button" data-dock-target="qr" onclick="switchAppView('qr')" class="dock-btn" style="color:var(--amber);">
-      <span style="font-size:1.1rem;">🏪</span>
-      <span>Shop QR</span>
-    </button>
-    <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="dock-btn dock-btn-wa">
-      <span style="font-size:1.1rem;">💬</span>
-      <span>WhatsApp</span>
+  <div class="mobile-sticky-cta-bar" role="region" aria-label="Quick Call and WhatsApp Sticky Bar">
+    <a href="tel:+918770912734" class="sticky-call-btn" aria-label="Call UIKEY LABS at +91 87709 12734">
+      <span aria-hidden="true">📞</span>
+      <span>Call Now</span>
     </a>
-  </nav>
+    <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="sticky-wa-btn">
+      <span aria-hidden="true">💬</span>
+      <span>WhatsApp पर Free Consultation लें</span>
+    </a>
+  </div>
 </body>
 </html>

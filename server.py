@@ -188,6 +188,9 @@ class UikeyLabsRequestHandler(http.server.SimpleHTTPRequestHandler):
             "/quote": "/quote.html",
             "/dashboard": "/dashboard.html",
             "/legal": "/legal.html",
+            "/privacy": "/privacy.html",
+            "/terms": "/terms.html",
+            "/refund": "/refund.html",
         }
         if parsed.path in clean_routes:
             self.path = clean_routes[parsed.path]
