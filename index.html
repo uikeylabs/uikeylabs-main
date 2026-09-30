@@ -1424,8 +1424,10 @@
     </a>
   </div>
 
-  <!-- Official Google Identity Services OAuth 2.0 SDK -->
+  <!-- Official Google Identity Services OAuth 2.0 SDK & Live Supabase Auth v2 Client -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./assets/supabase-portal.js"></script>
 
   <!-- ========================================================================
        REAL OAUTH 2.0 & CRYPTOGRAPHIC PBKDF2 SIGN IN / SIGN UP / SIGN OUT MODAL
@@ -1434,8 +1436,8 @@
     <div class="auth-modal-box">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:0.85rem;">
         <div>
-          <span class="badge-pill badge-cyan">OAUTH 2.0 &amp; PBKDF2-SHA256 AUTH</span>
-          <h2 id="authModalTitle" style="font-size:1.22rem; font-weight:900; color:#fff; margin-top:0.25rem;">Account Sign In &amp; Verification</h2>
+          <span class="badge-pill badge-cyan">SUPABASE AUTH • OAUTH 2.0 &amp; OTP</span>
+          <h2 id="authModalTitle" style="font-size:1.22rem; font-weight:900; color:#fff; margin-top:0.25rem;">Shop Merchant Portal Sign In</h2>
         </div>
         <button type="button" onclick="closeAuthModal()" aria-label="Close Sign In Modal" style="width:40px; height:40px; border-radius:0.65rem; background:rgba(15,23,42,0.9); border:1px solid var(--border); color:#fff; font-weight:900; cursor:pointer;">✕</button>
       </div>
@@ -1450,10 +1452,10 @@
             <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 12.3s.6 3.3 1.6 5.3l3.7-2.8z"/>
             <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5L1.6 16c1.9 3.9 5.8 7 10.4 7z"/>
           </svg>
-          <span>Sign in with Google (OAuth 2.0)</span>
+          <span>Continue with Google (OAuth 2.0)</span>
         </button>
 
-        <div class="auth-divider">OR EMAIL / MOBILE PASSWORD AUTH</div>
+        <div class="auth-divider">OR EMAIL / PASSWORD LOGIN</div>
 
         <!-- 2-Tab Switcher: Sign In vs Create Account (Sign Up) -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.45rem; margin-bottom:0.85rem;">
@@ -1461,7 +1463,7 @@
             🔐 Sign In
           </button>
           <button type="button" id="tabBtnSignUp" onclick="switchAuthTab('signup')" class="filter-btn" style="width:100%;">
-            ✨ Create Account
+            ✨ Register Shop
           </button>
         </div>
 
@@ -1470,19 +1472,23 @@
           <form onsubmit="handleRealAccountSignIn(event)" novalidate>
             <div class="form-group">
               <label for="signinIdentifier" class="form-label">Registered Email or 10-Digit Mobile *</label>
-              <input id="signinIdentifier" type="text" required autocomplete="username" placeholder="yourname@gmail.com or 9876543210" class="form-input" />
+              <input id="signinIdentifier" type="text" required autocomplete="username" placeholder="demo@uikeylabs.in or yourname@gmail.com" class="form-input" />
             </div>
             <div class="form-group">
-              <label for="signinPassword" class="form-label">Account Password *</label>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label for="signinPassword" class="form-label">Account Password *</label>
+                <a href="forgot-password.html" style="font-size:0.74rem; font-weight:800; color:var(--amber); text-decoration:underline;">Forgot Password?</a>
+              </div>
               <input id="signinPassword" type="password" required autocomplete="current-password" placeholder="Enter your password (min 6 chars)" class="form-input" />
             </div>
             <button type="submit" class="btn btn-whatsapp" style="width:100%;">
-              🔐 Verify Password &amp; Sign In →
+              🔐 Sign In to Shop Dashboard →
             </button>
           </form>
-          <p style="font-size:0.75rem; color:var(--text-dim); text-align:center; margin-top:0.65rem;">
-            New to UIKEY LABS? <button type="button" onclick="switchAuthTab('signup')" style="background:none; border:none; color:var(--cyan); font-weight:800; text-decoration:underline; cursor:pointer; min-height:auto; padding:0;">Create a Verified Account first →</button>
-          </p>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-top:0.75rem; font-size:0.75rem;">
+            <a href="login.html" style="color:var(--cyan); font-weight:800; text-decoration:underline;">🏪 Open Dedicated Login Page (login.html) →</a>
+            <a href="forgot-password.html" style="color:#FDE68A; font-weight:700; text-decoration:underline;">🔑 Reset Password (OTP)</a>
+          </div>
         </div>
 
         <!-- TAB 2: REAL CREATE ACCOUNT / SIGN UP (PBKDF2-HMAC-SHA256 Password Hashing) -->
