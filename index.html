@@ -1341,7 +1341,7 @@
                 </div>
                 <div class="form-group">
                   <label for="leadIndustrySelect" class="form-label">2. Industry Category *</label>
-                  <select id="leadIndustrySelect" name="industry" required class="form-input">
+                  <select id="leadIndustrySelect" name="industry" required class="form-input" onchange="document.getElementById('leadCustomIndustryWrap').style.display = (this.value === 'Other') ? 'block' : 'none';">
                     <option value="Doctor Clinic / Hospital">Doctor Clinic / Hospital</option>
                     <option value="School / Coaching Institute">School / Coaching Institute</option>
                     <option value="Restaurant / Cafe">Restaurant / Cafe / Bakery</option>
@@ -1350,8 +1350,12 @@
                     <option value="Advocate / CA">Advocate / Law Firm / CA</option>
                     <option value="Salon / Gym">Salon / Spa / Gym</option>
                     <option value="Wedding / Event">Wedding / Event Planner</option>
-                    <option value="Other Business">Other Local Business</option>
+                    <option value="Other">Other (Type Custom Industry Below)</option>
                   </select>
+                </div>
+                <div id="leadCustomIndustryWrap" class="form-group" style="display:none;">
+                  <label for="leadCustomIndustryInput" class="form-label" style="color:var(--amber);">✨ Type Your Custom Industry / Business *</label>
+                  <input id="leadCustomIndustryInput" type="text" placeholder="e.g. Hardware Store / Krishi Kendra / Auto Parts" class="form-input" />
                 </div>
                 <div class="grid-2" style="gap:0.65rem;">
                   <div class="form-group">
@@ -1660,6 +1664,196 @@
         return;
       }
       window.location.href = "./dashboard.html?setup=upi";
+    };
+  </script>
+
+  <!-- ========================================================================
+       FLOATING WHATSAPP CHAT FORM WIDGET (CLIENT NAME + INDUSTRY + CUSTOM 'OTHER' INPUT)
+       ======================================================================== -->
+  <style>
+    .uikey-wa-float-widget {
+      position: fixed;
+      bottom: 84px;
+      right: 16px;
+      z-index: 98;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+    .uikey-wa-float-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.72rem 1.15rem;
+      border-radius: 999px;
+      border: 2px solid #34d399;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #042f2e;
+      font-weight: 900;
+      font-size: 0.86rem;
+      cursor: pointer;
+      box-shadow: 0 14px 34px rgba(16, 185, 129, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .uikey-wa-float-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(16, 185, 129, 0.6);
+    }
+    .uikey-wa-chat-card {
+      display: none;
+      width: min(360px, calc(100vw - 32px));
+      background: #0b1328;
+      border: 1.5px solid #10b981;
+      border-radius: 1.15rem;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.78);
+      margin-bottom: 0.65rem;
+    }
+    .uikey-wa-chat-card.open {
+      display: block;
+    }
+    .uikey-wa-chat-header {
+      background: linear-gradient(135deg, #059669, #047857);
+      padding: 0.9rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      color: #ffffff;
+    }
+    .uikey-wa-chat-body {
+      padding: 1rem;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .uikey-wa-field {
+      margin-bottom: 0.75rem;
+    }
+    .uikey-wa-field label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      margin-bottom: 0.28rem;
+    }
+    .uikey-wa-input {
+      width: 100%;
+      padding: 0.65rem 0.8rem;
+      border-radius: 0.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #050914;
+      color: #ffffff;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .uikey-wa-input:focus {
+      border-color: #10b981;
+    }
+  </style>
+
+  <div id="uikeyFloatingWaChatWidget" class="uikey-wa-float-widget" aria-label="Floating WhatsApp Chat Form">
+    <!-- Popup WhatsApp Chat Form Card -->
+    <div id="uikeyWaChatPopupCard" class="uikey-wa-chat-card" role="dialog" aria-labelledby="waChatWidgetTitle">
+      <div class="uikey-wa-chat-header">
+        <div style="display:flex; align-items:center; gap:0.55rem;">
+          <span style="width:10px; height:10px; border-radius:50%; background:#4ade80; box-shadow:0 0 8px #4ade80;"></span>
+          <div>
+            <div id="waChatWidgetTitle" style="font-size:0.92rem; font-weight:900;">💬 WhatsApp Quick Chat</div>
+            <div style="font-size:0.7rem; color:#d1fae5; font-weight:600;">UIKEY LABS (Betul, MP) • Replies in 2 mins</div>
+          </div>
+        </div>
+        <button type="button" onclick="toggleFloatingWaChatForm(false)" aria-label="Close WhatsApp Chat Form" style="width:28px; height:28px; border-radius:50%; border:none; background:rgba(0,0,0,0.25); color:#fff; font-weight:900; cursor:pointer;">✕</button>
+      </div>
+
+      <div class="uikey-wa-chat-body">
+        <form id="floatingWaChatForm" onsubmit="submitFloatingWaChatForm(event)">
+          <div class="uikey-wa-field">
+            <label for="waFloatClientName">1. Your Name / Shop Name *</label>
+            <input id="waFloatClientName" type="text" required placeholder="e.g. Rahul Sharma / Sharma Medical" class="uikey-wa-input" />
+          </div>
+
+          <div class="uikey-wa-field">
+            <label for="waFloatIndustrySelect">2. Select Your Industry / Business *</label>
+            <select id="waFloatIndustrySelect" required class="uikey-wa-input" onchange="handleWaFloatIndustryChange(this.value)">
+              <option value="" disabled selected>-- Select Your Business Category --</option>
+              <option value="Doctor Clinic / Hospital / Pathology">🏥 Doctor Clinic / Hospital / Pathology</option>
+              <option value="School / Coaching Institute">🎓 School / Coaching Institute</option>
+              <option value="Restaurant / Cafe / Bakery / Hotel">🍽️ Restaurant / Cafe / Bakery / Hotel</option>
+              <option value="Retail Shop / Kirana / Showroom">🛒 Retail Shop / Kirana / Showroom</option>
+              <option value="Real Estate / Builder / Property">🏢 Real Estate / Builder / Property</option>
+              <option value="Advocate / CA / Consultancy">⚖️ Advocate / CA / Consultancy</option>
+              <option value="Salon / Parlour / Gym / Fitness">💇 Salon / Parlour / Gym / Fitness</option>
+              <option value="Wedding / Event / Photography">💍 Wedding / Event / Photography</option>
+              <option value="Other">✨ Other (Type Custom Business Below)</option>
+            </select>
+          </div>
+
+          <!-- Conditional Custom Industry Field (Shown when 'Other' is selected) -->
+          <div id="waFloatCustomIndustryWrap" class="uikey-wa-field" style="display:none;">
+            <label for="waFloatCustomIndustryInput" style="color:#fde68a;">3. Type Your Custom Business / Industry *</label>
+            <input id="waFloatCustomIndustryInput" type="text" placeholder="e.g. Hardware Store / Krishi Kendra / Auto Parts" class="uikey-wa-input" style="border-color:#f59e0b;" />
+          </div>
+
+          <button type="submit" style="width:100%; padding:0.78rem; border:none; border-radius:0.65rem; background:linear-gradient(135deg,#10b981,#059669); color:#042f2e; font-weight:900; font-size:0.88rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.4rem;">
+            <span>💬 Start WhatsApp Chat Now →</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Floating Trigger Button -->
+    <div style="display:flex; justify-content:flex-end;">
+      <button type="button" id="uikeyWaFloatTrigger" class="uikey-wa-float-btn" onclick="toggleFloatingWaChatForm()">
+        <span style="font-size:1.1rem;">💬</span>
+        <span>WhatsApp Chat Form</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    window.toggleFloatingWaChatForm = function (forceState) {
+      var card = document.getElementById("uikeyWaChatPopupCard");
+      if (!card) return;
+      var isOpen = typeof forceState === "boolean" ? forceState : !card.classList.contains("open");
+      if (isOpen) {
+        card.classList.add("open");
+        var nameInput = document.getElementById("waFloatClientName");
+        if (nameInput) setTimeout(function () { nameInput.focus(); }, 80);
+      } else {
+        card.classList.remove("open");
+      }
+    };
+
+    window.handleWaFloatIndustryChange = function (val) {
+      var customWrap = document.getElementById("waFloatCustomIndustryWrap");
+      var customInput = document.getElementById("waFloatCustomIndustryInput");
+      if (!customWrap || !customInput) return;
+      if (val === "Other") {
+        customWrap.style.display = "block";
+        customInput.required = true;
+        customInput.focus();
+      } else {
+        customWrap.style.display = "none";
+        customInput.required = false;
+      }
+    };
+
+    window.submitFloatingWaChatForm = function (e) {
+      e.preventDefault();
+      var clientName = (document.getElementById("waFloatClientName").value || "").trim();
+      var selectedIndustry = document.getElementById("waFloatIndustrySelect").value || "";
+      var customIndustry = (document.getElementById("waFloatCustomIndustryInput").value || "").trim();
+      var finalIndustry = selectedIndustry === "Other" ? (customIndustry || "Custom Local Business") : selectedIndustry;
+
+      if (!clientName || !finalIndustry) return;
+
+      var waText =
+        "नमस्ते UIKEY LABS (Betul, MP)! 👋\n\n" +
+        "👤 *मेरा नाम / शॉप:* " + clientName + "\n" +
+        "🏢 *मेरा बिज़नेस / इंडस्ट्री:* " + finalIndustry + "\n\n" +
+        "मुझे अपने बिज़नेस के लिए वेबसाइट, Google रैंकिंग और WhatsApp लीड सिस्टम की जानकारी चाहिए।";
+
+      var waUrl = "https://wa.me/918770912734?text=" + encodeURIComponent(waText);
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+      toggleFloatingWaChatForm(false);
     };
   </script>
 </body>

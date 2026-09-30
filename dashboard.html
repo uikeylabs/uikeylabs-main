@@ -279,38 +279,30 @@
         object-fit: contain;
         display: block;
       }
-      /* Centered UikeyLabs Logo Badge inside the QR Code */
+      /* Centered UikeyLabs Logo Badge inside the QR Code (Logo Only — No Extra Text) */
       .qr-center-logo-badge {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 56px;
-        height: 56px;
-        border-radius: 12px;
+        width: 52px;
+        height: 52px;
+        border-radius: 11px;
         background: #ffffff;
         padding: 3px;
         border: 2.5px solid #f59e0b;
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.38);
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
         pointer-events: none;
       }
       .qr-center-logo-badge img {
-        width: 36px;
-        height: 36px;
-        border-radius: 7px;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
         object-fit: cover;
-      }
-      .qr-center-logo-badge span {
-        font-size: 0.44rem;
-        font-weight: 900;
-        color: #090d16;
-        letter-spacing: 0.04em;
-        line-height: 1;
-        margin-top: 1px;
+        display: block;
       }
 
       /* Fixed Amount Highlight Banner inside Standee */
@@ -695,7 +687,6 @@
               />
               <div class="qr-center-logo-badge" title="UikeyLabs Official Branded QR">
                 <img src="./uikeylabs-logo.jpg" alt="UikeyLabs Center Logo" crossorigin="anonymous" />
-                <span>UIKEY LABS</span>
               </div>
             </div>
 
@@ -1169,30 +1160,25 @@
         qrImg.onload = function () {
           ctx.drawImage(qrImg, 180, 320, 440, 440);
 
-          /* Draw UikeyLabs Center Logo Badge inside QR */
+          /* Draw UikeyLabs Center Logo Badge inside QR (Logo Only — No Extra Text) */
           ctx.fillStyle = "#ffffff";
-          ctx.fillRect(352, 492, 96, 96);
+          ctx.fillRect(356, 496, 88, 88);
           ctx.strokeStyle = "#f59e0b";
           ctx.lineWidth = 4;
-          ctx.strokeRect(352, 492, 96, 96);
+          ctx.strokeRect(356, 496, 88, 88);
 
           var logoImg = new Image();
           logoImg.crossOrigin = "anonymous";
           logoImg.onload = function () {
-            ctx.drawImage(logoImg, 366, 498, 68, 64);
-            ctx.fillStyle = "#090d16";
-            ctx.font = "900 11px Inter, sans-serif";
-            ctx.fillText("UIKEY LABS", 400, 580);
+            ctx.drawImage(logoImg, 362, 502, 76, 76);
             finishCanvasDownload(canvas);
           };
           logoImg.onerror = function () {
             ctx.fillStyle = "#f59e0b";
-            ctx.fillRect(364, 502, 72, 58);
+            ctx.fillRect(362, 502, 76, 76);
             ctx.fillStyle = "#090d16";
-            ctx.font = "900 32px Inter, sans-serif";
-            ctx.fillText("U", 400, 542);
-            ctx.font = "900 11px Inter, sans-serif";
-            ctx.fillText("UIKEY LABS", 400, 580);
+            ctx.font = "900 40px Inter, sans-serif";
+            ctx.fillText("U", 400, 554);
             finishCanvasDownload(canvas);
           };
           logoImg.src = "./uikeylabs-logo.jpg";
