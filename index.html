@@ -28,10 +28,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet" />
 
-  <!-- Compiled Production Stylesheet (Cache-Busted v5.0) -->
-  <link rel="stylesheet" href="assets/styles.min.css?v=5.0" />
+  <!-- Compiled Production Stylesheet (Cache-Busted v6.0) -->
+  <link rel="stylesheet" href="assets/styles.min.css?v=6.0" />
 
-  <!-- Critical Inline Mobile & App-Tab Guard v5.0 (Prevents right-side cut-off & long scroll on all mobile browsers) -->
+  <!-- Critical Inline All-Device & App-Tab Guard v6.0 -->
   <style>
     *, *::before, *::after { box-sizing: border-box; min-width: 0; }
     html, body {
@@ -50,11 +50,16 @@
       .app-tab-inner { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 0.35rem !important; width: 100% !important; }
       .app-tab-btn { width: 100% !important; white-space: normal !important; font-size: 0.72rem !important; padding: 0.42rem 0.25rem !important; justify-content: center !important; }
     }
+    @media print {
+      .site-header, .campaign-banner, .mobile-app-dock, .no-print, footer { display: none !important; }
+      body { background: #fff !important; color: #000 !important; padding: 0 !important; }
+    }
     img, svg, video, canvas { max-width: 100%; height: auto; }
   </style>
 
-  <!-- Deferred Production Frontend Module (Cache-Busted v5.0) -->
-  <script src="assets/main.min.js?v=5.0" defer></script>
+  <!-- Universal Offline/Online UPI QR Code Engine + Production Module (v6.0) -->
+  <script src="qrcode.min.js?v=6.0" defer></script>
+  <script src="assets/main.min.js?v=6.0" defer></script>
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -120,7 +125,7 @@
     </div>
   </div>
 
-  <!-- 2. STICKY HEADER + APP-STYLE 2x3 MOBILE TAB GRID (ZERO CUT-OFF & ZERO LONG SCROLLING!) -->
+  <!-- 2. STICKY HEADER + APP-STYLE 2x3 MOBILE TAB GRID (ALL-DEVICE COMPATIBLE!) -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" onclick="switchAppView('home'); return false;" class="brand-link" aria-label="UIKEY LABS Home">
@@ -139,7 +144,7 @@
           🇮🇳 हिंदी / EN
         </button>
 
-        <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp desktop-only" style="padding:0.55rem 0.95rem; font-size:0.82rem;">
+        <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%E0%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp desktop-only" style="padding:0.55rem 0.95rem; font-size:0.82rem;">
           WhatsApp पर Free Consultation लें
         </a>
 
@@ -163,15 +168,15 @@
         <button type="button" role="tab" aria-selected="false" data-view-target="pricing" onclick="switchAppView('pricing')" class="app-tab-btn">
           💎 Pricing
         </button>
+        <button type="button" role="tab" aria-selected="false" data-view-target="qr" onclick="switchAppView('qr')" class="app-tab-btn" style="border-color:rgba(251,191,36,0.5); color:var(--amber);">
+          🏪 Shop QR
+        </button>
         <button type="button" role="tab" aria-selected="false" data-view-target="faq" onclick="switchAppView('faq')" class="app-tab-btn">
           ❓ Process/FAQ
         </button>
         <button type="button" role="tab" aria-selected="false" data-view-target="contact" onclick="switchAppView('contact')" class="app-tab-btn">
           📞 Contact
         </button>
-        <a href="merchant-qr.html" class="app-tab-btn" style="border-color:rgba(251,191,36,0.5); color:var(--amber);">
-          🏪 Shop QR ↗
-        </a>
       </div>
     </div>
 
@@ -181,9 +186,9 @@
         <li><button type="button" onclick="switchAppView('home')"><span>🏠 Home Dashboard</span><span style="color:var(--cyan)">Open</span></button></li>
         <li><button type="button" onclick="switchAppView('demos')"><span>🚀 9 Live Industry Demos</span><span class="badge-pill badge-cyan">9 Live</span></button></li>
         <li><button type="button" onclick="switchAppView('pricing')"><span>💎 Website Pricing Packages</span><span class="badge-pill badge-amber">50% OFF</span></button></li>
+        <li><button type="button" onclick="switchAppView('qr')"><span>🏪 Free Shop UPI QR Standee Maker</span><span class="badge-pill badge-emerald">Instant QR</span></button></li>
         <li><button type="button" onclick="switchAppView('faq')"><span>❓ 3-Step Process &amp; FAQs</span><span>Open</span></button></li>
         <li><button type="button" onclick="switchAppView('contact')"><span>📞 Request Free Consultation</span><span>Open</span></button></li>
-        <li><a href="merchant-qr.html"><span>🏪 Free Shop UPI QR Standee Maker</span><span class="badge-pill badge-emerald">Free Tool</span></a></li>
         <li><a href="quote.html"><span>📄 Official Quotation PDF Generator</span><span>→</span></a></li>
         <li><a href="payment.html"><span>💳 Project Booking &amp; UPI Payment Desk</span><span>→</span></a></li>
         <li><a href="legal.html"><span>⚖️ Legal, Privacy &amp; Refund Policies</span><span>→</span></a></li>
@@ -247,14 +252,14 @@
                 <span style="color:var(--amber); font-size:0.8rem; font-weight:800; margin-top:0.75rem; display:block;">View Pricing →</span>
               </button>
 
-              <a href="merchant-qr.html" class="portal-tile" style="border-color:rgba(52,211,153,0.45);">
+              <button type="button" onclick="switchAppView('qr')" class="portal-tile" style="border-color:rgba(52,211,153,0.45);">
                 <div>
                   <span class="badge-pill badge-emerald" style="margin-bottom:0.5rem;">100% FREE TOOL</span>
                   <h2 style="font-size:1.05rem; font-weight:900; color:#fff;">Free Shop QR</h2>
-                  <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.25rem;">Create Co-Branded UPI Standee for Your Shop</p>
+                  <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.25rem;">Generate Instant UPI QR Standee &amp; Bill QR</p>
                 </div>
-                <span style="color:var(--emerald); font-size:0.8rem; font-weight:800; margin-top:0.75rem; display:block;">Create Shop QR ↗</span>
-              </a>
+                <span style="color:var(--emerald); font-size:0.8rem; font-weight:800; margin-top:0.75rem; display:block;">Generate QR →</span>
+              </button>
 
               <a href="quote.html" class="portal-tile">
                 <div>
@@ -575,6 +580,123 @@
     </section>
 
     <!-- ======================================================================
+         VIEW 3B: FREE SHOP UPI QR STANDEE & COUNTER BILL GENERATOR TAB (#view-qr)
+         Works 100% on All Devices (Mobile, Tablet, Laptop, Desktop & A4 Print!)
+         ====================================================================== -->
+    <section id="view-qr" class="app-view-panel" aria-labelledby="qr-view-heading">
+      <div class="container">
+        <div class="no-print" style="margin-bottom:1.25rem;">
+          <span class="badge-pill badge-emerald">100% FREE MERCHANT UTILITY • ALL-DEVICE QR GENERATOR</span>
+          <h2 id="qr-view-heading" class="h2-title">Free Co-Branded Shop UPI QR Standee &amp; Counter Bill Generator</h2>
+          <p class="lead-text">
+            Enter your Shop/Clinic/School Name, UPI ID, and optional Bill Amount (`₹`) below. Your QR Code updates in real time and settles 100% directly to your bank account!
+          </p>
+        </div>
+
+        <div class="grid-2" style="align-items:start;">
+          <!-- Left: Shop & Bill Configuration Form -->
+          <div class="card no-print">
+            <h3 style="font-size:1.15rem; font-weight:900; margin-bottom:0.85rem; color:var(--cyan);">
+              1. Enter Your Business &amp; UPI Details
+            </h3>
+            <form id="homeMerchantQrForm" onsubmit="event.preventDefault(); updateStandeeQr();">
+              <div class="form-group">
+                <label for="shopNameInput" class="form-label">Business / Shop / Clinic / School Name *</label>
+                <input id="shopNameInput" type="text" required value="MY LOCAL BUSINESS" oninput="updateStandeeQr()" class="form-input" placeholder="e.g. Sharma Supermart / Apex School" />
+              </div>
+
+              <div class="form-group">
+                <label for="shopCatInput" class="form-label">Business Category *</label>
+                <select id="shopCatInput" onchange="updateStandeeQr()" class="form-input">
+                  <option value="VERIFIED RETAIL &amp; KIRANA STORE">Retail / Kirana / Supermarket</option>
+                  <option value="ARTISAN CAFE, RESTAURANT &amp; BAKERY">Cafe, Restaurant &amp; Bakery</option>
+                  <option value="DOCTOR CLINIC &amp; MEDICAL DESK">Doctor Clinic / Hospital / Medical</option>
+                  <option value="SCHOOL, COLLEGE &amp; COACHING FEE DESK">School, College &amp; Coaching Institute</option>
+                  <option value="SALON, BRIDAL STUDIO &amp; SPA">Salon, Parlour &amp; Bridal Studio</option>
+                  <option value="GYM &amp; FITNESS STUDIO">Gym, Yoga &amp; Fitness Studio</option>
+                  <option value="CORPORATE &amp; REAL ESTATE DESK">Corporate / Real Estate / Agency</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="shopUpiInput" class="form-label">Your Official Merchant UPI ID *</label>
+                <input id="shopUpiInput" type="text" required value="uikeylabs@ybl" oninput="updateStandeeQr()" class="form-input" placeholder="e.g. yourshop@ybl or 9876543210@okaxis" />
+              </div>
+
+              <div class="form-group">
+                <label for="shopBillAmountInput" class="form-label">Counter Bill Amount in ₹ (Set 0 for Open Amount)</label>
+                <input id="shopBillAmountInput" type="number" min="0" step="0.01" value="250" oninput="updateStandeeQr()" class="form-input" placeholder="e.g. 250" />
+              </div>
+
+              <div class="form-group">
+                <label for="shopNoteInput" class="form-label">Footer Tagline / Bill Remark</label>
+                <input id="shopNoteInput" type="text" value="Scan &amp; Pay via GPay, PhonePe, Paytm • Thank You!" oninput="updateStandeeQr()" class="form-input" />
+              </div>
+
+              <div class="hero-cta-group" style="margin-top:1rem;">
+                <button type="button" onclick="updateStandeeQr()" class="btn btn-whatsapp" style="flex:1;">
+                  🔄 Generate / Refresh QR
+                </button>
+                <button type="button" onclick="speakBillHindi()" class="btn btn-secondary" style="flex:1;">
+                  🔊 Hindi Soundbox
+                </button>
+              </div>
+              <div style="margin-top:0.6rem;">
+                <button type="button" onclick="printStandeePoster()" class="btn btn-amber" style="width:100%;">
+                  🖨️ Print / Save A4 Standee PDF
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right: Live Co-Branded QR Standee Poster Card (Responsive on 320px Mobile to 4K Desktop) -->
+          <div class="card card-featured" style="background:#FFFFFF; color:#0F172A; text-align:center; padding:1.25rem;">
+            <div style="background:#050811; color:#FFFFFF; padding:0.75rem 0.9rem; border-radius:0.85rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:1rem;">
+              <div style="display:flex; align-items:center; gap:0.55rem; text-align:left;">
+                <img src="uikeylabs-logo.webp" alt="UIKEY LABS Logo" width="36" height="36" style="border-radius:0.45rem; border:1px solid #22D3EE; flex-shrink:0;" />
+                <div>
+                  <strong style="display:block; font-size:0.88rem;"><span style="color:#22D3EE">UIKEY</span> <span style="color:#FBBF24">LABS</span></strong>
+                  <span style="font-size:0.64rem; color:#CBD5E1;">DIGITAL PARTNER • uikeylabs.com</span>
+                </div>
+              </div>
+              <span class="badge-pill badge-amber" style="font-size:0.64rem;">100% DIRECT UPI</span>
+            </div>
+
+            <span id="previewCategoryBadge" style="display:inline-block; padding:0.22rem 0.65rem; border-radius:999px; background:#0F172A; color:#FBBF24; font-size:0.68rem; font-weight:800; max-width:100%;">
+              VERIFIED RETAIL &amp; KIRANA STORE
+            </span>
+            <h3 id="previewShopName" style="font-size:clamp(1.25rem, 4vw, 1.55rem); font-weight:900; color:#0F172A; margin-top:0.45rem;">MY LOCAL BUSINESS</h3>
+            <p id="previewUpiText" style="font-family:'JetBrains Mono',monospace; font-size:0.82rem; font-weight:700; color:#047857; margin-top:0.2rem;">UPI ID: uikeylabs@ybl</p>
+
+            <div id="previewAmountPill" style="margin:0.65rem auto; display:inline-block; padding:0.35rem 1.1rem; border-radius:0.7rem; background:#ECFDF5; border:2px solid #10B981; color:#065F46; font-weight:900; font-size:1.1rem;">
+              Pay ₹250
+            </div>
+
+            <!-- Responsive QR Frame (Fits 320px Mini Phone, Mobile, Tablet, Desktop & Print) -->
+            <div style="position:relative; width:min(220px, 68vw); aspect-ratio:1/1; margin:0.65rem auto; padding:0.65rem; background:#FFFFFF; border:3px solid #0F172A; border-radius:1.1rem; display:flex; align-items:center; justify-content:center;">
+              <div id="standeeQrCanvasWrap" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=205x205&amp;data=upi%3A%2F%2Fpay%3Fpa%3Duikeylabs%2540ybl%26pn%3DMY%2520LOCAL%2520BUSINESS%26am%3D250.00%26cu%3DINR" alt="Scan UPI QR Code" width="205" height="205" style="width:100%; height:100%; max-width:205px; display:block; margin:0 auto;" />
+              </div>
+              <div style="position:absolute; width:40px; height:40px; background:#FFFFFF; padding:3px; border-radius:0.55rem; border:2px solid #0F172A; pointer-events:none;">
+                <img src="uikeylabs-logo.webp" alt="" width="34" height="34" style="width:100%; height:100%; object-fit:cover; border-radius:0.35rem;" />
+              </div>
+            </div>
+
+            <p id="previewNoteText" style="font-size:0.78rem; color:#475569; font-weight:700; margin-top:0.45rem;">
+              Scan &amp; Pay via GPay, PhonePe, Paytm • Thank You!
+            </p>
+
+            <div class="no-print" style="margin-top:0.85rem;">
+              <a id="standeeUpiDeepLink" href="upi://pay?pa=uikeylabs%40ybl&amp;pn=MY%20LOCAL%20BUSINESS&amp;am=250.00&amp;cu=INR" class="btn btn-secondary" style="width:100%; font-size:0.8rem;">
+                📱 Test Pay in UPI App (GPay / PhonePe)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
          VIEW 4: PROCESS, CASE BENCHMARKS & FAQ TAB
          ====================================================================== -->
     <section id="view-faq" class="app-view-panel" aria-labelledby="faq-heading">
@@ -686,7 +808,7 @@
         <strong style="color:#fff;">UIKEY LABS</strong> (uikeylabs.com) • +91 87709 12734 • contact@uikeylabs.com
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:1rem;">
-        <a href="merchant-qr.html" style="color:var(--amber);">🏪 Free Shop QR</a>
+        <button type="button" onclick="switchAppView('qr')" style="background:none;border:none;color:var(--amber);font-weight:800;cursor:pointer;min-height:auto;">🏪 Free Shop QR</button>
         <a href="quote.html">📄 Quote PDF</a>
         <a href="payment.html">💳 UPI Pay</a>
         <a href="dashboard.html">🔐 Dashboard</a>
@@ -697,7 +819,6 @@
 
   <!-- ========================================================================
        SINGLE NON-OVERLAPPING MOBILE APP BOTTOM NAVIGATION BAR (5 TABS)
-       Fixes the overlapping green badge from the user's screenshot!
        ======================================================================== -->
   <nav class="mobile-app-dock" aria-label="Mobile Bottom App Bar">
     <button type="button" data-dock-target="home" onclick="switchAppView('home')" class="dock-btn active">
@@ -712,10 +833,10 @@
       <span style="font-size:1.1rem;">💎</span>
       <span>Pricing</span>
     </button>
-    <a href="merchant-qr.html" class="dock-btn" style="color:var(--amber);">
+    <button type="button" data-dock-target="qr" onclick="switchAppView('qr')" class="dock-btn" style="color:var(--amber);">
       <span style="font-size:1.1rem;">🏪</span>
       <span>Shop QR</span>
-    </a>
+    </button>
     <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%88%E0%A4%82%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20Free%20Consultation%20%E0%A4%B2%E0%A5%87%E0%A4%A8%E0%A4%BE%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%A4%E0%A4%BE%20%E0%A4%B9%E0%A5%82%E0%A4%81%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="dock-btn dock-btn-wa">
       <span style="font-size:1.1rem;">💬</span>
       <span>WhatsApp</span>

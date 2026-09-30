@@ -12,8 +12,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://uikeylabs.com/uikeylabs-logo.jpg" />
   <link rel="icon" type="image/jpeg" href="uikeylabs-logo.jpg" />
-  <link rel="stylesheet" href="assets/styles.min.css?v=5.0" /><style>*,*::before,*::after{box-sizing:border-box;min-width:0}html,body{width:100%!important;max-width:100vw!important;overflow-x:clip!important;margin:0!important;padding:0!important}</style>
-  <script src="qrcode.min.js" defer></script>
+  <link rel="stylesheet" href="assets/styles.min.css?v=6.0" /><style>*,*::before,*::after{box-sizing:border-box;min-width:0}html,body{width:100%!important;max-width:100vw!important;overflow-x:clip!important;margin:0!important;padding:0!important}</style>
+  <script src="qrcode.min.js?v=6.0" defer></script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -122,8 +122,8 @@
           Pay ₹250
         </div>
 
-        <div style="position:relative; width:240px; height:240px; margin:0.75rem auto; padding:0.75rem; background:#FFFFFF; border:3px solid #0F172A; border-radius:1.25rem; display:flex; align-items:center; justify-content:center;">
-          <div id="standeeQrCanvasWrap"></div>
+        <div style="position:relative; width:min(220px,68vw); aspect-ratio:1/1; margin:0.75rem auto; padding:0.75rem; background:#FFFFFF; border:3px solid #0F172A; border-radius:1.25rem; display:flex; align-items:center; justify-content:center;">
+          <div id="standeeQrCanvasWrap" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=205x205&amp;data=upi%3A%2F%2Fpay%3Fpa%3Duikeylabs%2540ybl%26pn%3DMY%2520LOCAL%2520BUSINESS%26am%3D250.00%26cu%3DINR" alt="UPI QR Code" width="205" height="205" style="width:100%;height:100%;max-width:205px;" /></div>
           <div style="position:absolute; width:48px; height:48px; background:#FFFFFF; padding:3px; border-radius:0.65rem; border:2px solid #0F172A; pointer-events:none;">
             <img src="uikeylabs-logo.webp" alt="" width="42" height="42" style="width:100%; height:100%; object-fit:cover; border-radius:0.45rem;" />
           </div>
