@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Official Website Quotation &amp; Estimate Generator | UIKEY LABS</title>
+  <meta name="description" content="Generate and print an official website development quotation and scope estimate from UIKEY LABS for your business, school, clinic or retail store." />
+  <link rel="canonical" href="https://uikeylabs.com/quote" />
+  <meta property="og:title" content="Official Website Quotation Generator | UIKEY LABS" />
+  <meta property="og:description" content="Download or print a formal website development estimate with itemized deliverables from UIKEY LABS." />
+  <meta property="og:url" content="https://uikeylabs.com/quote" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://uikeylabs.com/uikeylabs-logo.jpg" />
+  <link rel="icon" type="image/jpeg" href="/uikeylabs-logo.jpg" />
+  <link rel="stylesheet" href="/assets/styles.min.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand-link">
+        <img src="/uikeylabs-logo.webp" alt="UIKEY LABS Logo" width="44" height="44" class="brand-logo" />
+        <div>
+          <span class="brand-name"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></span>
+          <span class="brand-sub">Quotation &amp; Proposal Desk</span>
+        </div>
+      </a>
+      <nav class="desktop-nav" aria-label="Secondary Navigation">
+        <a href="/">← Back to Homepage</a>
+        <a href="/payment">UPI Payment Desk</a>
+        <a href="/merchant-qr">Free Shop QR</a>
+        <a href="/legal">Legal Policies</a>
+      </nav>
+      <div class="header-actions">
+        <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%91%E0%A4%AB%E0%A4%BF%E0%A4%B6%E0%A4%BF%E0%A4%AF%E0%A4%B2%20%E0%A4%95%E0%A5%8B%E0%A4%9F%E0%A5%87%E0%A4%B6%E0%A4%A8%20%E0%A4%94%E0%A4%B0%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+          WhatsApp पर Free Consultation लें
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="container section-block">
+    <div style="margin-bottom:2rem;">
+      <span class="badge-pill badge-cyan">INSTANT A4 PROPOSAL GENERATOR</span>
+      <h1 class="h1-title">Generate Official Client Website Quotation (Printable PDF)</h1>
+      <p class="lead-text">
+        Enter your organization name and select a package below to generate an itemized A4 quotation with scope of work, delivery milestones, and support terms.
+      </p>
+    </div>
+
+    <div class="grid-2" style="align-items:start;">
+      <section class="card" aria-labelledby="quote-config-title">
+        <h2 id="quote-config-title" class="h2-title" style="font-size:1.35rem;">1. Customize Proposal Details</h2>
+        <form onsubmit="event.preventDefault(); renderQuotationPreview();">
+          <div class="form-group">
+            <label for="qClientName" class="form-label">Client / Business Name *</label>
+            <input id="qClientName" type="text" required value="Valued Business Partner" oninput="renderQuotationPreview()" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="qPackage" class="form-label">Select Website Package *</label>
+            <select id="qPackage" onchange="renderQuotationPreview()" class="form-input">
+              <option value="starter">Starter Business Website — ₹4,999 (Promotional Offer)</option>
+              <option value="growth" selected>Growth Pro + WhatsApp Lead Funnel — ₹9,999 (Most Popular)</option>
+              <option value="enterprise">Enterprise Custom Web Application / Portal — ₹19,999</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="qNotes" class="form-label">Custom Project Notes / Industry Scope</label>
+            <input id="qNotes" type="text" value="Mobile-First Responsive Website + Local SEO + Direct WhatsApp Lead Integration" oninput="renderQuotationPreview()" class="form-input" />
+          </div>
+          <button type="button" onclick="window.print()" class="btn btn-amber" style="width:100%;">
+            🖨️ Print / Save Official A4 Quotation as PDF
+          </button>
+        </form>
+      </section>
+
+      <section id="printableQuoteCard" class="card" style="background:#FFFFFF; color:#0F172A; padding:2rem;" aria-labelledby="quote-doc-title">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0F172A; padding-bottom:1rem; margin-bottom:1.25rem;">
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <img src="/uikeylabs-logo.webp" alt="UIKEY LABS" width="44" height="44" style="border-radius:0.5rem;" />
+            <div>
+              <h2 id="quote-doc-title" style="font-size:1.3rem; font-weight:900; color:#0F172A;">UIKEY LABS</h2>
+              <p style="font-size:0.75rem; color:#475569;">Web Engineering &amp; Digital Funnel Desk • uikeylabs.com</p>
+            </div>
+          </div>
+          <div style="text-align:right; font-size:0.75rem; color:#334155;">
+            <strong>OFFICIAL ESTIMATE</strong><br />
+            Date: <span id="qDateText">30 Sep 2026</span>
+          </div>
+        </div>
+
+        <p style="font-size:0.9rem; margin-bottom:0.5rem;"><strong>Prepared For:</strong> <span id="qOutClient">Valued Business Partner</span></p>
+        <p style="font-size:0.9rem; margin-bottom:1rem;"><strong>Project Scope:</strong> <span id="qOutNotes">Mobile-First Responsive Website + Local SEO + Direct WhatsApp Lead Integration</span></p>
+
+        <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.875rem;">
+          <thead>
+            <tr style="background:#0F172A; color:#FFFFFF; text-align:left;">
+              <th style="padding:0.65rem;">Deliverable Package</th>
+              <th style="padding:0.65rem; text-align:right;">Investment (INR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #CBD5E1;">
+              <td style="padding:0.85rem 0.65rem;">
+                <strong id="qOutPkgTitle">Growth Pro + WhatsApp Lead Funnel Website</strong>
+                <div style="font-size:0.75rem; color:#475569; margin-top:0.25rem;">
+                  Includes responsive mobile/desktop UI, SSL setup, on-page SEO foundation, Google Maps &amp; WhatsApp inquiry integration, and 30-day post-launch support.
+                </div>
+              </td>
+              <td id="qOutPrice" style="padding:0.85rem 0.65rem; text-align:right; font-weight:900; font-size:1.15rem;">₹9,999</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="font-size:0.78rem; color:#475569; margin-top:1.25rem; border-top:1px dashed #94A3B8; padding-top:0.75rem;">
+          <strong>Payment Terms:</strong> 50% Booking Advance to initiate engineering • 50% upon staging approval before domain live deployment.<br />
+          <strong>Official Contact:</strong> +91 87709 12734 • contact@uikeylabs.com
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    var PKG_MAP = {
+      starter: { title: "Starter Business Presence Website", price: "₹4,999" },
+      growth: { title: "Growth Pro + WhatsApp Lead Funnel Website", price: "₹9,999" },
+      enterprise: { title: "Enterprise Custom Web Application / Portal", price: "₹19,999" }
+    };
+    function renderQuotationPreview() {
+      var client = document.getElementById("qClientName").value.trim() || "Valued Business Partner";
+      var pkgKey = document.getElementById("qPackage").value;
+      var notes = document.getElementById("qNotes").value.trim();
+      var info = PKG_MAP[pkgKey] || PKG_MAP.growth;
+
+      document.getElementById("qOutClient").textContent = client;
+      document.getElementById("qOutPkgTitle").textContent = info.title;
+      document.getElementById("qOutPrice").textContent = info.price;
+      document.getElementById("qOutNotes").textContent = notes;
+      document.getElementById("qDateText").textContent = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+    }
+    window.addEventListener("load", renderQuotationPreview);
+  </script>
+</body>
+</html>

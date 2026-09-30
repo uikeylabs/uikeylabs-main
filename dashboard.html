@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protected Merchant &amp; Lead CRM Dashboard | UIKEY LABS</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href="https://uikeylabs.com/dashboard" />
+  <link rel="icon" type="image/jpeg" href="/uikeylabs-logo.jpg" />
+  <link rel="stylesheet" href="/assets/styles.min.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand-link">
+        <img src="/uikeylabs-logo.webp" alt="UIKEY LABS Logo" width="44" height="44" class="brand-logo" />
+        <div>
+          <span class="brand-name"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></span>
+          <span class="brand-sub">Protected Admin Portal</span>
+        </div>
+      </a>
+      <nav class="desktop-nav" aria-label="Dashboard Navigation">
+        <a href="/">← Back to Homepage</a>
+        <a href="/merchant-qr">Merchant QR Utility</a>
+        <a href="/payment">Payment Desk</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container section-block">
+    <span class="badge-pill badge-cyan">SERVER-AUTHENTICATED PORTAL</span>
+    <h1 class="h1-title">Protected Merchant &amp; Lead CRM Dashboard</h1>
+    <p class="lead-text" style="margin-bottom:2rem;">
+      For security compliance, merchant records, database tables, and API configurations require server-side authentication. No credentials, PINs, or Supabase keys are stored in browser localStorage.
+    </p>
+
+    <div class="grid-2" style="align-items:start;">
+      <section class="card" aria-labelledby="auth-login-title">
+        <h2 id="auth-login-title" class="h2-title" style="font-size:1.35rem;">Merchant / Admin Sign In</h2>
+        <form id="dashboardLoginForm" onsubmit="handleDashboardLogin(event)">
+          <div class="form-group">
+            <label for="authLoginId" class="form-label">Registered Mobile Number or Merchant ID *</label>
+            <input id="authLoginId" type="text" required autocomplete="username" placeholder="Enter registered mobile number" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="authPassword" class="form-label">Account Password / Secret PIN *</label>
+            <input id="authPassword" type="password" required autocomplete="current-password" placeholder="Enter your private password" class="form-input" />
+          </div>
+          <button type="submit" id="dashLoginBtn" class="btn btn-whatsapp" style="width:100%;">
+            🔐 Authenticate with Backend Server →
+          </button>
+          <div id="dashLoginStatus" class="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="session-view-title">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <h2 id="session-view-title" class="h2-title" style="font-size:1.35rem; margin:0;">Active Account Session</h2>
+          <button type="button" id="dashLogoutBtn" onclick="handleDashboardLogout()" class="btn btn-outline" style="padding:0.4rem 0.85rem; font-size:0.8125rem; display:none;">
+            🚪 Sign Out
+          </button>
+        </div>
+        <div id="dashboardDataContainer" style="color:var(--text-muted); font-size:0.9375rem;">
+          🔒 Please sign in with your verified credentials on the left to view your merchant QR profile and recorded counter bills.
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    var activeSessionToken = null;
+
+    function handleDashboardLogin(e) {
+      e.preventDefault();
+      var loginId = document.getElementById("authLoginId").value.trim();
+      var password = document.getElementById("authPassword").value;
+      var statusEl = document.getElementById("dashLoginStatus");
+      var btn = document.getElementById("dashLoginBtn");
+
+      if (!loginId || !password) {
+        statusEl.textContent = "Please enter both your login ID and password.";
+        statusEl.className = "form-status show error";
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "⏳ Verifying with server...";
+
+      fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ login_id: loginId, password: password })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          btn.disabled = false;
+          btn.textContent = "🔐 Authenticate with Backend Server →";
+          if (data && data.ok && data.merchant) {
+            activeSessionToken = data.session_token || "verified";
+            statusEl.textContent = "✅ Authenticated as " + data.merchant.business_name;
+            statusEl.className = "form-status show success";
+            document.getElementById("dashLogoutBtn").style.display = "inline-flex";
+            document.getElementById("authPassword").value = "";
+            renderAuthenticatedProfile(data.merchant);
+          } else {
+            statusEl.textContent = (data && data.error) || "Authentication failed. Please check your credentials.";
+            statusEl.className = "form-status show error";
+          }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = "🔐 Authenticate with Backend Server →";
+          statusEl.textContent = "Backend authentication server is offline or unreachable in static preview mode.";
+          statusEl.className = "form-status show error";
+        });
+    }
+
+    function renderAuthenticatedProfile(m) {
+      var box = document.getElementById("dashboardDataContainer");
+      box.innerHTML =
+        "<div style='padding:1rem; border-radius:0.875rem; background:#050811; border:1px solid #10B981;'>" +
+        "<p style='color:#34D399; font-weight:800; font-size:0.8rem;'>VERIFIED MERCHANT SESSION</p>" +
+        "<h3 style='font-size:1.25rem; font-weight:900; color:#fff; margin-top:0.25rem;'></h3>" +
+        "<p style='font-family:monospace; color:#22D3EE; margin-top:0.25rem;'></p>" +
+        "<p style='margin-top:0.75rem;'><a href='/merchant-qr' class='btn btn-amber' style='font-size:0.85rem;'>Open Counter QR Generator →</a></p>" +
+        "</div>";
+      box.querySelector("h3").textContent = m.business_name + " (" + m.merchant_code + ")";
+      box.querySelectorAll("p")[1].textContent = "UPI ID: " + m.upi_id + " • Mobile: " + m.mobile;
+    }
+
+    function handleDashboardLogout() {
+      activeSessionToken = null;
+      document.getElementById("dashLogoutBtn").style.display = "none";
+      document.getElementById("dashboardDataContainer").textContent = "🔒 Signed out securely. Please authenticate to view your account.";
+      var statusEl = document.getElementById("dashLoginStatus");
+      statusEl.textContent = "🚪 You have been signed out.";
+      statusEl.className = "form-status show success";
+    }
+  </script>
+</body>
+</html>

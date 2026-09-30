@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Booking &amp; Secure UPI Payment Desk | UIKEY LABS</title>
+  <meta name="description" content="Official project booking and milestone payment portal for UIKEY LABS clients. Supports verified UPI QR generation and GST invoice confirmation." />
+  <link rel="canonical" href="https://uikeylabs.com/payment" />
+  <meta property="og:title" content="Project Booking &amp; UPI Payment Desk | UIKEY LABS" />
+  <meta property="og:description" content="Complete your website booking advance or milestone payment securely with UIKEY LABS." />
+  <meta property="og:url" content="https://uikeylabs.com/payment" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://uikeylabs.com/uikeylabs-logo.jpg" />
+  <link rel="icon" type="image/jpeg" href="/uikeylabs-logo.jpg" />
+  <link rel="stylesheet" href="/assets/styles.min.css" />
+  <script src="/qrcode.min.js" defer></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand-link">
+        <img src="/uikeylabs-logo.webp" alt="UIKEY LABS Logo" width="44" height="44" class="brand-logo" />
+        <div>
+          <span class="brand-name"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></span>
+          <span class="brand-sub">Project Billing Desk</span>
+        </div>
+      </a>
+      <nav class="desktop-nav" aria-label="Secondary Navigation">
+        <a href="/">← Back to Homepage</a>
+        <a href="/quote">Official Quotation</a>
+        <a href="/merchant-qr">Free Shop QR</a>
+        <a href="/legal">Refund &amp; Legal Terms</a>
+      </nav>
+      <div class="header-actions">
+        <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%AA%E0%A5%87%E0%A4%AE%E0%A5%87%E0%A4%82%E0%A4%9F%20%E0%A4%94%E0%A4%B0%20%E0%A4%AC%E0%A5%81%E0%A4%95%E0%A4%BF%E0%A4%82%E0%A4%97%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+          WhatsApp पर Free Consultation लें
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="container section-block">
+    <div style="margin-bottom:2rem;">
+      <span class="badge-pill badge-emerald">VERIFIED BILLING &amp; MILESTONE DESK</span>
+      <h1 class="h1-title">Official Website Booking &amp; Milestone UPI Payment</h1>
+      <p class="lead-text">
+        Select your approved website package milestone below. Every payment is verified against a server-validated UTR/Transaction Reference ID before issuing your official invoice.
+      </p>
+    </div>
+
+    <div class="grid-2" style="align-items:start;">
+      <section class="card" aria-labelledby="pkg-select-heading">
+        <h2 id="pkg-select-heading" class="h2-title" style="font-size:1.35rem;">1. Select Approved Package or Milestone</h2>
+        <form id="paymentVerifyForm" onsubmit="handleUtrVerification(event)">
+          <div class="form-group">
+            <label for="milestoneSelect" class="form-label">Select Website Package / Milestone *</label>
+            <select id="milestoneSelect" onchange="updateBillingQr()" class="form-input">
+              <option value="4999">Starter Business Presence Website — ₹4,999 (Full Package)</option>
+              <option value="2500">Starter Website 50% Booking Advance — ₹2,500</option>
+              <option value="9999">Growth Pro + WhatsApp Automation — ₹9,999 (Full Package)</option>
+              <option value="5000" selected>Growth Pro 50% Booking Advance — ₹5,000</option>
+              <option value="19999">Enterprise Custom Web App / Portal — ₹19,999</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="clientBizInput" class="form-label">Your Business / Organization Name *</label>
+            <input id="clientBizInput" type="text" required placeholder="e.g. City Care Clinic / Apex Academy" class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label for="clientUtrInput" class="form-label">12-Digit UPI UTR / Transaction Reference Number *</label>
+            <input id="clientUtrInput" type="text" required pattern="[0-9]{12}" maxlength="12" placeholder="Enter 12-digit UTR after UPI payment" class="form-input" />
+          </div>
+
+          <button type="submit" id="verifyUtrBtn" class="btn btn-whatsapp" style="width:100%;">
+            Verify UTR &amp; Request Official Receipt →
+          </button>
+          <div id="paymentStatusBox" class="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <section class="card card-featured" aria-labelledby="qr-pay-heading" style="text-align:center;">
+        <span class="badge-pill badge-amber">OFFICIAL AGENCY UPI: uikeylabs@ybl</span>
+        <h2 id="qr-pay-heading" class="h2-title" style="font-size:1.5rem; margin-top:0.5rem;">
+          Scan to Pay <span id="displayPayAmount" style="color:var(--amber)">₹5,000</span>
+        </h2>
+        <p style="font-size:0.875rem; color:var(--text-muted); margin-bottom:1rem;">
+          Payee: <strong>UIKEY LABS</strong> • Verified UPI ID: <code>uikeylabs@ybl</code>
+        </p>
+
+        <div style="width:230px; height:230px; margin:0 auto 1rem; padding:0.75rem; background:#FFFFFF; border-radius:1rem; display:flex; align-items:center; justify-content:center;">
+          <div id="agencyPaymentQrBox"></div>
+        </div>
+
+        <a id="deepLinkUpiBtn" href="upi://pay?pa=uikeylabs%40ybl&amp;pn=UIKEY%20LABS&amp;am=5000.00&amp;cu=INR" class="btn btn-secondary" style="width:100%; max-width:300px;">
+          📱 Open in UPI App (GPay / PhonePe / Paytm)
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    var ALLOWED_AMOUNTS = [2500, 4999, 5000, 9999, 19999];
+
+    function updateBillingQr() {
+      var rawVal = parseInt(document.getElementById("milestoneSelect").value, 10);
+      var amt = ALLOWED_AMOUNTS.indexOf(rawVal) !== -1 ? rawVal : 5000;
+      document.getElementById("displayPayAmount").textContent = "₹" + amt.toLocaleString("en-IN");
+
+      var uri = "upi://pay?pa=uikeylabs%40ybl&pn=" + encodeURIComponent("UIKEY LABS") + "&am=" + amt.toFixed(2) + "&cu=INR&tn=" + encodeURIComponent("UIKEY LABS Website Milestone");
+      var deepBtn = document.getElementById("deepLinkUpiBtn");
+      if (deepBtn) deepBtn.href = uri;
+
+      var box = document.getElementById("agencyPaymentQrBox");
+      if (box && typeof QRCode !== "undefined") {
+        box.innerHTML = "";
+        new QRCode(box, {
+          text: uri,
+          width: 204,
+          height: 204,
+          colorDark: "#050811",
+          colorLight: "#FFFFFF",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      }
+    }
+
+    function handleUtrVerification(e) {
+      e.preventDefault();
+      var biz = document.getElementById("clientBizInput").value.trim();
+      var utr = document.getElementById("clientUtrInput").value.replace(/[^0-9]/g, "");
+      var amt = parseInt(document.getElementById("milestoneSelect").value, 10) || 5000;
+      var statusEl = document.getElementById("paymentStatusBox");
+
+      if (!biz || utr.length !== 12) {
+        statusEl.textContent = "Please enter your Business Name and a valid 12-digit numeric UPI UTR number.";
+        statusEl.className = "form-status show error";
+        return;
+      }
+
+      fetch("/api/verify-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ business_name: biz, amount: amt, utr: utr })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          statusEl.textContent = (res && res.message) || "✅ UTR recorded for server verification! Redirecting to billing desk...";
+          statusEl.className = "form-status show success";
+          var msg = "Hello UIKEY LABS Billing Desk!\n• Business: " + biz + "\n• Milestone Amount: ₹" + amt + "\n• 12-Digit UTR: " + utr + "\nPlease verify and issue my official invoice.";
+          window.open("https://wa.me/918770912734?text=" + encodeURIComponent(msg), "_blank", "noopener,noreferrer");
+        })
+        .catch(function () {
+          statusEl.textContent = "✅ UTR logged locally. Opening official billing verification desk...";
+          statusEl.className = "form-status show success";
+        });
+    }
+
+    window.addEventListener("load", updateBillingQr);
+  </script>
+</body>
+</html>

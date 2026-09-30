@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Shop UPI QR Standee Generator &amp; POS Utility | UIKEY LABS</title>
+  <meta name="description" content="Generate a custom co-branded UPI QR code standee for your retail store, clinic, school, cafe or local business with UIKEY LABS. Supports dynamic bill amounts and printable A4 posters." />
+  <link rel="canonical" href="https://uikeylabs.com/merchant-qr" />
+  <meta property="og:title" content="Free Shop UPI QR Standee Generator | UIKEY LABS" />
+  <meta property="og:description" content="Create a printable UPI QR standee and counter bill QR for your local shop, clinic, school or cafe." />
+  <meta property="og:url" content="https://uikeylabs.com/merchant-qr" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://uikeylabs.com/uikeylabs-logo.jpg" />
+  <link rel="icon" type="image/jpeg" href="/uikeylabs-logo.jpg" />
+  <link rel="stylesheet" href="/assets/styles.min.css" />
+  <script src="/qrcode.min.js" defer></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand-link">
+        <img src="/uikeylabs-logo.webp" alt="UIKEY LABS Logo" width="44" height="44" class="brand-logo" />
+        <div>
+          <span class="brand-name"><span style="color:var(--cyan)">UIKEY</span> <span style="color:var(--amber)">LABS</span></span>
+          <span class="brand-sub">Merchant QR Standee Utility</span>
+        </div>
+      </a>
+      <nav class="desktop-nav" aria-label="Secondary Navigation">
+        <a href="/">← Back to Homepage</a>
+        <a href="/payment">UPI Payment Desk</a>
+        <a href="/quote">Official Quotation</a>
+        <a href="/legal">Legal &amp; Terms</a>
+      </nav>
+      <div class="header-actions">
+        <a href="https://wa.me/918770912734?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20UIKEY%20LABS!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%85%E0%A4%AA%E0%A4%A8%E0%A5%87%20%E0%A4%AC%E0%A4%BF%E0%A4%9C%E0%A4%BC%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20Free%20Consultation%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+          WhatsApp पर Free Consultation लें
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="container section-block">
+    <div style="margin-bottom: 2rem;">
+      <span class="badge-pill badge-amber">INTERACTIVE MERCHANT UTILITY (FREE TOOL)</span>
+      <h1 class="h1-title">Co-Branded Shop UPI QR Standee &amp; Counter Bill Generator</h1>
+      <p class="lead-text">
+        Shopkeepers, schools, clinics, and cafes can generate a printable UPI QR standee with optional locked bill amount (`₹`). All UPI payments go directly to the merchant's bank account via their own UPI ID.
+      </p>
+    </div>
+
+    <div class="grid-2" style="align-items: start;">
+      <!-- Left: Configuration & Counter Amount -->
+      <section class="card" aria-labelledby="qr-form-heading">
+        <h2 id="qr-form-heading" class="h2-title" style="font-size:1.35rem;">1. Enter Shop &amp; Bill Details</h2>
+        <form id="merchantQrForm" onsubmit="event.preventDefault(); updateStandeeQr();">
+          <div class="form-group">
+            <label for="shopNameInput" class="form-label">Business / Shop / School Name *</label>
+            <input id="shopNameInput" type="text" required value="MY LOCAL BUSINESS" oninput="updateStandeeQr()" class="form-input" placeholder="e.g. Sharma Supermart / Apex School" />
+          </div>
+
+          <div class="form-group">
+            <label for="shopCatInput" class="form-label">Business Category *</label>
+            <select id="shopCatInput" onchange="updateStandeeQr()" class="form-input">
+              <option value="VERIFIED RETAIL &amp; KIRANA STORE">Retail / Kirana / Supermarket</option>
+              <option value="ARTISAN CAFE, RESTAURANT &amp; BAKERY">Cafe, Restaurant &amp; Bakery</option>
+              <option value="DOCTOR CLINIC &amp; MEDICAL DESK">Doctor Clinic / Hospital / Medical</option>
+              <option value="SCHOOL, COLLEGE &amp; COACHING FEE DESK">School, College &amp; Coaching Institute</option>
+              <option value="SALON, BRIDAL STUDIO &amp; SPA">Salon, Parlour &amp; Bridal Studio</option>
+              <option value="GYM &amp; FITNESS STUDIO">Gym, Yoga &amp; Fitness Studio</option>
+              <option value="CORPORATE &amp; REAL ESTATE DESK">Corporate / Real Estate / Agency</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="shopUpiInput" class="form-label">Official Merchant UPI ID (Direct Bank Settlement) *</label>
+            <input id="shopUpiInput" type="text" required value="uikeylabs@ybl" oninput="updateStandeeQr()" class="form-input" placeholder="e.g. yourshop@ybl or merchant@okaxis" />
+          </div>
+
+          <div class="form-group">
+            <label for="shopBillAmountInput" class="form-label">Counter Bill Amount in ₹ (Leave 0 for Open Amount)</label>
+            <input id="shopBillAmountInput" type="number" min="0" step="0.01" value="250" oninput="updateStandeeQr()" class="form-input" placeholder="e.g. 250" />
+          </div>
+
+          <div class="form-group">
+            <label for="shopNoteInput" class="form-label">Bill Remark / Footer Tagline</label>
+            <input id="shopNoteInput" type="text" value="Scan &amp; Pay via GPay, PhonePe, Paytm • Thank You!" oninput="updateStandeeQr()" class="form-input" />
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.25rem;">
+            <button type="button" onclick="printStandeePoster()" class="btn btn-amber" style="flex:1;">
+              🖨️ Print A4 Standee
+            </button>
+            <button type="button" onclick="speakBillHindi()" class="btn btn-secondary" style="flex:1;">
+              🔊 Voice Announce (Hindi)
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Right: Live Standee Preview Card -->
+      <section class="card card-featured" aria-labelledby="preview-heading" style="background:#FFFFFF; color:#0F172A; text-align:center; padding:1.75rem;">
+        <div style="background:#050811; color:#FFFFFF; padding:1rem; border-radius:0.875rem; display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+          <div style="display:flex; align-items:center; gap:0.65rem; text-align:left;">
+            <img src="/uikeylabs-logo.webp" alt="UIKEY LABS Logo" width="40" height="40" style="border-radius:0.5rem; border:1px solid #22D3EE;" />
+            <div>
+              <strong style="display:block; font-size:0.95rem;"><span style="color:#22D3EE">UIKEY</span> <span style="color:#FBBF24">LABS</span></strong>
+              <span style="font-size:0.7rem; color:#CBD5E1;">OFFICIAL DIGITAL PARTNER • uikeylabs.com</span>
+            </div>
+          </div>
+          <span class="badge-pill badge-amber">100% DIRECT UPI</span>
+        </div>
+
+        <span id="previewCategoryBadge" style="display:inline-block; padding:0.25rem 0.75rem; border-radius:999px; background:#0F172A; color:#FBBF24; font-size:0.75rem; font-weight:800;">
+          VERIFIED RETAIL &amp; KIRANA STORE
+        </span>
+        <h2 id="previewShopName" style="font-size:1.6rem; font-weight:900; color:#0F172A; margin-top:0.5rem;">MY LOCAL BUSINESS</h2>
+        <p id="previewUpiText" style="font-family:monospace; font-size:0.875rem; font-weight:700; color:#047857; margin-top:0.25rem;">UPI ID: uikeylabs@ybl</p>
+
+        <div id="previewAmountPill" style="margin:0.85rem auto; display:inline-block; padding:0.4rem 1.25rem; border-radius:0.75rem; background:#ECFDF5; border:2px solid #10B981; color:#065F46; font-weight:900; font-size:1.2rem;">
+          Pay ₹250
+        </div>
+
+        <div style="position:relative; width:240px; height:240px; margin:0.75rem auto; padding:0.75rem; background:#FFFFFF; border:3px solid #0F172A; border-radius:1.25rem; display:flex; align-items:center; justify-content:center;">
+          <div id="standeeQrCanvasWrap"></div>
+          <div style="position:absolute; width:48px; height:48px; background:#FFFFFF; padding:3px; border-radius:0.65rem; border:2px solid #0F172A; pointer-events:none;">
+            <img src="/uikeylabs-logo.webp" alt="" width="42" height="42" style="width:100%; height:100%; object-fit:cover; border-radius:0.45rem;" />
+          </div>
+        </div>
+
+        <p id="previewNoteText" style="font-size:0.8125rem; color:#475569; font-weight:600; margin-top:0.5rem;">
+          Scan &amp; Pay via GPay, PhonePe, Paytm • Thank You!
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    function updateStandeeQr() {
+      var name = (document.getElementById("shopNameInput").value || "MY LOCAL BUSINESS").trim();
+      var cat = document.getElementById("shopCatInput").value;
+      var upi = (document.getElementById("shopUpiInput").value || "uikeylabs@ybl").trim();
+      var amt = parseFloat(document.getElementById("shopBillAmountInput").value);
+      var note = (document.getElementById("shopNoteInput").value || "Scan & Pay").trim();
+
+      document.getElementById("previewShopName").textContent = name;
+      document.getElementById("previewCategoryBadge").textContent = cat;
+      document.getElementById("previewUpiText").textContent = "UPI ID: " + upi;
+      document.getElementById("previewNoteText").textContent = note;
+
+      var amtPill = document.getElementById("previewAmountPill");
+      var hasAmt = !isNaN(amt) && amt > 0;
+      amtPill.textContent = hasAmt ? ("Pay ₹" + amt.toLocaleString("en-IN")) : "Scan & Enter Any Amount";
+
+      var upiUri = "upi://pay?pa=" + encodeURIComponent(upi) + "&pn=" + encodeURIComponent(name) + (hasAmt ? "&am=" + amt.toFixed(2) : "") + "&cu=INR";
+      var wrap = document.getElementById("standeeQrCanvasWrap");
+      if (wrap && typeof QRCode !== "undefined") {
+        wrap.innerHTML = "";
+        new QRCode(wrap, {
+          text: upiUri,
+          width: 210,
+          height: 210,
+          colorDark: "#0F172A",
+          colorLight: "#FFFFFF",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      }
+    }
+
+    function printStandeePoster() {
+      window.print();
+    }
+
+    function speakBillHindi() {
+      var name = (document.getElementById("shopNameInput").value || "हमारी दुकान").trim();
+      var amt = parseFloat(document.getElementById("shopBillAmountInput").value);
+      var text = (!isNaN(amt) && amt > 0)
+        ? ("कृपया " + name + " पर " + amt + " रुपये का भुगतान करने के लिए QR कोड स्कैन करें। धन्यवाद!")
+        : ("कृपया " + name + " पर भुगतान करने के लिए QR कोड स्कैन करें।");
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(text);
+        u.lang = "hi-IN";
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    window.addEventListener("load", updateStandeeQr);
+  </script>
+</body>
+</html>
