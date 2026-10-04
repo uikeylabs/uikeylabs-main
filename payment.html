@@ -62,6 +62,7 @@
           <div class="form-group">
             <label for="milestoneSelect" class="form-label">Select Website Package / Milestone *</label>
             <select id="milestoneSelect" onchange="updateBillingQr()" class="form-input">
+              <option value="1999">Local Digital Kit (Google Maps + Mini Card + Acrylic Standee) — ₹1,999</option>
               <option value="4999">Starter Business Website — ₹4,999 (Full Package)</option>
               <option value="2499">Starter Website 50% Booking Advance — ₹2,499 (Balance ₹2,500 due on delivery)</option>
               <option value="2500">Starter Website Remaining Balance — ₹2,500</option>
@@ -113,7 +114,7 @@
   </main>
 
   <script>
-    var ALLOWED_AMOUNTS = [2499, 2500, 4999, 5000, 7499, 7500, 9999, 14999, 19999];
+    var ALLOWED_AMOUNTS = [1999, 2499, 2500, 4999, 5000, 7499, 7500, 9999, 14999, 19999];
 
     function updateBillingQr() {
       var rawVal = parseInt(document.getElementById("milestoneSelect").value, 10);
