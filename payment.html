@@ -13,6 +13,11 @@
   <meta property="og:image" content="https://uikeylabs.com/uikeylabs-logo.jpg" />
   <link rel="icon" type="image/jpeg" href="uikeylabs-logo.jpg" />
   <link rel="stylesheet" href="assets/styles.min.css?v=6.0" /><style>*,*::before,*::after{box-sizing:border-box;min-width:0}html,body{width:100%!important;max-width:100vw!important;overflow-x:clip!important;margin:0!important;padding:0!important}</style>
+  <script>
+    if (location.hostname === 'www.uikeylabs.com') {
+      location.replace('https://uikeylabs.com' + location.pathname + location.search + location.hash);
+    }
+  </script>
   <script src="qrcode.min.js?v=6.0" defer></script>
 </head>
 <body>
@@ -57,10 +62,15 @@
           <div class="form-group">
             <label for="milestoneSelect" class="form-label">Select Website Package / Milestone *</label>
             <select id="milestoneSelect" onchange="updateBillingQr()" class="form-input">
-              <option value="4999">Starter Business Presence Website — ₹4,999 (Full Package)</option>
-              <option value="2500">Starter Website 50% Booking Advance — ₹2,500</option>
-              <option value="9999">Growth Pro + WhatsApp Automation — ₹9,999 (Full Package)</option>
-              <option value="5000" selected>Growth Pro 50% Booking Advance — ₹5,000</option>
+              <option value="4999">Starter Business Website — ₹4,999 (Full Package)</option>
+              <option value="2499">Starter Website 50% Booking Advance — ₹2,499 (Balance ₹2,500 due on delivery)</option>
+              <option value="2500">Starter Website Remaining Balance — ₹2,500</option>
+              <option value="9999">Growth Pro + WhatsApp Funnel — ₹9,999 (Full Package)</option>
+              <option value="4999" selected>Growth Pro 50% Booking Advance — ₹4,999 (Balance ₹5,000 due on delivery)</option>
+              <option value="5000">Growth Pro Remaining Balance — ₹5,000</option>
+              <option value="14999">Pro + Local SEO Dominance Website — ₹14,999 (Full Package)</option>
+              <option value="7499">Pro Website 50% Booking Advance — ₹7,499 (Balance ₹7,500 due on delivery)</option>
+              <option value="7500">Pro Website Remaining Balance — ₹7,500</option>
               <option value="19999">Enterprise Custom Web App / Portal — ₹19,999</option>
             </select>
           </div>
@@ -85,17 +95,17 @@
       <section class="card card-featured" aria-labelledby="qr-pay-heading" style="text-align:center;">
         <span class="badge-pill badge-amber">OFFICIAL AGENCY UPI: uikeylabs@ybl</span>
         <h2 id="qr-pay-heading" class="h2-title" style="font-size:1.5rem; margin-top:0.5rem;">
-          Scan to Pay <span id="displayPayAmount" style="color:var(--amber)">₹5,000</span>
+          Scan to Pay <span id="displayPayAmount" style="color:var(--amber)">₹4,999</span>
         </h2>
         <p style="font-size:0.875rem; color:var(--text-muted); margin-bottom:1rem;">
           Payee: <strong>UIKEY LABS</strong> • Verified UPI ID: <code>uikeylabs@ybl</code>
         </p>
 
         <div style="width:min(220px,68vw); aspect-ratio:1/1; margin:0 auto 1rem; padding:0.75rem; background:#FFFFFF; border-radius:1rem; display:flex; align-items:center; justify-content:center;">
-          <div id="agencyPaymentQrBox" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=204x204&amp;data=upi%3A%2F%2Fpay%3Fpa%3Duikeylabs%2540ybl%26pn%3DUIKEY%2520LABS%26am%3D5000.00%26cu%3DINR" alt="UPI QR Code" width="204" height="204" style="width:100%;height:100%;max-width:204px;" /></div>
+          <div id="agencyPaymentQrBox" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=204x204&amp;data=upi%3A%2F%2Fpay%3Fpa%3Duikeylabs%2540ybl%26pn%3DUIKEY%2520LABS%26am%3D4999.00%26cu%3DINR" alt="UPI QR Code" width="204" height="204" style="width:100%;height:100%;max-width:204px;" /></div>
         </div>
 
-        <a id="deepLinkUpiBtn" href="upi://pay?pa=uikeylabs%40ybl&amp;pn=UIKEY%20LABS&amp;am=5000.00&amp;cu=INR" class="btn btn-secondary" style="width:100%; max-width:300px;">
+        <a id="deepLinkUpiBtn" href="upi://pay?pa=uikeylabs%40ybl&amp;pn=UIKEY%20LABS&amp;am=4999.00&amp;cu=INR" class="btn btn-secondary" style="width:100%; max-width:300px;">
           📱 Open in UPI App (GPay / PhonePe / Paytm)
         </a>
       </section>
@@ -103,11 +113,11 @@
   </main>
 
   <script>
-    var ALLOWED_AMOUNTS = [2500, 4999, 5000, 9999, 19999];
+    var ALLOWED_AMOUNTS = [2499, 2500, 4999, 5000, 7499, 7500, 9999, 14999, 19999];
 
     function updateBillingQr() {
       var rawVal = parseInt(document.getElementById("milestoneSelect").value, 10);
-      var amt = ALLOWED_AMOUNTS.indexOf(rawVal) !== -1 ? rawVal : 5000;
+      var amt = ALLOWED_AMOUNTS.indexOf(rawVal) !== -1 ? rawVal : 4999;
       document.getElementById("displayPayAmount").textContent = "₹" + amt.toLocaleString("en-IN");
 
       var uri = "upi://pay?pa=uikeylabs%40ybl&pn=" + encodeURIComponent("UIKEY LABS") + "&am=" + amt.toFixed(2) + "&cu=INR&tn=" + encodeURIComponent("UIKEY LABS Website Milestone");

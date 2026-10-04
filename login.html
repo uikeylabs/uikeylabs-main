@@ -10,6 +10,11 @@
     />
     <link rel="icon" type="image/jpeg" href="./uikeylabs-logo.jpg" />
     <link rel="stylesheet" href="./assets/styles.min.css?v=11.0" />
+    <script>
+      if (location.hostname === 'www.uikeylabs.com') {
+        location.replace('https://uikeylabs.com' + location.pathname + location.search + location.hash);
+      }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="./assets/supabase-portal.js?v=11.0"></script>
     <style>

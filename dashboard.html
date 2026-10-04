@@ -9,6 +9,11 @@
       content="Protected UikeyLabs Merchant Dashboard — generate Fixed-Amount UPI QR codes with UikeyLabs Logo branding, Owner Name, Mobile Number, and Shop Address stored in Supabase."
     />
     <link rel="icon" type="image/jpeg" href="./uikeylabs-logo.jpg" />
+    <script>
+      if (location.hostname === 'www.uikeylabs.com') {
+        location.replace('https://uikeylabs.com' + location.pathname + location.search + location.hash);
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

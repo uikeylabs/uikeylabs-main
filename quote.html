@@ -13,6 +13,11 @@
   <meta property="og:image" content="https://uikeylabs.com/uikeylabs-logo.jpg" />
   <link rel="icon" type="image/jpeg" href="uikeylabs-logo.jpg" />
   <link rel="stylesheet" href="assets/styles.min.css?v=6.0" /><style>*,*::before,*::after{box-sizing:border-box;min-width:0}html,body{width:100%!important;max-width:100vw!important;overflow-x:clip!important;margin:0!important;padding:0!important}</style>
+  <script>
+    if (location.hostname === 'www.uikeylabs.com') {
+      location.replace('https://uikeylabs.com' + location.pathname + location.search + location.hash);
+    }
+  </script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -62,6 +67,7 @@
             <select id="qPackage" onchange="renderQuotationPreview()" class="form-input">
               <option value="starter">Starter Business Website — ₹4,999 (Promotional Offer)</option>
               <option value="growth" selected>Growth Pro + WhatsApp Lead Funnel — ₹9,999 (Most Popular)</option>
+              <option value="pro">Pro + Local SEO Dominance Website — ₹14,999 (Comprehensive)</option>
               <option value="enterprise">Enterprise Custom Web Application / Portal — ₹19,999</option>
             </select>
           </div>
@@ -125,6 +131,7 @@
     var PKG_MAP = {
       starter: { title: "Starter Business Presence Website", price: "₹4,999" },
       growth: { title: "Growth Pro + WhatsApp Lead Funnel Website", price: "₹9,999" },
+      pro: { title: "Pro + Local SEO Dominance Website", price: "₹14,999" },
       enterprise: { title: "Enterprise Custom Web Application / Portal", price: "₹19,999" }
     };
     function renderQuotationPreview() {
